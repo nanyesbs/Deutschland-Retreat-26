@@ -12,6 +12,8 @@ export interface Participant {
   organization: string;
   orgDescription?: string;
   country: Country; // Residency/Current Region
+  state?: string; // State/Province within the country
+  city?: string; // Location within the country
   nationality: Country; // Origin/Heritage
   shortBio?: string;
   testimony: string;
@@ -31,5 +33,5 @@ export interface Participant {
   createdAt?: string; // ISO date string for registration tracking
 }
 
-export type ViewMode = 'directory' | 'admin' | 'registration';
+export type ViewMode = 'directory' | 'map' | 'admin' | 'registration';
 export type LayoutMode = 'grid4' | 'grid2' | 'list';

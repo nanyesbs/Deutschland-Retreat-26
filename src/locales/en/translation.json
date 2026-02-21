@@ -1,0 +1,80 @@
+{
+    "registration": {
+        "title": "Leaders' Summit '26 Registration",
+        "protocol": "Internal Protocol",
+        "completeTitle": "Registration Complete",
+        "completeDesc": "Your identity has been synchronized with the Leaders' Summit 2026 database. You are now part of the global network.",
+        "returnDir": "Return to Directory",
+        "welcome": {
+            "title": "Application\\nProtocol",
+            "desc": "Ensure all identity credentials and promotional assets are prepared before initialization.",
+            "start": "Initialize Process"
+        },
+        "step1": {
+            "label": "SECTION 1 OF 4",
+            "title": "ESBS LEADERS' SUMMIT '26 - ATTENDING LEADERS",
+            "p1": "Dear ESBS Leaders' Summit Attendees,",
+            "p2": "We are creating a brochure featuring all of the attending leaders to help the networking and collaboration between our attendees. Each leader will have their short bio and promotional materials for their ministries/events. We also kindly ask you to share a key testimony with us, as we would love to select a few leaders to share at the Leaders' Summit.",
+            "p3": "See you soon!",
+            "email": "E-mail *",
+            "emailPlaceholder": "your@email.com",
+            "fullName": "Full Name *",
+            "fullNamePlaceholder": "Full Name",
+            "nameNote": "NOTE: THIS NAME WILL APPEAR ON YOUR BADGE.",
+            "country": "Resident Country",
+            "nationality": "Nationality *",
+            "selectCountry": "Select country",
+            "bio": "Short Biography *",
+            "bioPlaceholder": "Max 400 characters",
+            "bioNote": "NOTE: THIS INFO MIGHT BE EDITED/SHORTENED BY OUR TEAM IF NECESSARY.",
+            "charCount": "characters left"
+        },
+        "step2": {
+            "label": "SECTION 2 OF 4",
+            "title": "MINISTRY INFORMATION",
+            "consent": "Please note the provided information will be made public to our attendees. If you do not consent, send an email to acsongedi@europeshallbesaved.org",
+            "orgName": "Name of Ministry/Church/Organization/Business *",
+            "orgPlaceholder": "Organization Name",
+            "roles": "Role(s) in the organization *",
+            "rolesPlaceholder": "e.g. CEO, Pastor, Creative",
+            "desc": "Description of your organization",
+            "profilePic": "Profile Picture of You *",
+            "profileNote": "This photo will help other leaders to recognize you after the event. Please only upload a photo of yourself. This photo will appear in the Leaders' Brochure.",
+            "uploadPic": "Upload JPG/PNG",
+            "promoPic": "Promotional Picture",
+            "promoNote": "If you would like to promote an event, initiative or your ministry, you are welcome to add it to this brochure.",
+            "uploadPromo": "Company Flyer / Logo / Promo"
+        },
+        "step3": {
+            "label": "SECTION 3 OF 4",
+            "title": "HOW CAN OTHER ATTENDEES CONTACT YOU?",
+            "publicNote": "NOTE: This information will be public for the other attendees.",
+            "privacyNote": "Only provide the personal information you WANT others to receive.",
+            "phone": "Phone Number",
+            "phonePlaceholder": "+1 234 567 890",
+            "contactEmail": "Email Address",
+            "contactEmailPlaceholder": "public@email.com",
+            "website": "Website",
+            "websitePlaceholder": "https://...",
+            "other": "Other",
+            "otherPlaceholder": "@instagram / handle"
+        },
+        "step4": {
+            "label": "SECTION 4 OF 4",
+            "title": "TESTIMONIES",
+            "testimonyNote": "We would love to hear your testimony of what God has done through you and your ministry last year. We will ask a few leaders on Tuesday to share.",
+            "testimonyPlaceholder": "Your testimony...",
+            "events": "National/Continental Events",
+            "eventsNote": "If you have any events coming up with national or continental impact, please let us know the details!",
+            "eventsPlaceholder": "Event details...",
+            "diet": "Dietary Requirements",
+            "dietPlaceholder": "e.g. Vegetarian, Gluten-free"
+        },
+        "actions": {
+            "prev": "Previous Phase",
+            "next": "Next Phase",
+            "submit": "Transmit Identity",
+            "submitting": "Transmitting..."
+        }
+    }
+}

@@ -7,17 +7,28 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ darkMode }) => {
   return (
-    <header className="relative w-full h-[40vh] flex flex-col items-center justify-center overflow-hidden bg-black dark:bg-white transition-colors duration-500">
-      {/* Background Image with Overlay */}
+    <header className="relative w-full h-[55vh] flex flex-col items-center justify-center overflow-hidden bg-[var(--bg-surface)] transition-colors duration-500">
+      {/* Background Image — full bleed, no grayscale */}
       <div
-        className="absolute inset-0 z-0 opacity-40 grayscale"
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop")',
+          backgroundImage: 'url("https://i.pinimg.com/736x/04/09/b3/0409b30f9b99ecc97f133a6422dfaa7d.jpg")',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center 30%',
+          transform: 'scale(1.05)',
         }}
       />
-      <div className={`absolute inset-0 z-10 bg-gradient-to-b from-transparent ${darkMode ? 'via-white/50 to-white' : 'via-black/50 to-black'}`} />
+      {/* Layer 1 — deep dark base for readability */}
+      <div className="absolute inset-0 z-10 bg-black/55" />
+      {/* Layer 2 — gold-tinted cinematic vignette: bottom fade into page */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(187,148,70,0.08) 50%, var(--bg-surface) 100%)',
+        }}
+      />
+      {/* Layer 3 — top edge darkness for nav contrast */}
+      <div className="absolute top-0 left-0 right-0 h-24 z-10 bg-gradient-to-b from-black/40 to-transparent" />
 
       {/* SVG Logo (Top Right) */}
       <div className="absolute top-8 right-8 z-20 hidden md:block">
@@ -35,8 +46,8 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
         </span>
 
         <h1 className="text-4xl md:text-7xl font-extrabold text-white dark:text-black uppercase leading-tight mb-6">
-          LEADERS' <br />
-          <span className="tracking-tighter">SUMMIT '26</span>
+          Deutschland <br />
+          <span className="tracking-tighter">Retreat 2026</span>
         </h1>
 
         <div className="w-24 h-[2px] bg-[#BB9446] mb-3" />

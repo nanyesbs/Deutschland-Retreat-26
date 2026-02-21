@@ -1,0 +1,80 @@
+{
+    "registration": {
+        "title": "Leaders' Summit '26 Registrierung",
+        "protocol": "Internes Protokoll",
+        "completeTitle": "Registrierung Abgeschlossen",
+        "completeDesc": "Ihre Identität wurde mit der Leaders' Summit 2026 Datenbank synchronisiert. Sie sind nun Teil des globalen Netzwerks.",
+        "returnDir": "Zurück zum Verzeichnis",
+        "welcome": {
+            "title": "Bewerbungs\\nprotokoll",
+            "desc": "Stellen Sie sicher, dass alle Identitätsnachweise und Werbematerialien vor der Initialisierung vorbereitet sind.",
+            "start": "Prozess Initialisieren"
+        },
+        "step1": {
+            "label": "ABSCHNITT 1 VON 4",
+            "title": "ESBS LEADERS' SUMMIT '26 - TEILNEHMENDE LEITER",
+            "p1": "Liebe ESBS Leaders' Summit Teilnehmer,",
+            "p2": "Wir erstellen eine Broschüre mit allen teilnehmenden Leitern, um das Networking und die Zusammenarbeit zwischen unseren Teilnehmern zu fördern. Jeder Leiter wird seine Kurzbiografie und Werbematerialien für seine Dienste/Veranstaltungen haben. Wir bitten Sie auch freundlich, ein wichtiges Zeugnis mit uns zu teilen, da wir gerne einige Leiter auswählen würden, um sie beim Leaders' Summit zu teilen.",
+            "p3": "Bis bald!",
+            "email": "E-Mail *",
+            "emailPlaceholder": "ihre@email.com",
+            "fullName": "Vollständiger Name *",
+            "fullNamePlaceholder": "Vollständiger Name",
+            "nameNote": "HINWEIS: DIESER NAME WIRD AUF IHREM NAMENSSCHILD STEHEN.",
+            "country": "Wohnsitzland",
+            "nationality": "Nationalität *",
+            "selectCountry": "Land auswählen",
+            "bio": "Kurzbiografie *",
+            "bioPlaceholder": "Max. 400 Zeichen",
+            "bioNote": "HINWEIS: DIESE INFO KANN VON UNSEREM TEAM GEGEBENENFALLS BEARBEITET/GEKÜRZT WERDEN.",
+            "charCount": "Zeichen übrig"
+        },
+        "step2": {
+            "label": "ABSCHNITT 2 VON 4",
+            "title": "INFORMATIONEN ZUM DIENST",
+            "consent": "Bitte beachten Sie, dass die bereitgestellten Informationen für unsere Teilnehmer öffentlich zugänglich gemacht werden. Wenn Sie nicht zustimmen, senden Sie eine E-Mail an acsongedi@europeshallbesaved.org",
+            "orgName": "Name des Dienstes/Kirche/Organisation/Unternehmens *",
+            "orgPlaceholder": "Name der Organisation",
+            "roles": "Rolle(n) in der Organisation *",
+            "rolesPlaceholder": "z.B. CEO, Pastor, Kreativer",
+            "desc": "Beschreibung Ihrer Organisation",
+            "profilePic": "Profilbild von Ihnen *",
+            "profileNote": "Dieses Foto wird anderen Leitern helfen, Sie nach der Veranstaltung zu erkennen. Bitte laden Sie nur ein Foto von sich selbst hoch. Dieses Foto wird in der Leiterbroschüre erscheinen.",
+            "uploadPic": "JPG/PNG Hochladen",
+            "promoPic": "Werbebild",
+            "promoNote": "Wenn Sie für eine Veranstaltung, Initiative oder Ihren Dienst werben möchten, können Sie dies gerne dieser Broschüre hinzufügen.",
+            "uploadPromo": "Firmenflyer / Logo / Promo"
+        },
+        "step3": {
+            "label": "ABSCHNITT 3 VON 4",
+            "title": "WIE KÖNNEN ANDERE TEILNEHMER SIE KONTAKTIEREN?",
+            "publicNote": "HINWEIS: Diese Informationen werden für die anderen Teilnehmer öffentlich sein.",
+            "privacyNote": "Geben Sie nur die persönlichen Informationen an, die andere ERHALTEN SOLLEN.",
+            "phone": "Telefonnummer",
+            "phonePlaceholder": "+49 123 456 789",
+            "contactEmail": "E-Mail Adresse",
+            "contactEmailPlaceholder": "oeffentlich@email.com",
+            "website": "Webseite",
+            "websitePlaceholder": "https://...",
+            "other": "Andere",
+            "otherPlaceholder": "@instagram / handle"
+        },
+        "step4": {
+            "label": "ABSCHNITT 4 VON 4",
+            "title": "ZEUGNISSE",
+            "testimonyNote": "Wir würden gerne Ihr Zeugnis darüber hören, was Gott letztes Jahr durch Sie und Ihren Dienst getan hat. Wir werden einige Leiter am Dienstag bitten, zu berichten.",
+            "testimonyPlaceholder": "Ihr Zeugnis...",
+            "events": "Nationale/Kontinentale Veranstaltungen",
+            "eventsNote": "Wenn in Zukunft Veranstaltungen mit nationaler oder kontinentaler Bedeutung anstehen, teilen Sie uns bitte die Details mit!",
+            "eventsPlaceholder": "Veranstaltungsdetails...",
+            "diet": "Ernährungsanforderungen",
+            "dietPlaceholder": "z.B. Vegetarisch, Glutenfrei"
+        },
+        "actions": {
+            "prev": "Vorherige Phase",
+            "next": "Nächste Phase",
+            "submit": "Identität Übertragen",
+            "submitting": "Übertragen..."
+        }
+    }
+}

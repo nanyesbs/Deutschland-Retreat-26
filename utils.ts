@@ -208,6 +208,8 @@ export const processParticipant = (data: any): any => {
         website: clean(data.website || ''),
         otherInfo: clean(data.otherInfo || data.othercontact || data.other || ''),
         upcomingEvents: clean(data.upcomingEvents || data.upcoming_events || ''),
+        state: clean(data.state || data.german_state || data.province || ''),
+        city: clean(data.city || data.residentCity || ''),
         dietaryRestrictions: clean(data.dietaryRestrictions || data.dietary_restrictions || ''),
         photoUrl: convertDriveUrl(data.photoUrl || data.profilepicture || ''),
         promoPhotoUrl: convertDriveUrl(data.promoPhotoUrl || data.promopicture || ''),

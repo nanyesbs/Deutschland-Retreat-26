@@ -261,12 +261,12 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
 
   if (!isAuthorized) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 rounded-card shadow-card mt-10">
+      <div className="flex flex-col items-center justify-center p-12 bg-[var(--bg-surface)] shadow-neu-flat rounded-[2.5rem] mt-10 max-w-lg mx-auto">
         <Lock size={40} className="text-brand-heaven-gold mb-6" />
-        <h2 className="text-lg font-avenir-bold uppercase text-white dark:text-black mb-8">Authorization Required</h2>
-        <form onSubmit={(e) => { e.preventDefault(); if (password === ADMIN_PASSWORD) onAuthorize(true); else alert('DENIED'); }} className="flex flex-col items-center w-full max-w-xs space-y-4">
-          <input type="password" placeholder="SECURE CODE" className="w-full bg-black/40 dark:bg-white border border-white/10 dark:border-stone-200 p-4 rounded-button text-center outline-none focus:border-brand-heaven-gold" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="w-full py-4 bg-brand-heaven-gold text-white font-avenir-bold uppercase rounded-button hover:brightness-110 transition-all">Authorize</button>
+        <h2 className="text-xl font-avenir-bold uppercase text-white dark:text-white mb-8 tracking-widest text-center">Authorization Required</h2>
+        <form onSubmit={(e) => { e.preventDefault(); if (password === ADMIN_PASSWORD) onAuthorize(true); else alert('DENIED'); }} className="flex flex-col items-center w-full space-y-6">
+          <input type="password" placeholder="SECURE CODE" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-center outline-none text-white dark:text-white text-lg tracking-[0.5em] transition-all" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button className="w-full py-5 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-2xl hover:text-[#D3B962] transition-all text-sm tracking-widest">Authorize</button>
         </form>
       </div>
     );
@@ -275,15 +275,15 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
   return (
     <div className="mt-10 space-y-10 pb-24 animate-fade-in text-white transition-colors">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-avenir-bold text-white dark:text-black uppercase tracking-tight">Admin Protocol</h2>
-        <button onClick={() => onAuthorize(false)} className="px-6 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-button text-[10px] font-avenir-bold uppercase transition-all">Secure Logout</button>
+        <h2 className="text-2xl font-avenir-bold text-white dark:text-white uppercase tracking-tight">Admin Protocol</h2>
+        <button onClick={() => onAuthorize(false)} className="px-6 py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-red-500 rounded-xl text-[10px] font-avenir-bold uppercase transition-all flex items-center gap-2">Secure Logout</button>
       </div>
 
       {/* Dashboard Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Total Registrations Card */}
-        <div className="bg-gradient-to-br from-brand-heaven-gold/20 to-brand-heaven-gold/5 border border-brand-heaven-gold/30 p-8 rounded-card relative overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-heaven-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="bg-[var(--bg-surface)] shadow-neu-flat p-8 rounded-[2rem] relative overflow-hidden flex flex-col justify-between">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-heaven-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
@@ -296,7 +296,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               </div>
               <button
                 onClick={() => setShowDateFilter(!showDateFilter)}
-                className={`p-2 rounded-full transition-all ${showDateFilter ? 'bg-brand-heaven-gold text-white' : 'bg-white/5 text-brand-heaven-gold hover:bg-white/10'}`}
+                className={`p-3 rounded-xl transition-all ${showDateFilter ? 'bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold' : 'bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold/60 hover:text-brand-heaven-gold'}`}
                 title="Filter by date"
               >
                 <Filter size={16} />
@@ -307,28 +307,28 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               <span className="text-5xl font-avenir-bold text-brand-heaven-gold">
                 {showDateFilter && (dateFilterStart || dateFilterEnd) ? filteredByDate.length : participants.length}
               </span>
-              <span className="text-sm text-white/40 dark:text-black/40 font-avenir-roman uppercase tracking-wider">
+              <span className="text-sm text-white/40 dark:text-white/40 font-avenir-roman uppercase tracking-wider">
                 {showDateFilter && (dateFilterStart || dateFilterEnd) ? 'filtered results' : 'participants'}
               </span>
             </div>
 
             {showDateFilter && (
-              <div className="mt-6 p-4 bg-black/40 dark:bg-white/50 border border-brand-heaven-gold/20 rounded-xl space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase">Start Date</label>
+              <div className="mt-6 p-6 bg-[var(--bg-surface)] shadow-neu-pressed rounded-2xl space-y-5 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">Start Date</label>
                     <input
                       type="date"
-                      className="w-full bg-black/20 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-2 rounded text-[10px] text-white dark:text-black outline-none focus:border-brand-heaven-gold"
+                      className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 rounded-xl text-[10px] text-white dark:text-white outline-none transition-all"
                       value={dateFilterStart}
                       onChange={(e) => setDateFilterStart(e.target.value)}
                     />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase">End Date</label>
+                  <div className="space-y-2">
+                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">End Date</label>
                     <input
                       type="date"
-                      className="w-full bg-black/20 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-2 rounded text-[10px] text-white dark:text-black outline-none focus:border-brand-heaven-gold"
+                      className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 rounded-xl text-[10px] text-white dark:text-white outline-none transition-all"
                       value={dateFilterEnd}
                       onChange={(e) => setDateFilterEnd(e.target.value)}
                     />
@@ -336,16 +336,16 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 </div>
 
                 {(dateFilterStart || dateFilterEnd) && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-4">
                     <button
                       onClick={() => { setDateFilterStart(''); setDateFilterEnd(''); }}
-                      className="flex-1 py-2 bg-white/5 hover:bg-white/10 text-[9px] font-avenir-bold uppercase rounded text-white/40 hover:text-white/60 transition-all border border-white/5"
+                      className="flex-1 py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-[9px] font-avenir-bold uppercase rounded-xl text-white/40 hover:text-white/60 transition-all"
                     >
                       Clear Dates
                     </button>
                     <button
                       onClick={() => setShowFilteredParticipants(!showFilteredParticipants)}
-                      className="flex-[2] py-2 bg-brand-heaven-gold/20 hover:bg-brand-heaven-gold/30 text-brand-heaven-gold text-[9px] font-avenir-bold uppercase rounded border border-brand-heaven-gold/30 transition-all flex items-center justify-center gap-2"
+                      className="flex-[2] py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold text-[9px] font-avenir-bold uppercase rounded-xl transition-all flex items-center justify-center gap-2"
                     >
                       {showFilteredParticipants ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
                       {showFilteredParticipants ? 'Hide List' : `View ${filteredByDate.length} People`}
@@ -357,17 +357,17 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
           </div>
 
           {showFilteredParticipants && (dateFilterStart || dateFilterEnd) && (
-            <div className="mt-4 max-h-[200px] overflow-y-auto custom-scrollbar pr-2 space-y-2 animate-in fade-in slide-in-from-top-1">
+            <div className="mt-6 max-h-[200px] overflow-y-auto custom-scrollbar pr-2 space-y-3 animate-in fade-in slide-in-from-top-1">
               {filteredByDate.length === 0 ? (
-                <div className="text-center py-4">
+                <div className="text-center py-6">
                   <p className="text-[10px] text-white/30 italic">No matches found for this range</p>
                 </div>
               ) : (
                 filteredByDate.map(p => (
-                  <div key={p.id} className="flex items-center gap-3 p-2 bg-black/20 dark:bg-white/30 border border-white/5 rounded-lg">
-                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-6 h-6 rounded-full object-cover" />
+                  <div key={p.id} className="flex items-center gap-4 p-3 bg-[var(--bg-surface)] shadow-neu-flat rounded-xl">
+                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-8 h-8 rounded-full object-cover shadow-neu-pressed" />
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-avenir-bold text-white dark:text-black truncate uppercase">{p.name}</p>
+                      <p className="text-[10px] font-avenir-bold text-white dark:text-white truncate uppercase">{p.name}</p>
                       <p className="text-[8px] text-white/40 dark:text-stone-500 uppercase">{new Date(p.createdAt!).toLocaleDateString('pt-BR')}</p>
                     </div>
                   </div>
@@ -378,16 +378,16 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
         </div>
 
         {/* Daily Registrations Card */}
-        <div className="bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-8 rounded-card">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/10 dark:bg-stone-100 rounded-full flex items-center justify-center">
+        <div className="bg-[var(--bg-surface)] shadow-neu-flat p-8 rounded-[2rem]">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-[var(--bg-surface)] shadow-neu-pressed rounded-full flex items-center justify-center">
               <History size={24} className="text-brand-heaven-gold" />
             </div>
             <div>
               <p className="text-[9px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-[3px]">Registration Activity</p>
             </div>
           </div>
-          <div className="space-y-3 max-h-[140px] overflow-y-auto custom-scrollbar pr-2">
+          <div className="space-y-4 max-h-[140px] overflow-y-auto custom-scrollbar pr-2">
             {(() => {
               // Group participants by registration date
               const dateGroups: Record<string, number> = {};
@@ -414,16 +414,16 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
 
               if (sortedDates.length === 0) {
                 return (
-                  <div className="text-center py-4">
-                    <p className="text-[11px] text-white/30 dark:text-stone-400 italic">No registration data available</p>
+                  <div className="text-center py-6">
+                    <p className="text-[11px] text-white/30 dark:text-stone-400 italic font-avenir-roman">No registration data available</p>
                   </div>
                 );
               }
 
               return sortedDates.map(([date, count]) => (
-                <div key={date} className="flex items-center justify-between p-3 bg-black/20 dark:bg-white border border-white/5 dark:border-stone-100 rounded-lg">
-                  <span className="text-[11px] font-avenir-bold text-white dark:text-black">{date}</span>
-                  <span className="px-3 py-1 bg-brand-heaven-gold/20 text-brand-heaven-gold text-[10px] font-avenir-bold rounded-full">
+                <div key={date} className="flex items-center justify-between p-4 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed transition-all duration-300 rounded-xl">
+                  <span className="text-[11px] font-avenir-bold text-white dark:text-white tracking-widest">{date}</span>
+                  <span className="px-4 py-1.5 bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold text-[10px] font-avenir-bold rounded-full tracking-widest uppercase">
                     {count} {count === 1 ? 'registro' : 'registros'}
                   </span>
                 </div>
@@ -434,45 +434,45 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
       </div>
 
       {/* Import Section */}
-      <section className="bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-8 rounded-card relative overflow-hidden">
+      <section className="bg-[var(--bg-surface)] shadow-neu-flat p-8 md:p-10 rounded-[2rem] relative overflow-hidden">
         {isImporting && (
           <div className="absolute inset-0 z-50 bg-brand-heaven-gold/90 flex flex-col items-center justify-center text-white backdrop-blur-sm">
             <Loader2 className="animate-spin mb-4" size={32} />
             <p className="text-[12px] font-avenir-bold uppercase tracking-[4px]">{importProgress}</p>
           </div>
         )}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 bg-brand-heaven-gold/10 rounded-full flex items-center justify-center text-brand-heaven-gold"><FileSpreadsheet size={32} /></div>
+            <div className="w-20 h-20 bg-[var(--bg-surface)] shadow-neu-pressed rounded-full flex items-center justify-center text-brand-heaven-gold"><FileSpreadsheet size={32} /></div>
             <div>
-              <h3 className="text-lg font-avenir-bold text-white dark:text-black uppercase">Batch Import Protocol</h3>
-              <p className="text-[10px] text-white/40 dark:text-stone-400 mt-1 uppercase">Cloud Database Synchronization</p>
+              <h3 className="text-xl font-avenir-bold text-white dark:text-white uppercase tracking-wide">Batch Import Protocol</h3>
+              <p className="text-[10px] text-brand-heaven-gold mt-2 uppercase tracking-[3px]">Cloud Database Synchronization</p>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-6 w-full md:w-auto flex-1 justify-end">
+            <div className="flex flex-col sm:flex-row gap-4 flex-1 max-w-lg">
               <input
                 type="text"
                 placeholder="Paste Google Sheet URL"
-                className="bg-black/20 dark:bg-white border border-white/10 dark:border-stone-200 px-4 py-2 rounded-button text-[10px] w-64 outline-none focus:border-brand-heaven-gold text-white dark:text-black"
+                className="w-full bg-[var(--bg-surface)] shadow-neu-pressed py-4 px-6 rounded-2xl text-[11px] outline-none focus:shadow-neu-concave text-white dark:text-white transition-all"
                 value={sheetUrl}
                 onChange={(e) => setSheetUrl(e.target.value)}
               />
               <button
                 onClick={handleCloudSync}
-                className="px-6 py-2 bg-brand-heaven-gold/20 text-brand-heaven-gold border border-brand-heaven-gold/20 rounded-button text-[10px] font-avenir-bold uppercase hover:bg-brand-heaven-gold/30 transition-all flex items-center gap-2"
+                className="px-8 py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold rounded-2xl text-[10px] font-avenir-bold uppercase transition-all flex items-center justify-center whitespace-nowrap gap-3 shrink-0"
               >
-                <Sparkles size={14} /> Cloud Sync
+                <Sparkles size={16} /> Cloud Sync
               </button>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-4 min-w-[200px]">
               {pendingData.length > 0 ? (
-                <button onClick={confirmImport} className="w-full py-3 bg-green-500 text-white text-[10px] font-avenir-bold uppercase rounded-button flex items-center justify-center gap-3 animate-pulse">
-                  <CheckCircle2 size={16} /> Confirm Cloud Save ({pendingData.length})
+                <button onClick={confirmImport} className="w-full py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-green-500 hover:text-green-400 text-[10px] font-avenir-bold uppercase rounded-2xl flex items-center justify-center gap-3 animate-pulse">
+                  <CheckCircle2 size={18} /> Confirm ({pendingData.length})
                 </button>
               ) : (
-                <button onClick={() => importInputRef.current?.click()} className="w-full py-3 bg-white/5 border border-white/10 text-white dark:text-black dark:border-stone-200 text-[10px] font-avenir-bold uppercase rounded-button flex items-center justify-center gap-3 hover:bg-white/10 transition-all">
-                  <Upload size={16} /> Manual File Upload
+                <button onClick={() => importInputRef.current?.click()} className="w-full py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-white/80 hover:text-brand-heaven-gold dark:text-white/80 dark:hover:text-brand-heaven-gold text-[10px] font-avenir-bold uppercase rounded-2xl flex items-center justify-center gap-3 transition-all shrink-0">
+                  <Upload size={18} /> Manual Upload
                 </button>
               )}
             </div>
@@ -483,29 +483,29 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
 
       <div className="flex flex-col lg:flex-row gap-10 relative items-start">
         {/* Ledger List */}
-        <div className="flex-1 bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-8 rounded-card w-full">
-          <div className="flex justify-between items-center mb-8">
-            <h3 className="text-xs font-avenir-bold uppercase text-white dark:text-black flex items-center gap-2">
-              <History size={14} className="text-brand-heaven-gold" /> Identity Ledger
+        <div className="flex-1 bg-[var(--bg-surface)] shadow-neu-flat p-8 rounded-[2.5rem] w-full">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+            <h3 className="text-sm font-avenir-bold uppercase text-white dark:text-white flex items-center gap-3 tracking-[3px]">
+              <History size={16} className="text-brand-heaven-gold" /> Identity Ledger
             </h3>
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-4">
-                <button onClick={async () => { if (confirm('WARNING: This will delete ALL participants from the Supabase database. Are you sure?')) { await api.resetData(); window.location.reload(); } }} className="text-[10px] font-avenir-bold text-red-500/50 uppercase hover:text-red-500">Factory Reset</button>
-                <button onClick={() => { setIsAdding(true); onSetEditingId(null); setFormData({}); }} className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase hover:underline">Manual Initialization +</button>
+            <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+              <div className="flex items-center gap-6 sm:justify-end">
+                <button onClick={async () => { if (confirm('WARNING: This will delete ALL participants from the Supabase database. Are you sure?')) { await api.resetData(); window.location.reload(); } }} className="text-[9px] font-avenir-bold text-red-500/50 uppercase hover:text-red-500 transition-colors tracking-widest">Factory Reset</button>
+                <button onClick={() => { setIsAdding(true); onSetEditingId(null); setFormData({}); }} className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase hover:brightness-125 transition-colors tracking-widest bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed px-5 py-3 rounded-xl flex items-center gap-2">Manual Initialization <span className="text-xs leading-none">+</span></button>
               </div>
-              <div className="relative">
-                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-heaven-gold/50" />
+              <div className="relative w-full sm:w-64">
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-heaven-gold/50" />
                 <input
                   type="text"
-                  placeholder="Filter by name or organization..."
-                  className="w-full bg-black/40 dark:bg-white border border-white/10 dark:border-stone-200 p-3 pl-10 rounded-button text-[11px] text-white dark:text-black outline-none focus:border-brand-heaven-gold"
+                  placeholder="Filter by name..."
+                  className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 pl-12 rounded-2xl text-[11px] text-white dark:text-white outline-none transition-all"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <div className="space-y-3 max-h-[660px] overflow-y-auto pr-2 custom-scrollbar">
+          <div className="space-y-4 max-h-[700px] overflow-y-auto pr-4 custom-scrollbar">
             {sortParticipants<Participant>(
               filteredByDate.filter(p =>
                 !searchTerm ||
@@ -513,17 +513,19 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 p.organization.toLowerCase().includes(searchTerm.toLowerCase())
               )
             ).map(p => (
-              <div key={p.id} className="flex items-center justify-between p-4 bg-black/20 dark:bg-white border border-white/5 dark:border-stone-200 rounded-card hover:border-brand-heaven-gold/30">
-                <div className="flex items-center gap-4">
-                  <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-10 h-10 rounded-full object-cover border border-brand-heaven-gold/20" />
-                  <div>
-                    <div className="text-[11px] font-avenir-bold text-white dark:text-black uppercase">{p.name}</div>
-                    <div className="text-[9px] text-white/30 dark:text-stone-400 uppercase">{p.country.code} • {p.title}</div>
+              <div key={p.id} className="flex items-center justify-between p-5 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-convex rounded-2xl transition-all duration-300 group">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-xl bg-[var(--bg-surface)] shadow-neu-pressed p-1 flex shrink-0 border border-brand-heaven-gold/10">
+                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-full h-full rounded-lg object-cover" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[12px] font-avenir-bold text-white dark:text-white uppercase tracking-wider truncate">{p.name}</div>
+                    <div className="text-[9px] text-white/40 dark:text-stone-400 uppercase tracking-widest truncate">{p.country.code} • {p.title}</div>
                   </div>
                 </div>
-                <div className="flex gap-1">
-                  <button onClick={() => onSetEditingId(p.id)} className="p-2 text-white/20 dark:text-stone-300 hover:text-brand-heaven-gold"><Edit2 size={14} /></button>
-                  <button onClick={() => onDelete(p.id)} className="p-2 text-white/20 dark:text-stone-300 hover:text-red-500"><Trash2 size={14} /></button>
+                <div className="flex gap-3 ml-4">
+                  <button onClick={() => onSetEditingId(p.id)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold/70 hover:text-brand-heaven-gold transition-all shrink-0"><Edit2 size={16} /></button>
+                  <button onClick={() => onDelete(p.id)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-red-500/50 hover:text-red-500 transition-all shrink-0"><Trash2 size={16} /></button>
                 </div>
               </div>
             ))}
@@ -532,119 +534,119 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
 
         {/* Editor Form Modal */}
         {isAdding && (
-          <div className="w-full lg:w-[600px] bg-black dark:bg-white border border-brand-heaven-gold/40 rounded-card shadow-2xl flex flex-col max-h-[85vh] overflow-hidden animate-fade-in sticky top-24">
-            <div className="flex justify-between items-center p-6 border-b border-white/10 dark:border-stone-100 bg-white/5 dark:bg-stone-50">
-              <h4 className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em]">
+          <div className="w-full lg:w-[600px] bg-[var(--bg-surface)] shadow-neu-flat rounded-[3rem] flex flex-col max-h-[85vh] overflow-hidden animate-fade-in sticky top-24 z-50">
+            <div className="flex justify-between items-center px-10 py-8 bg-[var(--bg-surface)] shadow-neu-pressed">
+              <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.3em]">
                 {editingId ? 'Modify Identity' : 'Initialize New Entry'}
               </h4>
-              <button onClick={() => { setIsAdding(false); onSetEditingId(null); setFormData({}); }} className="hover:rotate-90 transition-all duration-300"><X size={20} className="text-white/20 dark:text-stone-400" /></button>
+              <button onClick={() => { setIsAdding(false); onSetEditingId(null); setFormData({}); }} className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed hover:text-brand-heaven-gold transition-all"><X size={18} className="text-white/60 dark:text-stone-400" /></button>
             </div>
 
-            <div className="p-8 overflow-y-auto custom-scrollbar space-y-8">
-              <div className="grid grid-cols-2 gap-6 p-4 bg-white/5 dark:bg-black/5 rounded-card border border-white/5">
-                <div className="space-y-3">
-                  <label className="text-[8px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest">Portrait URL or Upload</label>
-                  <div className="flex flex-col gap-2">
+            <div className="p-10 overflow-y-auto custom-scrollbar space-y-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-6 bg-[var(--bg-surface)] shadow-neu-pressed rounded-3xl">
+                <div className="space-y-4">
+                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">Portrait URL or Upload</label>
+                  <div className="flex flex-col gap-3">
                     <input
                       type="text"
                       placeholder="Paste URL..."
-                      className="w-full bg-white/5 border border-white/10 p-2 rounded text-xs text-white"
+                      className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-4 rounded-xl text-xs text-white dark:text-white outline-none transition-all"
                       value={formData.photoUrl || ''}
                       onChange={e => setFormData({ ...formData, photoUrl: e.target.value })}
                     />
-                    <div onClick={() => profileFileRef.current?.click()} className="py-2 px-3 bg-white/5 border border-dashed border-white/20 rounded cursor-pointer hover:bg-white/10 flex items-center justify-center gap-2 text-[10px] uppercase text-white/60 hover:text-white transition-all">
-                      <UploadCloud size={14} /> Upload File
+                    <div onClick={() => profileFileRef.current?.click()} className="py-4 px-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-xl cursor-pointer flex items-center justify-center gap-3 text-[10px] uppercase font-avenir-bold text-white/50 hover:text-brand-heaven-gold transition-all">
+                      <UploadCloud size={16} /> Upload JPG/PNG
                     </div>
                   </div>
                   {formData.photoUrl && (
-                    <div className="aspect-square rounded-card border-2 border-white/10 overflow-hidden relative mt-2">
-                      <img src={formData.photoUrl} className="w-full h-full object-cover" />
+                    <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
+                      <img src={formData.photoUrl} className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={profileFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'photoUrl')} />
                 </div>
-                <div className="space-y-3">
-                  <label className="text-[8px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest">Promotional URL or Upload</label>
-                  <div className="flex flex-col gap-2">
+                <div className="space-y-4">
+                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">Promotional URL or Upload</label>
+                  <div className="flex flex-col gap-3">
                     <input
                       type="text"
                       placeholder="Paste URL..."
-                      className="w-full bg-white/5 border border-white/10 p-2 rounded text-xs text-white"
+                      className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-4 rounded-xl text-xs text-white dark:text-white outline-none transition-all"
                       value={formData.promoPhotoUrl || ''}
                       onChange={e => setFormData({ ...formData, promoPhotoUrl: e.target.value })}
                     />
-                    <div onClick={() => promoFileRef.current?.click()} className="py-2 px-3 bg-white/5 border border-dashed border-white/20 rounded cursor-pointer hover:bg-white/10 flex items-center justify-center gap-2 text-[10px] uppercase text-white/60 hover:text-white transition-all">
-                      <UploadCloud size={14} /> Upload File
+                    <div onClick={() => promoFileRef.current?.click()} className="py-4 px-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-xl cursor-pointer flex items-center justify-center gap-3 text-[10px] uppercase font-avenir-bold text-white/50 hover:text-brand-heaven-gold transition-all">
+                      <UploadCloud size={16} /> Upload JPG/PNG
                     </div>
                   </div>
                   {formData.promoPhotoUrl && (
-                    <div className="aspect-square rounded-card border-2 border-white/10 overflow-hidden relative mt-2">
-                      <img src={formData.promoPhotoUrl} className="w-full h-full object-cover" />
+                    <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
+                      <img src={formData.promoPhotoUrl} className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={promoFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'promoPhotoUrl')} />
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Full Name</label>
-                  <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.name || ''} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Full Name</label>
+                  <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.name || ''} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Residency</label>
-                    <select className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-2 rounded-button text-[11px] text-white dark:text-black outline-none" value={formData.country?.code || ''} onChange={(e) => selectCountry('country', e.target.value)}>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Residency</label>
+                    <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.country?.code || ''} onChange={(e) => selectCountry('country', e.target.value)}>
                       {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
                     </select>
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Nationality</label>
-                    <select className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-2 rounded-button text-[11px] text-white dark:text-black outline-none" value={formData.nationality?.code || ''} onChange={(e) => selectCountry('nationality', e.target.value)}>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Nationality</label>
+                    <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.nationality?.code || ''} onChange={(e) => selectCountry('nationality', e.target.value)}>
                       {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
                     </select>
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Short Biography</label>
-                  <textarea className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold min-h-[80px] resize-none" value={formData.testimony || ''} onChange={e => setFormData({ ...formData, testimony: e.target.value })} />
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Short Biography</label>
+                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[120px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.testimony || ''} onChange={e => setFormData({ ...formData, testimony: e.target.value })} />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Organization</label>
-                    <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.organization || ''} onChange={e => setFormData({ ...formData, organization: e.target.value })} />
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Organization</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.organization || ''} onChange={e => setFormData({ ...formData, organization: e.target.value })} />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Title</label>
-                    <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.title || ''} onChange={e => setFormData({ ...formData, title: e.target.value })} />
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Organization Description</label>
-                  <textarea className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold min-h-[60px] resize-none" value={formData.orgDescription || ''} onChange={e => setFormData({ ...formData, orgDescription: e.target.value })} />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Email Address</label>
-                    <input type="email" className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Phone Number</label>
-                    <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.phone || ''} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Title</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.title || ''} onChange={e => setFormData({ ...formData, title: e.target.value })} />
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Website</label>
-                  <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.website || ''} onChange={e => setFormData({ ...formData, website: e.target.value })} />
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Organization Description</label>
+                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[100px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.orgDescription || ''} onChange={e => setFormData({ ...formData, orgDescription: e.target.value })} />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[9px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest">Other Information</label>
-                  <input className="w-full bg-white/5 dark:bg-stone-50 border border-white/10 dark:border-stone-200 p-3 rounded-button text-xs text-white dark:text-black outline-none focus:border-brand-heaven-gold" value={formData.otherInfo || ''} onChange={e => setFormData({ ...formData, otherInfo: e.target.value })} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Email Address</label>
+                    <input type="email" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Phone Number</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.phone || ''} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Website</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.website || ''} onChange={e => setFormData({ ...formData, website: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Other Info</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.otherInfo || ''} onChange={e => setFormData({ ...formData, otherInfo: e.target.value })} />
+                  </div>
                 </div>
               </div>
 
-              <button onClick={handleSave} className="w-full py-4 bg-brand-heaven-gold text-white font-avenir-bold uppercase rounded-button hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                <RefreshCw size={14} /> Sync Identity
+              <button onClick={handleSave} className="w-full py-6 mt-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-3xl hover:text-[#D3B962] transition-all flex items-center justify-center gap-4 text-sm tracking-widest">
+                <RefreshCw size={18} /> Sync Identity
               </button>
             </div>
           </div>

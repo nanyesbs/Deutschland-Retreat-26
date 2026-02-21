@@ -44,6 +44,10 @@
             'card': '0 4px 20px rgba(0,0,0,0.08)',
             'modal': '0 20px 50px rgba(0,0,0,0.3)',
             'glow': '0 0 15px rgba(187, 148, 70, 0.3)',
+            'neu-flat': '8px 8px 16px var(--neu-shadow-dark), -8px -8px 16px var(--neu-shadow-light)',
+            'neu-pressed': 'inset 6px 6px 12px var(--neu-shadow-dark), inset -6px -6px 12px var(--neu-shadow-light)',
+            'neu-concave': 'inset 4px 4px 8px var(--neu-shadow-dark), inset -4px -4px 8px var(--neu-shadow-light)',
+            'neu-convex': '6px 6px 12px var(--neu-shadow-dark), -6px -6px 12px var(--neu-shadow-light)',
           },
           animation: {
             'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
@@ -101,12 +105,23 @@
     :root {
       --brand-heaven-gold: #BB9446;
       --brand-gold: #D3B962;
+      /* Neumorphism Light Base (default) */
+      --bg-surface: #F0F0F0;
+      --neu-shadow-light: #ffffff;
+      --neu-shadow-dark: #d1d1d1;
+    }
+
+    .dark {
+      /* Neumorphism Dark (Pure Black) Base */
+      --bg-surface: #000000;
+      --neu-shadow-light: #111111;
+      --neu-shadow-dark: #000000;
     }
 
     body {
       font-family: "Avenir Next", Avenir, sans-serif;
-      background-color: #000000;
-      color: #ffffff;
+      background-color: var(--bg-surface);
+      color: #000000;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
@@ -117,10 +132,10 @@
       overscroll-behavior-y: contain;
     }
 
-    /* Inverted Mode: Light Background, Black Text */
+    /* Dark Mode: Black Background, White Text */
     .dark body {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: var(--bg-surface);
+      color: #ffffff;
     }
 
     .font-avenir-bold {
@@ -199,6 +214,67 @@
     .custom-scrollbar {
       scrollbar-width: thin;
       scrollbar-color: var(--brand-heaven-gold) transparent;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-4px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(4px);
+      }
+    }
+
+    .animate-shake {
+      animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+    }
+
+    /* Leaflet Overrides for Dark Mode / Minimalist */
+    .leaflet-popup-content-wrapper {
+      background: transparent !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .leaflet-popup-content {
+      margin: 0 !important;
+      background: transparent !important;
+      width: max-content !important;
+    }
+
+    .leaflet-popup-tip-container {
+      display: none !important;
+    }
+
+    .leaflet-popup-tip {
+      display: none !important;
+    }
+
+    .leaflet-container {
+      background: #050505 !important;
+      font-family: inherit !important;
+    }
+
+    /* Fix for button inside popup to not be constrained */
+    .custom-popup .leaflet-popup-content-wrapper {
+      padding: 0 !important;
     }
   </style>
   <script type="importmap">
