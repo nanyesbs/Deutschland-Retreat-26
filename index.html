@@ -216,6 +216,18 @@
       scrollbar-color: var(--brand-heaven-gold) transparent;
     }
 
+    /* Hide scrollbar for horizontally scrollable elements (e.g. mobile navbar) */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
     @keyframes shake {
 
       0%,

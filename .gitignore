@@ -25,3 +25,4 @@ dist-ssr
 .env
 ls26connectionESBS/
 .vercel
+.env*.local

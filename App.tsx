@@ -238,7 +238,7 @@ const App: React.FC = () => {
                   />
                 </div>
 
-                <div className="flex items-center gap-3 h-full px-2">
+                <div className="flex flex-wrap items-center justify-center gap-3 h-full px-2 py-4 xl:py-0">
                   <button
                     onClick={() => performBackgroundSync()}
                     title="Manual Refresh"
@@ -247,7 +247,7 @@ const App: React.FC = () => {
                     <RefreshCcw size={18} />
                   </button>
 
-                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-2 hidden md:block opacity-50 shadow-neu-pressed" />
+                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-2 hidden xl:block opacity-50 shadow-neu-pressed" />
 
                   <div className="flex gap-2">
                     <button
@@ -273,7 +273,7 @@ const App: React.FC = () => {
                     </button>
                   </div>
 
-                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-3 opacity-50 shadow-neu-pressed" />
+                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-3 hidden xl:block opacity-50 shadow-neu-pressed" />
 
                   <button
                     onClick={() => setIsFilterDrawerOpen(true)}
@@ -293,10 +293,10 @@ const App: React.FC = () => {
 
               {/* Enhanced Alphabet Scroll */}
               <div className="py-2 mb-4">
-                <div className="flex items-center gap-4 py-2 px-1 flex-wrap justify-center">
+                <div className="flex items-center gap-2 sm:gap-4 py-2 px-1 flex-wrap justify-center">
                   <button
                     onClick={() => setFilterLetter('ALL')}
-                    className={`h-12 px-8 flex items-center justify-center text-[10px] font-avenir-bold tracking-[2px] rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/40 dark:text-black/40 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
+                    className={`h-10 sm:h-12 px-6 sm:px-8 flex items-center justify-center text-[9px] sm:text-[10px] font-avenir-bold tracking-[2px] rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/40 dark:text-black/40 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                   >
                     ALL PARTICIPANTS
                   </button>
@@ -307,7 +307,7 @@ const App: React.FC = () => {
                         key={char}
                         onClick={() => setFilterLetter(char)}
                         disabled={!isAvailable}
-                        className={`w-12 h-12 flex items-center justify-center text-[12px] font-avenir-bold rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === char
+                        className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[11px] sm:text-[12px] font-avenir-bold rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === char
                           ? 'shadow-neu-pressed text-brand-heaven-gold'
                           : isAvailable
                             ? 'shadow-neu-flat text-white/50 dark:text-black/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'

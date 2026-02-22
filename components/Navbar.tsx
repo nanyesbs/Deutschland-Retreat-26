@@ -17,9 +17,9 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-[100] bg-[var(--bg-surface)] backdrop-blur-xl px-4 md:px-8 py-4 shadow-neu-flat">
-            <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="h-10 w-auto">
+            <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center w-full md:w-auto justify-between md:justify-start gap-4">
+                    <div className="h-8 md:h-10 w-auto">
                         <img
                             src="/logo-dark.png"
                             alt="Reaching Germany Retreat Logo"
@@ -31,8 +31,8 @@ const Navbar: React.FC<NavbarProps> = ({
                     </span>
                 </div>
 
-                <div className="flex items-center gap-8">
-                    <div className="flex gap-6">
+                <div className="flex w-full md:w-auto overflow-x-auto no-scrollbar snap-x snap-mandatory py-2 -my-2">
+                    <div className="flex gap-3 md:gap-6 w-max mx-auto md:mx-0 px-1">
                         <button
                             onClick={() => setViewMode('directory')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'directory' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
@@ -66,7 +66,6 @@ const Navbar: React.FC<NavbarProps> = ({
                             <PlusCircle size={14} /> New Bio
                         </button>
                     </div>
-
                 </div>
             </div>
         </nav>
