@@ -71,6 +71,8 @@ const RegistrationForm: React.FC = () => {
 
     const availableStates = formData.residentCountry ? State.getStatesOfCountry(formData.residentCountry) : [];
     const availableCities = formData.state ? City.getCitiesOfState(formData.residentCountry, formData.state) : [];
+    // Memoize the full country list to avoid 1-2s INP block on every render
+    const allCountries = useMemo(() => Country.getAllCountries(), []);
 
     const handleNext = () => setStep(prev => Math.min(prev + 1, 4));
     const handleBack = () => setStep(prev => Math.max(prev - 1, 1));
@@ -242,7 +244,7 @@ const RegistrationForm: React.FC = () => {
                                             className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all appearance-none"
                                         >
                                             <option value="" disabled className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">{t('registration.step1.selectCountry')} (Optional)</option>
-                                            {Country.getAllCountries().map(c => (
+                                            {allCountries.map(c => (
                                                 <option key={c.isoCode} value={c.isoCode} className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">{c.flag} {c.name}</option>
                                             ))}
                                         </select>
@@ -506,7 +508,7 @@ const RegistrationForm: React.FC = () => {
                                             onChange={(e) => setFormData(prev => ({ ...prev, phoneCountryCode: e.target.value }))}
                                             className="w-40 shrink-0 bg-transparent border-b border-white/20 py-3 text-[14px] text-white/70 outline-none focus:border-brand-heaven-gold transition-all appearance-none"
                                         >
-                                            {Country.getAllCountries().map(c => (
+                                            {allCountries.map(c => (
                                                 <option key={c.isoCode} value={c.isoCode} className="bg-[#050505]">
                                                     {c.flag} {COUNTRY_CALLING_CODES[c.isoCode] || ''}
                                                 </option>

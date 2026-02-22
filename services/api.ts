@@ -108,31 +108,66 @@ export const api = {
   },
 
   saveLeader: async (leaderData: any): Promise<void> => {
-    // Map to lowercase keys to match the 'leaders' table schema created in SQL
+    // Save to 'leaders' table (registration log)
     const payload = {
       email: leaderData.email,
       fullname: leaderData.name,
       residentcountry: leaderData.country?.name,
       nationality: leaderData.nationality?.name,
-      shortbio: leaderData.shortBio, // corrected
+      shortbio: leaderData.shortBio,
       profilepicture: leaderData.photoUrl,
       ministryname: leaderData.organization,
       roles: leaderData.title,
       ministrydescription: leaderData.orgDescription,
       promopicture: leaderData.promoPhotoUrl,
       phone: leaderData.phone,
-      contactemail: leaderData.contactEmail, // corrected
+      iswhatsapp: leaderData.isWhatsapp ?? false,
+      socialmedia: leaderData.socialMedia ?? [],
+      contactemail: leaderData.contactEmail,
       website: leaderData.website,
       othercontact: leaderData.otherInfo,
       testimony: leaderData.testimony,
-      upcomingevents: leaderData.upcomingEvents, // corrected
-      dietaryrestrictions: leaderData.dietaryRestrictions // corrected
+      upcomingevents: leaderData.upcomingEvents,
+      dietaryrestrictions: leaderData.dietaryRestrictions
     };
 
-    const { error } = await supabase
+    const { error: leaderError } = await supabase
       .from('leaders')
       .insert([payload]);
 
-    if (error) throw error;
+    if (leaderError) throw leaderError;
+
+    // Also upsert into 'participants' so the directory shows the new entry
+    const participantPayload = {
+      name: leaderData.name,
+      email: leaderData.email,
+      title: leaderData.title,
+      organization: leaderData.organization,
+      orgDescription: leaderData.orgDescription,
+      country: leaderData.country,
+      state: leaderData.state,
+      city: leaderData.city,
+      nationality: leaderData.nationality,
+      shortBio: leaderData.shortBio,
+      testimony: leaderData.testimony,
+      phone: leaderData.phone,
+      isWhatsapp: leaderData.isWhatsapp ?? false,
+      socialMedia: leaderData.socialMedia ?? [],
+      website: leaderData.website,
+      photoUrl: leaderData.photoUrl,
+      promoPhotoUrl: leaderData.promoPhotoUrl,
+      otherInfo: leaderData.otherInfo,
+      upcomingEvents: leaderData.upcomingEvents,
+      contactEmail: leaderData.contactEmail,
+      dietaryRestrictions: leaderData.dietaryRestrictions,
+      searchName: leaderData.searchName || leaderData.name?.toLowerCase().replace(/\s+/g, '') || '',
+      searchOrg: leaderData.searchOrg || leaderData.organization?.toLowerCase().replace(/\s+/g, '') || '',
+    };
+
+    const { error: participantError } = await supabase
+      .from('participants')
+      .upsert([participantPayload], { onConflict: 'email' });
+
+    if (participantError) throw participantError;
   }
 };
