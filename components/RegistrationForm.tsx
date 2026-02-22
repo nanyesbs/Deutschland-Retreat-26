@@ -524,7 +524,6 @@ const RegistrationForm: React.FC = () => {
                                                             const q = dddSearch.replace('+', '').toLowerCase();
                                                             return !q || c.name.toLowerCase().includes(q) || code.includes(q);
                                                         })
-                                                        .slice(0, 80)
                                                         .map(c => (
                                                             <button
                                                                 key={c.isoCode}
