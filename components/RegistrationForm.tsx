@@ -388,10 +388,10 @@ const RegistrationForm: React.FC = () => {
                                                                             }
                                                                         }}
                                                                         className={`px-3 py-1.5 rounded-full text-[9px] font-avenir-bold uppercase tracking-wider transition-all border ${isSelected
-                                                                                ? 'bg-brand-heaven-gold/20 border-brand-heaven-gold text-brand-heaven-gold'
-                                                                                : isDisabled
-                                                                                    ? 'border-white/5 text-white/10 cursor-not-allowed'
-                                                                                    : 'border-white/10 text-white/50 hover:border-brand-heaven-gold/50 hover:text-white/80'
+                                                                            ? 'bg-brand-heaven-gold/20 border-brand-heaven-gold text-brand-heaven-gold'
+                                                                            : isDisabled
+                                                                                ? 'border-white/5 text-white/10 cursor-not-allowed'
+                                                                                : 'border-white/10 text-white/50 hover:border-brand-heaven-gold/50 hover:text-white/80'
                                                                             }`}
                                                                     >
                                                                         {isSelected && <span className="mr-1">✓</span>}
@@ -703,7 +703,7 @@ const RegistrationForm: React.FC = () => {
 
                     {status === 'error' && (
                         <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-button text-red-500 text-[10px] font-avenir-medium uppercase tracking-widest text-center animate-pulse">
-                            Synchronization failure: {errorMessage}
+                            Transmit Identity failed: {errorMessage}
                         </div>
                     )}
                 </form>
