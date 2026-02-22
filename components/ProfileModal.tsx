@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Participant } from '../types';
-import { X, Mail, Globe, Phone, User, Sparkles, Shield, Building2, Info, Maximize2 } from 'lucide-react';
-import { getIdentityPlaceholder, HIGH_QUALITY_PLACEHOLDER } from '../constants';
+import { X, Mail, Globe, Phone, User, Sparkles, Shield, Building2, Info, Maximize2, MessageCircle, ExternalLink } from 'lucide-react';
+import { getIdentityPlaceholder, HIGH_QUALITY_PLACEHOLDER, SOCIAL_PLATFORMS } from '../constants';
 
 interface ProfileModalProps {
   participant: Participant | null;
@@ -245,6 +245,15 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
                     <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Phone size={12} /> Phone Number</span>
                     <a href={`tel:${participant.phone}`} className="text-sm font-avenir-medium text-white dark:text-white group-hover:opacity-80 transition-colors">{participant.phone || 'Communication Pend.'}</a>
+                    {participant.isWhatsapp && participant.phone && (
+                      <a
+                        href={`https://wa.me/${participant.phone.replace(/[^0-9]/g, '')}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[9px] font-avenir-bold uppercase tracking-widest text-[#25D366] hover:text-white transition-colors mt-1"
+                      >
+                        <MessageCircle size={11} /> WhatsApp
+                      </a>
+                    )}
                   </div>
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
                     <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Mail size={12} /> Email Address</span>
@@ -263,6 +272,40 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                     <p className="text-sm font-avenir-medium text-white dark:text-white">{participant.otherInfo || 'Standard'}</p>
                   </div>
                 </div>
+
+                {/* Social Media Section */}
+                {participant.socialMedia && participant.socialMedia.length > 0 && (
+                  <div className="space-y-4">
+                    <h4 className={`text-[11px] font-avenir-bold ${themeText} uppercase tracking-[5px]`}>Social Media</h4>
+                    {(['personal', 'ministerial'] as const).map(type => {
+                      const accounts = participant.socialMedia!.filter(a => a.type === type);
+                      if (!accounts.length) return null;
+                      return (
+                        <div key={type} className="space-y-2">
+                          <p className="text-[8px] text-white/30 uppercase tracking-[0.2em]">{type}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {accounts.map((acc, i) => {
+                              const platform = SOCIAL_PLATFORMS.find(p => p.id === acc.platform);
+                              const url = platform ? platform.urlTemplate(acc.handle) : acc.handle;
+                              return (
+                                <a
+                                  key={i}
+                                  href={url}
+                                  target="_blank" rel="noopener noreferrer"
+                                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] hover:border-brand-heaven-gold/40 hover:bg-brand-heaven-gold/5 text-white/60 hover:text-white transition-all text-[10px] font-avenir-bold uppercase tracking-wider"
+                                >
+                                  <ExternalLink size={10} />
+                                  {platform?.label || acc.platform}
+                                  {acc.handle && <span className="text-white/30">· {acc.handle}</span>}
+                                </a>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
 
                 {/* Detailed Org Section */}
                 {participant.orgDescription && (

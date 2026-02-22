@@ -5,6 +5,12 @@ export interface Country {
   code: string;
 }
 
+export interface SocialAccount {
+  platform: string; // 'instagram' | 'facebook' | 'tiktok' | 'youtube' | 'linkedin' | 'twitter' | 'website'
+  handle: string;   // @username or full URL
+  type: 'personal' | 'ministerial';
+}
+
 export interface Participant {
   id: string;
   name: string;
@@ -18,8 +24,10 @@ export interface Participant {
   shortBio?: string;
   testimony: string;
   phone: string;
+  isWhatsapp?: boolean; // Whether the phone number is also a WhatsApp
   email: string;
   website: string;
+  socialMedia?: SocialAccount[]; // Multi-platform social accounts
   photoUrl: string;
   promoPhotoUrl?: string;
   otherInfo?: string;

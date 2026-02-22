@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { api } from '../services/api';
-import { COUNTRY_LIST } from '../constants';
+import { COUNTRY_LIST, ROLE_OPTIONS, SOCIAL_PLATFORMS, COUNTRY_CALLING_CODES } from '../constants';
 import { Country, State, City } from 'country-state-city';
 import { findCountry, processParticipant } from '../utils';
-import { ChevronRight, ChevronLeft, Save, Send, Camera, Sparkles, User, Mail, Globe, Phone, Building2, Info, Loader2, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Save, Send, Camera, Sparkles, User, Mail, Globe, Phone, Building2, Info, Loader2, CheckCircle2, Plus, X, MessageCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SocialAccount } from '../types';
 
 const RegistrationForm: React.FC = () => {
     const { t } = useTranslation();
@@ -26,19 +27,23 @@ const RegistrationForm: React.FC = () => {
         // Step 2: Ministry
         profilePicture: null as File | null,
         ministryName: '',
-        roles: '',
         ministryDescription: '',
         promoPicture: null as File | null,
         // Step 3: Contact & Extras
+        phoneCountryCode: 'DE',
         phone: '',
+        isWhatsapp: false,
         contactEmail: '',
-        website: '',
         otherContact: '',
         // Step 4: Testimony & Dietary
         testimony: '',
         upcomingEvents: '',
         dietaryRestrictions: '',
     });
+
+    const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+    const [socialAccounts, setSocialAccounts] = useState<SocialAccount[]>([]);
+    const [openCategories, setOpenCategories] = useState<string[]>([]);
 
     const [previewUrls, setPreviewUrls] = useState({
         profile: '',
@@ -85,7 +90,7 @@ const RegistrationForm: React.FC = () => {
         const rawParticipant = {
             name: formData.fullName,
             email: formData.email,
-            title: formData.roles,
+            title: selectedRoles.join(', '),
             organization: formData.ministryName,
             orgDescription: formData.ministryDescription,
             country: findCountry(formData.residentCountry),
@@ -94,8 +99,10 @@ const RegistrationForm: React.FC = () => {
             nationality: findCountry(formData.nationality),
             shortBio: formData.shortBio,
             testimony: formData.testimony,
-            phone: formData.phone,
-            website: formData.website,
+            phone: formData.phone ? `${COUNTRY_CALLING_CODES[formData.phoneCountryCode] || ''}${formData.phone.replace(/^0+/, '')}` : '',
+            isWhatsapp: formData.isWhatsapp,
+            website: socialAccounts.find(s => s.platform === 'website')?.handle || '',
+            socialMedia: socialAccounts,
             photoUrl: photoUrl,
             promoPhotoUrl: promoPhotoUrl,
             otherInfo: formData.otherContact,
@@ -336,13 +343,81 @@ const RegistrationForm: React.FC = () => {
                                             className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step2.roles')}</label>
-                                        <input
-                                            type="text" name="roles" value={formData.roles} onChange={handleChange} required
-                                            placeholder={t('registration.step2.rolesPlaceholder')}
-                                            className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
-                                        />
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step2.roles')} (max 5)</label>
+                                        <p className="text-[8px] text-white/30 uppercase tracking-[0.15em] pl-2 pb-2">Click a category to expand and select roles</p>
+                                        {/* Collapsible Category groups */}
+                                        {Array.from(new Set(ROLE_OPTIONS.map(r => r.category))).map(cat => {
+                                            const isOpen = openCategories.includes(cat);
+                                            const catRoles = ROLE_OPTIONS.filter(r => r.category === cat);
+                                            const selectedInCat = catRoles.filter(r => selectedRoles.includes(r.label)).length;
+                                            return (
+                                                <div key={cat} className="border-b border-white/5 last:border-0">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setOpenCategories(p => p.includes(cat) ? p.filter(c => c !== cat) : [...p, cat])}
+                                                        className="w-full flex items-center justify-between py-3 px-2 text-left hover:bg-white/[0.02] rounded-xl transition-colors group"
+                                                    >
+                                                        <span className="flex items-center gap-2">
+                                                            <span className={`text-[10px] font-avenir-bold uppercase tracking-wider transition-colors ${isOpen ? 'text-brand-heaven-gold' : 'text-white/50 group-hover:text-white/80'}`}>
+                                                                — {cat}
+                                                            </span>
+                                                            {selectedInCat > 0 && (
+                                                                <span className="text-[8px] bg-brand-heaven-gold/20 text-brand-heaven-gold px-2 py-0.5 rounded-full font-avenir-bold">
+                                                                    {selectedInCat}
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                        <ChevronRight size={12} className={`text-white/20 transition-transform ${isOpen ? 'rotate-90 text-brand-heaven-gold' : ''}`} />
+                                                    </button>
+                                                    {isOpen && (
+                                                        <div className="flex flex-wrap gap-2 px-2 pb-4">
+                                                            {catRoles.map(role => {
+                                                                const isSelected = selectedRoles.includes(role.label);
+                                                                const isDisabled = !isSelected && selectedRoles.length >= 5;
+                                                                return (
+                                                                    <button
+                                                                        key={role.label}
+                                                                        type="button"
+                                                                        disabled={isDisabled}
+                                                                        onClick={() => {
+                                                                            if (isSelected) {
+                                                                                setSelectedRoles(p => p.filter(r => r !== role.label));
+                                                                            } else if (selectedRoles.length < 5) {
+                                                                                setSelectedRoles(p => [...p, role.label]);
+                                                                            }
+                                                                        }}
+                                                                        className={`px-3 py-1.5 rounded-full text-[9px] font-avenir-bold uppercase tracking-wider transition-all border ${isSelected
+                                                                                ? 'bg-brand-heaven-gold/20 border-brand-heaven-gold text-brand-heaven-gold'
+                                                                                : isDisabled
+                                                                                    ? 'border-white/5 text-white/10 cursor-not-allowed'
+                                                                                    : 'border-white/10 text-white/50 hover:border-brand-heaven-gold/50 hover:text-white/80'
+                                                                            }`}
+                                                                    >
+                                                                        {isSelected && <span className="mr-1">✓</span>}
+                                                                        {role.label}
+                                                                    </button>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
+                                        {/* Selected roles summary */}
+                                        {selectedRoles.length > 0 && (
+                                            <div className="flex flex-wrap gap-1.5 pt-3 px-2">
+                                                {selectedRoles.map(r => (
+                                                    <span key={r} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-heaven-gold/15 border border-brand-heaven-gold/30 text-[8px] text-brand-heaven-gold font-avenir-bold uppercase tracking-wider">
+                                                        {r}
+                                                        <button type="button" onClick={() => setSelectedRoles(p => p.filter(x => x !== r))} className="hover:text-white transition-colors">
+                                                            <X size={9} />
+                                                        </button>
+                                                    </span>
+                                                ))}
+                                                <span className="text-[8px] text-white/25 pl-1 self-center">{selectedRoles.length}/5</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step2.desc')}</label>
@@ -420,14 +495,44 @@ const RegistrationForm: React.FC = () => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step3.phone')}</label>
-                                    <input
-                                        type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                                        placeholder={t('registration.step3.phonePlaceholder')}
-                                        className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
-                                    />
+                                {/* Phone with country code */}
+                                <div className="space-y-2 md:col-span-2">
+                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2 flex items-center gap-2">
+                                        <Phone size={12} /> {t('registration.step3.phone')} <span className="text-white/30">(E.164)</span>
+                                    </label>
+                                    <div className="flex gap-3 items-end">
+                                        <select
+                                            value={formData.phoneCountryCode}
+                                            onChange={(e) => setFormData(prev => ({ ...prev, phoneCountryCode: e.target.value }))}
+                                            className="w-40 shrink-0 bg-transparent border-b border-white/20 py-3 text-[14px] text-white/70 outline-none focus:border-brand-heaven-gold transition-all appearance-none"
+                                        >
+                                            {Country.getAllCountries().map(c => (
+                                                <option key={c.isoCode} value={c.isoCode} className="bg-[#050505]">
+                                                    {c.flag} {COUNTRY_CALLING_CODES[c.isoCode] || ''}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <input
+                                            type="tel" name="phone" value={formData.phone} onChange={handleChange}
+                                            placeholder="123 456 7890"
+                                            className="flex-1 bg-transparent border-b border-white/20 py-3 text-[16px] text-white outline-none focus:border-brand-heaven-gold transition-all placeholder:text-white/20"
+                                        />
+                                    </div>
+                                    <label className="flex items-center gap-3 pl-1 pt-3 cursor-pointer group">
+                                        <div
+                                            onClick={() => setFormData(p => ({ ...p, isWhatsapp: !p.isWhatsapp }))}
+                                            className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${formData.isWhatsapp ? 'bg-[#25D366] border-[#25D366]' : 'border-white/20 group-hover:border-[#25D366]/50'
+                                                }`}
+                                        >
+                                            {formData.isWhatsapp && <CheckCircle2 size={12} className="text-white" />}
+                                        </div>
+                                        <span className="text-[10px] font-avenir-bold uppercase tracking-widest text-white/50 group-hover:text-white/80 transition-colors flex items-center gap-2">
+                                            <MessageCircle size={12} className="text-[#25D366]" />
+                                            This number is on WhatsApp
+                                        </span>
+                                    </label>
                                 </div>
+
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step3.contactEmail')}</label>
                                     <input
@@ -436,14 +541,7 @@ const RegistrationForm: React.FC = () => {
                                         className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step3.website')}</label>
-                                    <input
-                                        type="text" name="website" value={formData.website} onChange={handleChange}
-                                        placeholder={t('registration.step3.websitePlaceholder')}
-                                        className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
-                                    />
-                                </div>
+
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step3.other')}</label>
                                     <input
@@ -451,6 +549,59 @@ const RegistrationForm: React.FC = () => {
                                         placeholder={t('registration.step3.otherPlaceholder')}
                                         className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all placeholder:text-white/20 dark:placeholder:text-black/20"
                                     />
+                                </div>
+
+                                {/* Social Media Builder */}
+                                <div className="space-y-4 md:col-span-2">
+                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2 flex items-center gap-2">
+                                        <Globe size={12} /> Social Media
+                                    </label>
+                                    <div className="space-y-3">
+                                        {socialAccounts.map((acc, idx) => {
+                                            const platform = SOCIAL_PLATFORMS.find(p => p.id === acc.platform);
+                                            return (
+                                                <div key={idx} className="flex flex-col gap-2 p-4 rounded-2xl border border-white/10 bg-white/[0.02]">
+                                                    <div className="flex items-center gap-3">
+                                                        <select
+                                                            value={acc.platform}
+                                                            onChange={(e) => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, platform: e.target.value, handle: '' } : a))}
+                                                            className="bg-transparent border-b border-white/20 py-2 text-[12px] text-white/70 outline-none focus:border-brand-heaven-gold transition-all appearance-none flex-1"
+                                                        >
+                                                            {SOCIAL_PLATFORMS.map(p => <option key={p.id} value={p.id} className="bg-[#050505]">{p.label}</option>)}
+                                                        </select>
+                                                        {/* Personal / Ministerial toggle */}
+                                                        <div className="flex rounded-full border border-white/10 overflow-hidden text-[8px] font-avenir-bold shrink-0">
+                                                            <button type="button" onClick={() => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, type: 'personal' } : a))}
+                                                                className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'personal' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
+                                                                Personal
+                                                            </button>
+                                                            <button type="button" onClick={() => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, type: 'ministerial' } : a))}
+                                                                className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'ministerial' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
+                                                                Ministry
+                                                            </button>
+                                                        </div>
+                                                        <button type="button" onClick={() => setSocialAccounts(prev => prev.filter((_, i) => i !== idx))}
+                                                            className="p-1.5 rounded-full hover:bg-red-500/20 text-white/30 hover:text-red-400 transition-colors shrink-0">
+                                                            <X size={12} />
+                                                        </button>
+                                                    </div>
+                                                    <input
+                                                        value={acc.handle}
+                                                        onChange={(e) => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, handle: e.target.value } : a))}
+                                                        placeholder={platform?.placeholder || '@handle'}
+                                                        className="bg-transparent border-b border-white/10 py-2 text-[14px] text-white outline-none focus:border-brand-heaven-gold transition-all placeholder:text-white/15"
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                        <button
+                                            type="button"
+                                            onClick={() => setSocialAccounts(prev => [...prev, { platform: 'instagram', handle: '', type: 'personal' }])}
+                                            className="flex items-center gap-2 text-[9px] text-white/40 hover:text-brand-heaven-gold uppercase tracking-widest font-avenir-bold transition-colors py-2 px-1"
+                                        >
+                                            <Plus size={12} /> Add Social Media
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
