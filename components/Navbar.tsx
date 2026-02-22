@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <div className="h-10 w-auto">
                         <img
                             src="/logo-dark.png"
-                            alt="Deutschland Retreat 2026 Logo"
+                            alt="Reaching Germany Retreat Logo"
                             className="h-full w-auto object-contain"
                         />
                     </div>

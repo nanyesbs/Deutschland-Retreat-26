@@ -33,7 +33,7 @@ const EntryPage: React.FC<EntryPageProps> = ({ onAccessGranted }) => {
                         Europe Shall Be Saved
                     </h1>
                     <p className="text-[10px] md:text-xs font-avenir-medium uppercase tracking-[0.2em] text-brand-heaven-gold">
-                        Deutschland Retreat 2026
+                        Reaching Germany Retreat
                     </p>
                 </div>
 

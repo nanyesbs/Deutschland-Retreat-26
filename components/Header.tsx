@@ -46,8 +46,8 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
         </span>
 
         <h1 className="text-4xl md:text-7xl font-extrabold text-white dark:text-white uppercase leading-tight mb-6">
-          Deutschland <br />
-          <span className="tracking-tighter">Retreat 2026</span>
+          Reaching Germany <br />
+          <span className="tracking-tighter">Retreat</span>
         </h1>
 
         <div className="w-24 h-[2px] bg-[#BB9446] mb-3" />
