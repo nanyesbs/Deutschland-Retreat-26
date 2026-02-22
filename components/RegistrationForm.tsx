@@ -186,7 +186,7 @@ const RegistrationForm: React.FC = () => {
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 rounded-[3rem] p-8 md:p-12 mb-10 overflow-visible relative transition-all duration-500">
+            <div className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 rounded-2xl sm:rounded-3xl md:rounded-[3rem] p-5 sm:p-8 md:p-12 mb-10 overflow-visible relative transition-all duration-500">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-heaven-gold/5 blur-[100px] pointer-events-none" />
 
                 <form onSubmit={(e) => e.preventDefault()} className="space-y-10 relative">
@@ -506,7 +506,7 @@ const RegistrationForm: React.FC = () => {
                                     </label>
                                     <div className="flex gap-3 items-end">
                                         {/* Searchable DDD / Country Code */}
-                                        <div className="relative w-44 shrink-0">
+                                        <div className="relative w-28 sm:w-44 shrink-0">
                                             <input
                                                 type="text"
                                                 value={dddSearch || (COUNTRY_CALLING_CODES[formData.phoneCountryCode] ? `${allCountries.find(c => c.isoCode === formData.phoneCountryCode)?.flag || ''} ${COUNTRY_CALLING_CODES[formData.phoneCountryCode]}` : '')}

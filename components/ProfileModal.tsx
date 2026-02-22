@@ -50,19 +50,19 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 md:p-10 bg-black/90 dark:bg-black/95 backdrop-blur-2xl animate-fade-in overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4 md:p-10 bg-black/90 dark:bg-black/95 backdrop-blur-2xl animate-fade-in"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative w-full max-w-5xl md:max-h-[90vh] bg-[var(--bg-surface)] shadow-neu-flat md:overflow-hidden flex flex-col rounded-3xl md:rounded-[2.5rem] transition-all duration-500 overflow-hidden">
+      <div className="relative w-full max-w-5xl h-[95vh] sm:h-auto sm:max-h-[90vh] bg-[var(--bg-surface)] shadow-neu-flat flex flex-col rounded-t-3xl sm:rounded-3xl md:rounded-[2.5rem] transition-all duration-500 overflow-hidden">
 
         <button
           onClick={onClose}
-          className={`absolute top-4 right-4 md:top-6 md:right-6 z-[120] w-12 h-12 flex items-center justify-center bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-full ${themeText} hover:scale-110 hover:rotate-90 transition-all group`}
+          className={`absolute top-4 right-4 md:top-6 md:right-6 z-[120] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-black/40 backdrop-blur-md sm:bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-full ${themeText} hover:scale-110 hover:rotate-90 transition-all group`}
         >
-          <X size={20} />
+          <X size={20} className="text-white sm:text-inherit" />
         </button>
 
-        <div className="flex flex-col md:flex-row w-full md:h-full md:overflow-hidden">
+        <div className="flex flex-col md:flex-row w-full h-full overflow-hidden">
           {/* Mobile Profile Header (Creative Approach) */}
           <div className="md:hidden relative w-full aspect-[4/3] min-h-[250px] flex-shrink-0">
             {/* Banner Background */}
