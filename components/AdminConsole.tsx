@@ -365,7 +365,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               ) : (
                 filteredByDate.map(p => (
                   <div key={p.id} className="flex items-center gap-4 p-3 bg-[var(--bg-surface)] shadow-neu-flat rounded-xl">
-                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-8 h-8 rounded-full object-cover shadow-neu-pressed" />
+                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} alt={`${p.name} photo`} className="w-8 h-8 rounded-full object-cover shadow-neu-pressed" />
                     <div className="flex-1 min-w-0">
                       <p className="text-[10px] font-avenir-bold text-white dark:text-white truncate uppercase">{p.name}</p>
                       <p className="text-[8px] text-white/40 dark:text-stone-500 uppercase">{new Date(p.createdAt!).toLocaleDateString('pt-BR')}</p>
@@ -516,7 +516,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               <div key={p.id} className="flex items-center justify-between p-5 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-convex rounded-2xl transition-all duration-300 group">
                 <div className="flex items-center gap-5">
                   <div className="w-12 h-12 rounded-xl bg-[var(--bg-surface)] shadow-neu-pressed p-1 flex shrink-0 border border-brand-heaven-gold/10">
-                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} className="w-full h-full rounded-lg object-cover" />
+                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} alt={`${p.name} profile photo`} className="w-full h-full rounded-lg object-cover" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[12px] font-avenir-bold text-white dark:text-white uppercase tracking-wider truncate">{p.name}</div>
@@ -560,7 +560,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   </div>
                   {formData.photoUrl && (
                     <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
-                      <img src={formData.photoUrl} className="w-full h-full object-cover rounded-xl" />
+                      <img src={formData.photoUrl} alt="Profile photo preview" className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={profileFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'photoUrl')} />
@@ -581,7 +581,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   </div>
                   {formData.promoPhotoUrl && (
                     <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
-                      <img src={formData.promoPhotoUrl} className="w-full h-full object-cover rounded-xl" />
+                      <img src={formData.promoPhotoUrl} alt="Promotional photo preview" className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={promoFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'promoPhotoUrl')} />
