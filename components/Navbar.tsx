@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex items-center w-full md:w-auto justify-between md:justify-start gap-4">
                     <div className="h-8 md:h-10 w-auto">
                         <img
-                            src="/logo-dark.png"
+                            src={darkMode ? "/logo-light.png" : "/logo-dark.png"}
                             alt="Reaching Germany Retreat Logo"
                             className="h-full w-auto object-contain"
                         />

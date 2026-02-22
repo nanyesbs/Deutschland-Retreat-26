@@ -226,13 +226,13 @@ const App: React.FC = () => {
           {viewMode === 'directory' && (
             <div className="flex flex-col gap-10">
               {/* Refined Control Bar */}
-              <div className="flex flex-col xl:flex-row justify-between items-stretch xl:items-center gap-4 bg-[var(--bg-surface)] p-5 rounded-3xl shadow-neu-flat">
+              <div className="flex flex-col xl:flex-row justify-between items-stretch xl:items-center gap-3 md:gap-4 bg-[var(--bg-surface)] p-2 md:p-5 rounded-2xl md:rounded-3xl shadow-neu-flat">
                 <div className="relative flex-1 group">
                   <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-heaven-gold group-focus-within:scale-110 transition-transform" />
                   <input
                     type="text"
                     placeholder="Search participants, roles, or organizations..."
-                    className="w-full bg-[var(--bg-surface)] shadow-neu-pressed rounded-2xl p-4 pl-12 text-sm font-avenir-medium text-white dark:text-black outline-none transition-all placeholder:text-white/20 dark:placeholder:text-black/20 focus:shadow-neu-concave"
+                    className="w-full bg-[var(--bg-surface)] shadow-neu-pressed rounded-xl md:rounded-2xl p-3 md:p-4 pl-10 md:pl-12 text-sm font-avenir-medium text-white dark:text-black outline-none transition-all placeholder:text-white/20 dark:placeholder:text-black/20 focus:shadow-neu-concave"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -242,42 +242,42 @@ const App: React.FC = () => {
                   <button
                     onClick={() => performBackgroundSync()}
                     title="Manual Refresh"
-                    className="p-3 text-brand-heaven-gold/60 hover:text-brand-heaven-gold bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-xl transition-all"
+                    className="p-2 md:p-3 text-brand-heaven-gold/60 hover:text-brand-heaven-gold bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-lg md:rounded-xl transition-all"
                   >
-                    <RefreshCcw size={18} />
+                    <RefreshCcw size={16} className="md:w-[18px] md:h-[18px]" />
                   </button>
 
-                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-2 hidden xl:block opacity-50 shadow-neu-pressed" />
+                  <div className="w-[1px] h-6 md:h-8 bg-[var(--neu-shadow-dark)] mx-2 hidden xl:block opacity-50 shadow-neu-pressed" />
 
-                  <div className="flex gap-2">
+                  <div className="flex gap-1.5 md:gap-2">
                     <button
                       onClick={() => setLayoutMode('list')}
-                      className={`p-3 rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'list' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
+                      className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'list' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
                       title="List View"
                     >
-                      <Square size={20} />
+                      <Square size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
                     <button
                       onClick={() => setLayoutMode('grid2')}
-                      className={`p-3 rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid2' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
+                      className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid2' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
                       title="2 Column Grid"
                     >
-                      <Columns size={20} />
+                      <Columns size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
                     <button
                       onClick={() => setLayoutMode('grid4')}
-                      className={`p-3 rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid4' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
+                      className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid4' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
                       title="4 Column Grid"
                     >
-                      <LayoutGrid size={20} />
+                      <LayoutGrid size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
                   </div>
 
-                  <div className="w-[1px] h-8 bg-[var(--neu-shadow-dark)] mx-3 hidden xl:block opacity-50 shadow-neu-pressed" />
+                  <div className="w-[1px] h-6 md:h-8 bg-[var(--neu-shadow-dark)] mx-3 hidden xl:block opacity-50 shadow-neu-pressed" />
 
                   <button
                     onClick={() => setIsFilterDrawerOpen(true)}
-                    className={`flex items-center gap-3 px-6 py-4 rounded-xl font-avenir-bold text-[10px] uppercase tracking-[3px] transition-all duration-300 bg-[var(--bg-surface)] ${filterCountryCode !== 'ALL' || filterMinistry !== 'ALL' || filterRole !== 'ALL' || filterLetter !== 'ALL'
+                    className={`flex items-center gap-2 px-4 py-2 md:px-6 md:py-4 rounded-lg md:rounded-xl font-avenir-bold text-[9px] md:text-[10px] uppercase tracking-[2px] transition-all duration-300 bg-[var(--bg-surface)] ${filterCountryCode !== 'ALL' || filterMinistry !== 'ALL' || filterRole !== 'ALL' || filterLetter !== 'ALL'
                       ? 'shadow-neu-pressed text-brand-heaven-gold'
                       : 'shadow-neu-flat text-brand-heaven-gold/80 hover:text-brand-heaven-gold active:shadow-neu-pressed'
                       }`}
@@ -293,10 +293,10 @@ const App: React.FC = () => {
 
               {/* Enhanced Alphabet Scroll */}
               <div className="py-2 mb-4">
-                <div className="flex items-center gap-2 sm:gap-4 py-2 px-1 flex-wrap justify-center">
+                <div className="flex items-center gap-1.5 sm:gap-4 py-2 px-1 flex-wrap justify-center">
                   <button
                     onClick={() => setFilterLetter('ALL')}
-                    className={`h-10 sm:h-12 px-6 sm:px-8 flex items-center justify-center text-[9px] sm:text-[10px] font-avenir-bold tracking-[2px] rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/40 dark:text-black/40 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
+                    className={`h-8 sm:h-12 px-4 sm:px-8 flex items-center justify-center text-[8px] sm:text-[10px] font-avenir-bold tracking-[2px] rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/40 dark:text-black/40 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                   >
                     ALL PARTICIPANTS
                   </button>
@@ -307,7 +307,7 @@ const App: React.FC = () => {
                         key={char}
                         onClick={() => setFilterLetter(char)}
                         disabled={!isAvailable}
-                        className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[11px] sm:text-[12px] font-avenir-bold rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === char
+                        className={`w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-[10px] sm:text-[12px] font-avenir-bold rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === char
                           ? 'shadow-neu-pressed text-brand-heaven-gold'
                           : isAvailable
                             ? 'shadow-neu-flat text-white/50 dark:text-black/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'
