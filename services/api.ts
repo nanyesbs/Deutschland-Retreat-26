@@ -133,7 +133,7 @@ export const api = {
 
     const { error: leaderError } = await supabase
       .from('leaders')
-      .insert([payload]);
+      .upsert([payload], { onConflict: 'email' });
 
     if (leaderError) throw leaderError;
 

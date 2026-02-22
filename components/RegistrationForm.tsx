@@ -44,6 +44,8 @@ const RegistrationForm: React.FC = () => {
     const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
     const [socialAccounts, setSocialAccounts] = useState<SocialAccount[]>([]);
     const [openCategories, setOpenCategories] = useState<string[]>([]);
+    const [dddSearch, setDddSearch] = useState('');
+    const [showDddDropdown, setShowDddDropdown] = useState(false);
 
     const [previewUrls, setPreviewUrls] = useState({
         profile: '',
@@ -366,7 +368,7 @@ const RegistrationForm: React.FC = () => {
                                                             </span>
                                                             {selectedInCat > 0 && (
                                                                 <span className="text-[8px] bg-brand-heaven-gold/20 text-brand-heaven-gold px-2 py-0.5 rounded-full font-avenir-bold">
-                                                                    {selectedInCat}
+                                                                    {selectedInCat}/4
                                                                 </span>
                                                             )}
                                                         </span>
@@ -376,7 +378,7 @@ const RegistrationForm: React.FC = () => {
                                                         <div className="flex flex-wrap gap-2 px-2 pb-4">
                                                             {catRoles.map(role => {
                                                                 const isSelected = selectedRoles.includes(role.label);
-                                                                const isDisabled = !isSelected && selectedRoles.length >= 5;
+                                                                const isDisabled = !isSelected && selectedInCat >= 4;
                                                                 return (
                                                                     <button
                                                                         key={role.label}
@@ -385,7 +387,7 @@ const RegistrationForm: React.FC = () => {
                                                                         onClick={() => {
                                                                             if (isSelected) {
                                                                                 setSelectedRoles(p => p.filter(r => r !== role.label));
-                                                                            } else if (selectedRoles.length < 5) {
+                                                                            } else if (selectedInCat < 4) {
                                                                                 setSelectedRoles(p => [...p, role.label]);
                                                                             }
                                                                         }}
@@ -503,17 +505,46 @@ const RegistrationForm: React.FC = () => {
                                         <Phone size={12} /> {t('registration.step3.phone')} <span className="text-white/30">(E.164)</span>
                                     </label>
                                     <div className="flex gap-3 items-end">
-                                        <select
-                                            value={formData.phoneCountryCode}
-                                            onChange={(e) => setFormData(prev => ({ ...prev, phoneCountryCode: e.target.value }))}
-                                            className="w-40 shrink-0 bg-transparent border-b border-white/20 py-3 text-[14px] text-white/70 outline-none focus:border-brand-heaven-gold transition-all appearance-none"
-                                        >
-                                            {allCountries.map(c => (
-                                                <option key={c.isoCode} value={c.isoCode} className="bg-[#050505]">
-                                                    {c.flag} {COUNTRY_CALLING_CODES[c.isoCode] || ''}
-                                                </option>
-                                            ))}
-                                        </select>
+                                        {/* Searchable DDD / Country Code */}
+                                        <div className="relative w-44 shrink-0">
+                                            <input
+                                                type="text"
+                                                value={dddSearch || (COUNTRY_CALLING_CODES[formData.phoneCountryCode] ? `${allCountries.find(c => c.isoCode === formData.phoneCountryCode)?.flag || ''} ${COUNTRY_CALLING_CODES[formData.phoneCountryCode]}` : '')}
+                                                onFocus={() => { setDddSearch(''); setShowDddDropdown(true); }}
+                                                onBlur={() => setTimeout(() => { setShowDddDropdown(false); setDddSearch(''); }, 150)}
+                                                onChange={(e) => { setDddSearch(e.target.value); setShowDddDropdown(true); }}
+                                                placeholder="🌐 +49"
+                                                className="w-full bg-transparent border-b border-white/20 py-3 text-[14px] text-white/80 outline-none focus:border-brand-heaven-gold transition-all placeholder:text-white/30"
+                                            />
+                                            {showDddDropdown && (
+                                                <div className="absolute z-50 top-full left-0 mt-1 w-64 max-h-52 overflow-y-auto bg-[#111] border border-white/10 rounded-2xl shadow-2xl custom-scrollbar">
+                                                    {allCountries
+                                                        .filter(c => {
+                                                            const code = COUNTRY_CALLING_CODES[c.isoCode] || '';
+                                                            const q = dddSearch.replace('+', '').toLowerCase();
+                                                            return !q || c.name.toLowerCase().includes(q) || code.includes(q);
+                                                        })
+                                                        .slice(0, 80)
+                                                        .map(c => (
+                                                            <button
+                                                                key={c.isoCode}
+                                                                type="button"
+                                                                onMouseDown={() => {
+                                                                    setFormData(prev => ({ ...prev, phoneCountryCode: c.isoCode }));
+                                                                    setDddSearch('');
+                                                                    setShowDddDropdown(false);
+                                                                }}
+                                                                className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-brand-heaven-gold/10 transition-colors"
+                                                            >
+                                                                <span className="text-base">{c.flag}</span>
+                                                                <span className="text-[11px] text-white/80 font-avenir-bold flex-1 truncate">{c.name}</span>
+                                                                <span className="text-[11px] text-brand-heaven-gold font-avenir-bold shrink-0">{COUNTRY_CALLING_CODES[c.isoCode] || ''}</span>
+                                                            </button>
+                                                        ))
+                                                    }
+                                                </div>
+                                            )}
+                                        </div>
                                         <input
                                             type="tel" name="phone" value={formData.phone} onChange={handleChange}
                                             placeholder="123 456 7890"
