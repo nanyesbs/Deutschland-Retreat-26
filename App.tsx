@@ -225,7 +225,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen transition-colors duration-500 bg-[var(--bg-surface)] pt-16">
-      <h1 className="sr-only">Leaders' Summit '26 Directory</h1>
+      <h1 className="sr-only">Reaching Germany Retreat '26 Registration</h1>
       <Navbar
         viewMode={viewMode}
         setViewMode={setViewMode}

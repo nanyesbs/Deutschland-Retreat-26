@@ -40,13 +40,13 @@ const Navbar: React.FC<NavbarProps> = ({
                         </span>
                     </div>
 
-                    <div className="flex items-center">
-                        <LanguageSwitcher />
-                    </div>
                 </div>
 
                 <div className="flex w-full md:w-auto overflow-x-auto no-scrollbar snap-x snap-mandatory py-2 -my-2">
-                    <div className="flex gap-3 md:gap-6 w-max mx-auto md:mx-0 px-1">
+                    <div className="flex items-center gap-3 md:gap-6 w-max mx-auto md:mx-0 px-1">
+                        <div className="hidden sm:block">
+                            <LanguageSwitcher />
+                        </div>
                         <button
                             onClick={() => setViewMode('directory')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-3 md:py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'directory' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}

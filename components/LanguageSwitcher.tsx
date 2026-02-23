@@ -39,7 +39,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'nav' }) 
 
     return (
         <div
-            className="flex items-center gap-3 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-1.5 px-3 rounded-full border border-white/5 transition-all duration-500 cursor-pointer group"
+            className="flex items-center gap-3 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-1.5 px-3 rounded-full border border-white/10 dark:border-white/20 transition-all duration-500 cursor-pointer group"
             onClick={() => setLanguage(isEN ? 'de' : 'en')}
         >
             <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold group-hover:scale-110 transition-transform">

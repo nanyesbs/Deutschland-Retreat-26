@@ -78,10 +78,10 @@
         "participantID": "ID"
     },
     "registration": {
-        "title": "Retreat",
-        "protocol": "Reaching Germany",
+        "title": "Registrierung",
+        "protocol": "Reaching Germany Retreat '26",
         "completeTitle": "Registrierung Abgeschlossen",
-        "completeDesc": "Ihre Identität wurde mit der Leaders' Summit 2026 Datenbank synchronisiert. Sie sind nun Teil des globalen Netzwerks.",
+        "completeDesc": "Ihre Identität wurde mit der Reaching Germany Retreat 2026 Datenbank synchronisiert. Sie sind nun Teil des globalen Netzwerks.",
         "returnDir": "Zurück zum Verzeichnis",
         "welcome": {
             "title": "Bewerbungs\nprotokoll",
@@ -90,9 +90,9 @@
         },
         "step1": {
             "label": "ABSCHNITT 1 VON 4",
-            "title": "Reaching Germany Retreat Registrierung",
+            "title": "Reaching Germany Retreat '26 Registrierung",
             "p1": "Liebe Reaching Germany Retreat Teilnehmer,",
-            "p2": "Wir erstellen eine Broschüre mit allen teilnehmenden Leitern, um das Networking und die Zusammenarbeit zwischen unseren Teilnehmern zu fördern. Jeder Leiter wird einen kurzen Lebenslauf und Werbematerialien für seine Dienste und Veranstaltungen haben. Wir bitten Sie außerdem, ein wichtiges Zeugnis mit uns zu teilen, da wir gerne einige Leiter auswählen würden, um ihre Geschichten während des Reaching Germany Retreats zu teilen.",
+            "p2": "Wir erstellen eine Broschüre mit allen teilnehmenden Leitern, um das Networking und die Zusammenarbeit zwischen unseren Teilnehmern zu fördern. Jeder Leiter wird eine neue Bio und Werbematerialien für seine Dienste und Veranstaltungen haben. Wir bitten Sie außerdem, ein wichtiges Zeugnis mit uns zu teilen, da wir gerne einige Leiter auswählen würden, um ihre Geschichten während des Reaching Germany Retreats zu teilen.",
             "p3": "Bis bald!",
             "email": "E-Mail *",
             "emailPlaceholder": "ihre@email.com",
@@ -104,7 +104,7 @@
             "selectCountry": "Land auswählen",
             "state": "Bundesland / Provinz",
             "city": "Stadt (Hauptstandort)",
-            "bio": "Kurzbiografie *",
+            "bio": "neue Bio *",
             "bioPlaceholder": "Max. 400 Zeichen",
             "bioNote": "HINWEIS: DIESE INFO KANN VON UNSEREM TEAM GEGEBENENFALLS BEARBEITET/GEKÜRZT WERDEN.",
             "charCount": "Zeichen übrig"

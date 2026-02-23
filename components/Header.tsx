@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
       <div className="absolute top-8 right-8 z-20 hidden md:block">
         <img
           src={darkMode ? "/logo-light.png" : "/logo-dark.png"}
-          alt="Leaders' Summit Logo"
+          alt="Reaching Germany Retreat Logo"
           className="h-16 w-auto object-contain"
         />
       </div>

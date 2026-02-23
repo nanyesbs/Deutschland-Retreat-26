@@ -77,10 +77,10 @@
         "participantID": "ID"
     },
     "registration": {
-        "title": "Retreat",
-        "protocol": "Reaching Germany",
+        "title": "Registration",
+        "protocol": "Reaching Germany Retreat '26",
         "completeTitle": "Registration Complete",
-        "completeDesc": "Your identity has been synchronized with the Leaders' Summit 2026 database. You are now part of the global network.",
+        "completeDesc": "Your identity has been synchronized with the Reaching Germany Retreat 2026 database. You are now part of the global network.",
         "returnDir": "Return to Directory",
         "welcome": {
             "title": "Application\nProtocol",
@@ -89,9 +89,9 @@
         },
         "step1": {
             "label": "SECTION 1 OF 4",
-            "title": "Reaching Germany Retreat Registration",
+            "title": "Reaching Germany Retreat '26 Registration",
             "p1": "Dear Reaching Germany Retreat Attendees,",
-            "p2": "We are creating a brochure featuring all of the attending leaders to help foster networking and collaboration among our participants. Each leader will have a short bio and promotional materials for their ministries and events. We also kindly ask you to share a key testimony with us, as we would love to select a few leaders to share their stories during the Reaching Germany Retreat.",
+            "p2": "We are creating a brochure featuring all of the attending leaders to help foster networking and collaboration among our participants. Each leader will have a new bio and promotional materials for their ministries and events. We also kindly ask you to share a key testimony with us, as we would love to select a few leaders to share their stories during the Reaching Germany Retreat.",
             "p3": "See you soon!",
             "email": "E-mail *",
             "emailPlaceholder": "your@email.com",
@@ -103,7 +103,7 @@
             "selectCountry": "Select country",
             "state": "State / Province",
             "city": "City (Primary Location)",
-            "bio": "Short Biography *",
+            "bio": "new Bio *",
             "bioPlaceholder": "Max 400 characters",
             "bioNote": "NOTE: THIS INFO MIGHT BE EDITED/SHORTENED BY OUR TEAM IF NECESSARY.",
             "charCount": "characters left"

@@ -20,7 +20,7 @@ export const getIdentityPlaceholder = (name: string): string => {
       .map((n) => n[0])
       .join('')
       .toUpperCase()
-      .slice(0, 2) || 'LS';
+      .slice(0, 2) || 'RG';
 
     const svg = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
