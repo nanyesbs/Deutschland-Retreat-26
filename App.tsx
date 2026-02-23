@@ -225,6 +225,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen transition-colors duration-500 bg-[var(--bg-surface)] pt-16">
+      <h1 className="sr-only">Leaders' Summit '26 Directory</h1>
       <Navbar
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -244,6 +245,7 @@ const App: React.FC = () => {
                   <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-heaven-gold group-focus-within:scale-110 transition-transform" />
                   <input
                     type="text"
+                    aria-label={t('app.search')}
                     placeholder={t('app.search')}
                     className="w-full bg-[var(--bg-surface)] shadow-neu-pressed rounded-xl md:rounded-2xl p-3 md:p-4 pl-10 md:pl-12 text-sm font-avenir-medium text-white dark:text-black outline-none transition-all placeholder:text-white/20 dark:placeholder:text-black/20 focus:shadow-neu-concave"
                     value={searchQuery}

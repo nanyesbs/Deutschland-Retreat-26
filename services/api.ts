@@ -2,6 +2,31 @@ import { Participant } from '../types';
 import { fixEncoding } from '../utils';
 import { supabase } from './supabase';
 
+const mapToDb = (participant: Partial<Participant>) => {
+  const mapped: any = { ...participant };
+
+  if (participant.shortBio) mapped.shortbio = participant.shortBio;
+  if (participant.orgDescription) mapped.ministrydescription = participant.orgDescription;
+  if (participant.photoUrl) mapped.profilepicture = participant.photoUrl;
+  if (participant.promoPhotoUrl) mapped.promopicture = participant.promoPhotoUrl;
+  if (participant.organization) mapped.ministryname = participant.organization;
+  if (participant.title) mapped.roles = participant.title;
+  if (participant.contactEmail) mapped.contactemail = participant.contactEmail;
+  if (participant.otherInfo) mapped.othercontact = participant.otherInfo;
+  if (participant.upcomingEvents) mapped.upcomingevents = participant.upcomingEvents;
+  if (participant.dietaryRestrictions) mapped.dietaryrestrictions = participant.dietaryRestrictions;
+
+  // Clean up camelCase keys
+  const keysToClean = [
+    'shortBio', 'orgDescription', 'photoUrl', 'promoPhotoUrl',
+    'organization', 'title', 'contactEmail', 'otherInfo',
+    'upcomingEvents', 'dietaryRestrictions', 'searchName', 'searchOrg'
+  ];
+  keysToClean.forEach(key => delete mapped[key]);
+
+  return mapped;
+};
+
 export const api = {
   getParticipants: async (): Promise<Participant[]> => {
     const { data, error } = await supabase
@@ -22,9 +47,10 @@ export const api = {
       id: Math.random().toString(36).substring(2, 7).toUpperCase(),
     };
 
+    const dbParticipant = mapToDb(newParticipant);
     const { data, error } = await supabase
       .from('participants')
-      .insert([newParticipant])
+      .insert([dbParticipant])
       .select()
       .single();
 
@@ -33,9 +59,10 @@ export const api = {
   },
 
   upsertParticipant: async (participant: Omit<Participant, 'id'>): Promise<Participant> => {
+    const dbParticipant = mapToDb(participant);
     const { data, error } = await supabase
       .from('participants')
-      .upsert(participant, { onConflict: 'email' })
+      .upsert(dbParticipant, { onConflict: 'email' })
       .select()
       .single();
 
@@ -44,17 +71,19 @@ export const api = {
   },
 
   bulkUpsertParticipants: async (participants: Omit<Participant, 'id'>[]): Promise<void> => {
+    const dbParticipants = participants.map(p => mapToDb(p));
     const { error } = await supabase
       .from('participants')
-      .upsert(participants, { onConflict: 'email' });
+      .upsert(dbParticipants, { onConflict: 'email' });
 
     if (error) throw error;
   },
 
   updateParticipant: async (id: string, updates: Partial<Participant>): Promise<Participant> => {
+    const dbUpdates = mapToDb(updates);
     const { data, error } = await supabase
       .from('participants')
-      .update(updates)
+      .update(dbUpdates)
       .eq('id', id)
       .select()
       .single();
@@ -109,7 +138,8 @@ export const api = {
 
   saveLeader: async (leaderData: any): Promise<void> => {
     // Save to 'leaders' table (registration log)
-    const payload = {
+    // We maintain the explicit mapping for the legacy 'leaders' table if it has different column names
+    const leaderPayload = {
       email: leaderData.email,
       fullname: leaderData.name,
       residentcountry: leaderData.country?.name,
@@ -133,41 +163,16 @@ export const api = {
 
     const { error: leaderError } = await supabase
       .from('leaders')
-      .upsert([payload], { onConflict: 'email' });
+      .upsert([leaderPayload], { onConflict: 'email' });
 
     if (leaderError) throw leaderError;
 
     // Also upsert into 'participants' so the directory shows the new entry
-    const participantPayload = {
-      name: leaderData.name,
-      email: leaderData.email,
-      title: leaderData.title,
-      organization: leaderData.organization,
-      orgDescription: leaderData.orgDescription,
-      country: leaderData.country,
-      state: leaderData.state,
-      city: leaderData.city,
-      nationality: leaderData.nationality,
-      shortbio: leaderData.shortBio,
-      testimony: leaderData.testimony,
-      phone: leaderData.phone,
-      isWhatsapp: leaderData.isWhatsapp ?? false,
-      socialMedia: leaderData.socialMedia ?? [],
-      website: leaderData.website,
-      photoUrl: leaderData.photoUrl,
-      promoPhotoUrl: leaderData.promoPhotoUrl,
-      otherInfo: leaderData.otherInfo,
-      upcomingevents: leaderData.upcomingEvents,
-      contactemail: leaderData.contactEmail,
-      dietaryrestrictions: leaderData.dietaryRestrictions,
-      searchName: leaderData.searchName || leaderData.name?.toLowerCase().replace(/\s+/g, '') || '',
-      searchOrg: leaderData.searchOrg || leaderData.organization?.toLowerCase().replace(/\s+/g, '') || '',
-    };
-
+    const dbParticipant = mapToDb(leaderData);
     const { error: participantError } = await supabase
       .from('participants')
-      .upsert([participantPayload], { onConflict: 'email' });
+      .upsert([dbParticipant], { onConflict: 'email' });
 
     if (participantError) throw participantError;
-  }
+  },
 };

@@ -1,0 +1,138 @@
+/* Base Styles and UX Fixes */
+:root {
+    --brand-heaven-gold: #BB9446;
+    --brand-gold: #D3B962;
+    --bg-surface: #F0F0F0;
+    --neu-shadow-light: #ffffff;
+    --neu-shadow-dark: #d1d1d1;
+}
+
+.dark {
+    --bg-surface: #000000;
+    --neu-shadow-light: #111111;
+    --neu-shadow-dark: #000000;
+}
+
+body {
+    font-family: "Avenir Next", Avenir, sans-serif;
+    background-color: var(--bg-surface);
+    color: #000000;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html,
+body {
+    overscroll-behavior-y: contain;
+}
+
+.dark body {
+    background-color: var(--bg-surface);
+    color: #ffffff;
+}
+
+/* Prevent zoom on input focus (iOS) */
+input,
+select,
+textarea {
+    font-size: 16px !important;
+}
+
+/* Better scrolling on iOS */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-heaven-gold) transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-4px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+.animate-shake {
+    animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tablet Landscape Optimizations */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .custom-scrollbar {
+        max-height: 60vh;
+    }
+}
+
+/* Leaflet Overrides */
+.leaflet-popup-content-wrapper {
+    background: transparent !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.leaflet-popup-content {
+    margin: 0 !important;
+    background: transparent !important;
+    width: max-content !important;
+}
+
+.leaflet-popup-tip-container,
+.leaflet-popup-tip {
+    display: none !important;
+}
+
+.leaflet-container {
+    background: #050505 !important;
+    font-family: inherit !important;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+    padding: 0 !important;
+}

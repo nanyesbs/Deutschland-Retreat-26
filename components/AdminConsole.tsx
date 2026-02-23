@@ -110,35 +110,9 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
       const processed = processParticipant(formData);
       console.log('Attempting to sync identity:', processed);
 
-      // Sanitize payload to remove UI-only keys that might confuse Supabase if not in schema cache
-      // We only send keys that we know are valid columns or that api.updateParticipant can handle
-      const {
-        searchName, searchOrg, // Remove generated UI fields
-        contactEmail, shortBio, upcomingEvents, dietaryRestrictions, // Remove camelCase if they are not in schema cache yet or if mapping is handled inside API
-        ...safePayload
-      } = processed;
-
-      // Add back the mapped snake_case fields if needed, OR rely on api.ts to do the mapping.
-      // Since api.updateParticipant takes Partial<Participant>, we should send the interface props.
-      // BUT, if Supabase complains about 'contactEmail' not found, it means it's trying to map it directly.
-      // So we must ensure we are NOT sending 'contactEmail' if the DB column is 'contact_email'.
-
-      // Let's manually construct the update payload to be safe
-      const updatePayload: any = {
-        ...safePayload,
-        // Map explicitly to snake_case for the direct update if strictly required,
-        // or ensure the API function handles the mapping.
-        // Currently api.updateParticipant just passes 'updates' to .update(updates).
-        // So we MUST map to snake_case here if the DB expects it.
-        contact_email: processed.contactEmail,
-        short_bio: processed.shortBio,
-        upcoming_events: processed.upcomingEvents,
-        dietary_restrictions: processed.dietaryRestrictions
-      };
-
       if (editingId) {
         console.log('Update Mode: Target ID', editingId);
-        await onUpdate(editingId, updatePayload);
+        await onUpdate(editingId, processed);
       } else {
         console.log('Creation Mode: New Entry');
         await onAdd(processed as Omit<Participant, 'id'>);
@@ -559,7 +533,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               <div key={p.id} className="flex items-center justify-between p-5 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-convex rounded-2xl transition-all duration-300 group">
                 <div className="flex items-center gap-5">
                   <div className="w-12 h-12 rounded-xl bg-[var(--bg-surface)] shadow-neu-pressed p-1 flex shrink-0 border border-brand-heaven-gold/10">
-                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} alt={`${p.name} profile photo`} className="w-full h-full rounded-lg object-cover" />
+                    <img src={p.photoUrl || getIdentityPlaceholder(p.name)} alt={t('admin.photoAlt', { name: p.name }) || `${p.name} profile`} className="w-full h-full rounded-lg object-cover" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[12px] font-avenir-bold text-white dark:text-white uppercase tracking-wider truncate">{p.name}</div>
@@ -603,7 +577,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   </div>
                   {formData.photoUrl && (
                     <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
-                      <img src={formData.photoUrl} alt="Profile photo preview" className="w-full h-full object-cover rounded-xl" />
+                      <img src={formData.photoUrl} alt={t('admin.previewAlt') || "Profile preview"} className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={profileFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'photoUrl')} />
@@ -624,7 +598,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   </div>
                   {formData.promoPhotoUrl && (
                     <div className="aspect-square rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed overflow-hidden relative p-1 mt-4">
-                      <img src={formData.promoPhotoUrl} alt="Promotional photo preview" className="w-full h-full object-cover rounded-xl" />
+                      <img src={formData.promoPhotoUrl} alt={t('admin.promoPreviewAlt') || "Promotional preview"} className="w-full h-full object-cover rounded-xl" />
                     </div>
                   )}
                   <input type="file" ref={promoFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'promoPhotoUrl')} />

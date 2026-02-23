@@ -49,13 +49,13 @@ const Navbar: React.FC<NavbarProps> = ({
                     <div className="flex gap-3 md:gap-6 w-max mx-auto md:mx-0 px-1">
                         <button
                             onClick={() => setViewMode('directory')}
-                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'directory' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
+                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-3 md:py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'directory' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
                             <LayoutGrid size={14} /> {t('nav.directory')}
                         </button>
                         <button
                             onClick={() => setViewMode('map')}
-                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'map' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
+                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-3 md:py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'map' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
                             <Map size={14} /> {t('nav.map')}
                         </button>
@@ -63,19 +63,19 @@ const Navbar: React.FC<NavbarProps> = ({
                             href="https://linktr.ee/esbs_leaders_summit_26"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed"
+                            className="text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-4 py-3 md:py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed"
                         >
                             <LinkIcon size={14} /> {t('nav.linktree')}
                         </a>
                         <button
                             onClick={() => setViewMode('admin')}
-                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'admin' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
+                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-3 md:py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'admin' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
                             <ShieldCheck size={14} className={isAdminAuthorized ? "text-green-500" : ""} /> {t('nav.admin')} {isAdminAuthorized && <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-sm ml-0.5" />}
                         </button>
                         <button
                             onClick={() => setViewMode('registration')}
-                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-5 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] ${viewMode === 'registration' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold active:shadow-neu-pressed'}`}
+                            className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-5 py-3 md:py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] ${viewMode === 'registration' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold active:shadow-neu-pressed'}`}
                         >
                             <PlusCircle size={14} /> {t('nav.registration')}
                         </button>
