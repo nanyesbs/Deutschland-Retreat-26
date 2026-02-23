@@ -34,9 +34,12 @@ const Navbar: React.FC<NavbarProps> = ({
                             className="h-full w-auto object-contain"
                         />
                     </div>
-                    <span className="text-[10px] font-avenir-bold text-white dark:text-white uppercase tracking-[0.3em] hidden sm:block">
+                    <span className="text-[10px] font-avenir-bold text-white dark:text-white uppercase tracking-[0.3em] hidden lg:block max-w-[150px] leading-tight opacity-60">
                         {t('nav.tagline')}
                     </span>
+                    <div className="flex items-center">
+                        <LanguageSwitcher />
+                    </div>
                 </div>
 
                 <div className="flex w-full md:w-auto overflow-x-auto no-scrollbar snap-x snap-mandatory py-2 -my-2">
@@ -73,8 +76,6 @@ const Navbar: React.FC<NavbarProps> = ({
                         >
                             <PlusCircle size={14} /> {t('nav.newBio')}
                         </button>
-                        {/* Language Selector */}
-                        <LanguageSwitcher />
                     </div>
                 </div>
             </div>
