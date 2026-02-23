@@ -65,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             onClick={() => setViewMode('admin')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'admin' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
-                            <ShieldCheck size={14} /> {t('nav.admin')} {isAdminAuthorized && <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-sm" />}
+                            <ShieldCheck size={14} className={isAdminAuthorized ? "text-green-500" : ""} /> {t('nav.admin')} {isAdminAuthorized && <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-sm ml-0.5" />}
                         </button>
                         <button
                             onClick={() => setViewMode('registration')}

@@ -261,14 +261,55 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
   if (!isAuthorized) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 bg-[var(--bg-surface)] shadow-neu-flat rounded-[2.5rem] mt-10 max-w-lg mx-auto">
-        <Lock size={40} className="text-brand-heaven-gold mb-6" />
-        <h2 className="text-xl font-avenir-bold uppercase text-white dark:text-white mb-8 tracking-widest text-center">{t('admin.authRequired')}</h2>
-        <form onSubmit={(e) => { e.preventDefault(); if (password === ADMIN_PASSWORD) onAuthorize(true); else alert('DENIED'); }} className="flex flex-col items-center w-full space-y-6">
-          <input type="password" placeholder={t('admin.secureCode')} className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-center outline-none text-white dark:text-white text-lg tracking-[0.5em] transition-all" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="w-full py-5 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-2xl hover:text-[#D3B962] transition-all text-sm tracking-widest">{t('admin.authorize')}</button>
+      <div className="flex flex-col items-center justify-center p-8 md:p-12 bg-[var(--bg-surface)] shadow-neu-flat rounded-[2.5rem] mt-10 max-w-lg mx-auto border border-white/5">
+        <div className="w-20 h-20 bg-[var(--bg-surface)] shadow-neu-pressed rounded-full flex items-center justify-center mb-10 border border-brand-heaven-gold/10">
+          <Lock size={32} className="text-brand-heaven-gold animate-pulse" />
+        </div>
+
+        <h2 className="text-sm font-avenir-bold uppercase text-white dark:text-white mb-2 tracking-[4px] text-center">
+          {t('admin.authRequired')}
+        </h2>
+        <p className="text-[10px] font-avenir-medium uppercase text-brand-heaven-gold/50 mb-10 tracking-[2px] text-center">
+          Identity Verification Required
+        </p>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (password === ADMIN_PASSWORD) {
+              onAuthorize(true);
+            } else {
+              alert('DENIED: Access Code Rejected');
+              setPassword('');
+            }
+          }}
+          className="flex flex-col items-center w-full space-y-8"
+        >
+          <div className="w-full relative group">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder={t('admin.secureCode')}
+              className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-center outline-none text-white dark:text-white text-sm tracking-[0.5em] transition-all border border-transparent focus:border-brand-heaven-gold/20"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoFocus
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-brand-heaven-gold/40 hover:text-brand-heaven-gold transition-colors"
+            >
+              {showPassword ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+          </div>
+
+          <button className="w-full py-5 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-2xl hover:text-white transition-all text-[11px] tracking-[4px] border border-white/5 active:scale-[0.98] duration-300">
+            {t('admin.authorize')}
+          </button>
         </form>
       </div>
     );

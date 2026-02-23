@@ -33,7 +33,9 @@ const App: React.FC = () => {
     return sessionStorage.getItem('esbs_auth') === 'true';
   });
 
-  const [isAdminAuthorized, setIsAdminAuthorized] = useState(false);
+  const [isAdminAuthorized, setIsAdminAuthorized] = useState(() => {
+    return sessionStorage.getItem('esbs_admin_auth') === 'true';
+  });
   const [activeEditingId, setActiveEditingId] = useState<string | null>(null);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
@@ -173,6 +175,15 @@ const App: React.FC = () => {
   const handleUpdate = async (id: string, updates: Partial<Participant>) => {
     const updated = await api.updateParticipant(id, updates);
     setParticipants(prev => sortParticipants(prev.map(p => p.id === id ? processParticipant(updated) : p)));
+  };
+
+  const handleAuthorize = (value: boolean) => {
+    setIsAdminAuthorized(value);
+    if (value) {
+      sessionStorage.setItem('esbs_admin_auth', 'true');
+    } else {
+      sessionStorage.removeItem('esbs_admin_auth');
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -365,7 +376,7 @@ const App: React.FC = () => {
             onUpdate={handleUpdate}
             onDelete={handleDelete}
             isAuthorized={isAdminAuthorized}
-            onAuthorize={setIsAdminAuthorized}
+            onAuthorize={handleAuthorize}
             editingId={activeEditingId}
             onSetEditingId={setActiveEditingId}
           />
