@@ -5,8 +5,16 @@
         "linktree": "Linktree",
         "admin": "Admin",
         "home": "Start",
-        "newBio": "Neue Bio",
-        "tagline": "Europa Soll Gerettet Werden"
+        "newBio": "Neue Bio"
+    },
+    "header": {
+        "tagline": "EUROPA SOLL GERETTET WERDEN",
+        "title1": "Reaching Germany",
+        "title2": "Retreat"
+    },
+    "footer": {
+        "vision": "\"GEMEINSAM FÜR 100 MILLIONEN LEBEN FÜR JESUS CHRISTUS\"",
+        "tagline": "EUROPA SOLL GERETTET WERDEN"
     },
     "entry": {
         "org": "Europa Soll Gerettet Werden",
@@ -25,10 +33,16 @@
         "refreshing": "Synchronisierung...",
         "filter": {
             "label": "Filter",
-            "all": "ALLE TEILNEHMER",
-            "country": "Nach Land",
-            "role": "Nach Rolle",
-            "clear": "Filter löschen"
+            "advanced": "Erweiterte Filter",
+            "all": "Alle",
+            "geo": "Geografischer Hub",
+            "global": "Global",
+            "org": "Dienst / Organisation",
+            "allOrg": "Alle Organisationen",
+            "role": "Leitungskapazität",
+            "allRole": "Alle Leitungsrollen",
+            "clear": "Filter löschen",
+            "apply": "Auswahl anwenden"
         },
         "loading": "Verbindung zum Netzwerk wird hergestellt...",
         "noResults": "Keine Identitäten entsprechen Ihren Parametern.",

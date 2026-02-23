@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface EntryPageProps {
     onAccessGranted: () => void;
@@ -26,6 +27,11 @@ const EntryPage: React.FC<EntryPageProps> = ({ onAccessGranted }) => {
 
             {/* Background Cinematic Glow Elements */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-heaven-gold/5 blur-[120px] rounded-full point-events-none" />
+
+            {/* Language Selection at top right */}
+            <div className="absolute top-8 right-8 z-50">
+                <LanguageSwitcher variant="entry" />
+            </div>
 
             <div className="z-10 w-full max-w-md mx-auto flex flex-col items-center">
 

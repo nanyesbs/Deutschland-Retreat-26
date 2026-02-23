@@ -2,6 +2,7 @@ import React from 'react';
 import { LayoutGrid, ShieldCheck, PlusCircle, Link as LinkIcon, Map, Globe } from 'lucide-react';
 import { ViewMode } from '../types';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface NavbarProps {
     viewMode: ViewMode;
@@ -72,15 +73,8 @@ const Navbar: React.FC<NavbarProps> = ({
                         >
                             <PlusCircle size={14} /> {t('nav.newBio')}
                         </button>
-                        {/* Language Toggle */}
-                        <button
-                            onClick={toggleLang}
-                            title={i18n.language === 'en' ? 'Switch to Deutsch' : 'Switch to English'}
-                            className="text-[10px] font-avenir-bold uppercase flex items-center gap-1.5 px-4 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] shadow-neu-flat text-brand-heaven-gold/70 hover:text-brand-heaven-gold active:shadow-neu-pressed"
-                        >
-                            <Globe size={13} />
-                            {i18n.language === 'en' ? 'DE' : 'EN'}
-                        </button>
+                        {/* Language Selector */}
+                        <LanguageSwitcher />
                     </div>
                 </div>
             </div>

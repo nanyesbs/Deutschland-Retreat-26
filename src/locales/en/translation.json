@@ -4,9 +4,16 @@
         "map": "Map",
         "linktree": "Linktree",
         "admin": "Admin",
-        "home": "Home",
-        "newBio": "New Bio",
-        "tagline": "Europe Shall be Saved"
+        "newBio": "New Bio"
+    },
+    "header": {
+        "tagline": "EUROPE SHALL BE SAVED",
+        "title1": "Reaching Germany",
+        "title2": "Retreat"
+    },
+    "footer": {
+        "vision": "\"TOGETHER FOR 100 MILLION LIVES FOR JESUS CHRIST\"",
+        "tagline": "EUROPE SHALL BE SAVED"
     },
     "entry": {
         "org": "Europe Shall Be Saved",
@@ -25,10 +32,16 @@
         "refreshing": "Synchronizing...",
         "filter": {
             "label": "Filters",
-            "all": "ALL PARTICIPANTS",
-            "country": "By Country",
-            "role": "By Role",
-            "clear": "Clear Filters"
+            "advanced": "Advanced Filters",
+            "all": "All",
+            "geo": "Geographic Hub",
+            "global": "Global",
+            "org": "Ministry / Organization",
+            "allOrg": "All Organizations",
+            "role": "Leadership Capacity",
+            "allRole": "All Leadership Roles",
+            "clear": "Clear Filters",
+            "apply": "Apply Selection"
         },
         "loading": "Connecting to Network...",
         "noResults": "No identities match your parameters.",

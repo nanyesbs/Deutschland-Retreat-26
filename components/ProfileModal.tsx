@@ -20,7 +20,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
   const [fallbackStage, setFallbackStage] = useState<number>(0);
 
   useEffect(() => {
-    @const handleEsc = (event: KeyboardEvent) => {
+    const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);

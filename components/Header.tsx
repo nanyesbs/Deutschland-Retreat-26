@@ -1,11 +1,13 @@
-
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   darkMode?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ darkMode }) => {
+  const { t } = useTranslation();
+
   return (
     <header className="relative w-full h-[55vh] flex flex-col items-center justify-center overflow-hidden bg-[var(--bg-surface)] transition-colors duration-500">
       {/* Background Image — full bleed, balanced scale for the flag */}
@@ -42,12 +44,12 @@ const Header: React.FC<HeaderProps> = ({ darkMode }) => {
       {/* Hero Content */}
       <div className="relative z-20 text-center px-4 max-w-4xl flex flex-col items-center">
         <span className="text-[10px] md:text-xs tracking-[0.5em] font-light text-white/80 dark:text-white/80 uppercase mb-4 animate-fade-in">
-          EUROPE SHALL BE SAVED
+          {t('header.tagline')}
         </span>
 
         <h1 className="text-4xl md:text-7xl font-extrabold text-white dark:text-white uppercase leading-tight mb-6">
-          Reaching Germany <br />
-          <span className="tracking-tighter">Retreat</span>
+          {t('header.title1')} <br />
+          <span className="tracking-tighter">{t('header.title2')}</span>
         </h1>
 
         <div className="w-24 h-[2px] bg-[#BB9446] mb-3" />

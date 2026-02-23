@@ -377,10 +377,10 @@ const App: React.FC = () => {
       <footer className="mt-40 border-t border-white/5 dark:border-black/5 py-32 bg-[var(--bg-surface)] text-center">
         <div className="max-w-[1400px] mx-auto px-8 space-y-10">
           <p className="font-didot italic text-3xl text-white/30 dark:text-black/20 max-w-3xl mx-auto leading-relaxed">
-            "TOGETHER FOR 100 MILLION LIVES FOR JESUS CHRIST"
+            {t('footer.vision')}
           </p>
           <div className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[4px]">
-            EUROPE SHALL BE SAVED
+            {t('footer.tagline')}
           </div>
         </div>
       </footer>
@@ -400,7 +400,7 @@ const App: React.FC = () => {
         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setIsFilterDrawerOpen(false)} />
         <div className={`absolute right-0 top-0 h-full w-full max-w-sm bg-[var(--bg-surface)] shadow-neu-flat flex flex-col transition-transform duration-500 ease-out ${isFilterDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="p-8 border-b border-black/5 dark:border-white/5 flex justify-between items-center shadow-neu-flat z-10">
-            <h3 className="text-xs font-avenir-bold text-brand-heaven-gold uppercase tracking-[4px]">Advanced Filters</h3>
+            <h3 className="text-xs font-avenir-bold text-brand-heaven-gold uppercase tracking-[4px]">{t('app.filter.advanced')}</h3>
             <button onClick={() => setIsFilterDrawerOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold transition-all">
               <X size={20} />
             </button>
@@ -409,14 +409,14 @@ const App: React.FC = () => {
           <div className="flex-1 overflow-y-auto custom-scrollbar p-8 space-y-12">
             <div className="space-y-6">
               <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase flex items-center gap-2 tracking-[2px]">
-                <Globe size={14} /> Geographic Hub
+                <Globe size={14} /> {t('app.filter.geo')}
               </span>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => setFilterCountryCode('ALL')}
                   className={`px-6 py-3 text-[10px] font-avenir-bold uppercase tracking-widest rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${filterCountryCode === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-black/50 active:shadow-neu-pressed'}`}
                 >
-                  Global
+                  {t('app.filter.global')}
                 </button>
                 {activeCountries.map(c => (
                   <button
@@ -432,7 +432,7 @@ const App: React.FC = () => {
 
             <div className="space-y-6">
               <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase flex items-center gap-2 tracking-[2px]">
-                <Building size={14} /> Ministry / Organization
+                <Building size={14} /> {t('app.filter.org')}
               </span>
               <div className="relative rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed p-1">
                 <select
@@ -440,7 +440,7 @@ const App: React.FC = () => {
                   onChange={e => setFilterMinistry(e.target.value)}
                   className="w-full bg-transparent border-none p-4 text-xs font-avenir-medium text-white dark:text-black outline-none appearance-none"
                 >
-                  <option value="ALL">All Organizations</option>
+                  <option value="ALL">{t('app.filter.allOrg')}</option>
                   {uniqueMinistries.map(m => <option key={m} value={m} className="bg-[var(--bg-surface)]">{m}</option>)}
                 </select>
               </div>
@@ -448,7 +448,7 @@ const App: React.FC = () => {
 
             <div className="space-y-6">
               <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase flex items-center gap-2 tracking-[2px]">
-                <Briefcase size={14} /> Leadership Capacity
+                <Briefcase size={14} /> {t('app.filter.role')}
               </span>
               <div className="relative rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed p-1">
                 <select
@@ -456,7 +456,7 @@ const App: React.FC = () => {
                   onChange={e => setFilterRole(e.target.value)}
                   className="w-full bg-transparent border-none p-4 text-xs font-avenir-medium text-white dark:text-black outline-none appearance-none"
                 >
-                  <option value="ALL">All Leadership Roles</option>
+                  <option value="ALL">{t('app.filter.allRole')}</option>
                   {uniqueRoles.map(r => <option key={r} value={r} className="bg-[var(--bg-surface)]">{r}</option>)}
                 </select>
               </div>
@@ -474,13 +474,13 @@ const App: React.FC = () => {
               }}
               className="w-full py-4 text-[10px] font-avenir-bold text-white/40 dark:text-black/40 uppercase tracking-[3px] hover:text-brand-heaven-gold transition-colors"
             >
-              Clear Filters
+              {t('app.filter.clear')}
             </button>
             <button
               onClick={() => setIsFilterDrawerOpen(false)}
               className="w-full py-5 text-brand-heaven-gold font-avenir-bold uppercase text-[10px] tracking-[4px] rounded-2xl bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed transition-all"
             >
-              Apply Selection
+              {t('app.filter.apply')}
             </button>
           </div>
         </div>
