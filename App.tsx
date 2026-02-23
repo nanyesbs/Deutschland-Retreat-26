@@ -236,9 +236,9 @@ const App: React.FC = () => {
       {(viewMode === 'directory' || viewMode === 'map') && <Header darkMode={darkMode} />}
 
       <main className="max-w-[1400px] mx-auto px-4 md:px-8 py-24 md:py-32">
-        <div className="flex flex-col gap-20 mb-32">
+        <div className="flex flex-col gap-6 md:gap-10 mb-6 md:mb-8">
           {viewMode === 'directory' && (
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-6">
               {/* Refined Control Bar */}
               <div className="flex flex-col xl:flex-row justify-between items-stretch xl:items-center gap-3 md:gap-4 bg-[var(--bg-surface)] p-2 md:p-5 rounded-2xl md:rounded-3xl shadow-neu-flat">
                 <div className="relative flex-1 group">
