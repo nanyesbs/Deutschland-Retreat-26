@@ -340,7 +340,7 @@ const App: React.FC = () => {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-40">
             <Loader2 className="animate-spin text-brand-heaven-gold mb-4" size={32} />
-            <p className="text-[10px] text-brand-heaven-gold uppercase font-avenir-medium tracking-widest">Synchronizing Identity Stream...</p>
+            <p className="text-[10px] text-brand-heaven-gold uppercase font-avenir-medium tracking-widest">{t('app.syncStatus')}</p>
           </div>
         ) : viewMode === 'map' ? (
           <div className="max-w-[1400px] mx-auto px-4 md:px-8 pb-32 animate-fade-in relative z-20">

@@ -6,6 +6,7 @@ import { Participant } from '../types';
 import { getIdentityPlaceholder } from '../constants';
 import { City } from 'country-state-city';
 import { ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 // Fix for default Leaflet icon paths in React
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -42,6 +43,7 @@ const MapUpdater = () => {
 };
 
 const MapView: React.FC<MapViewProps> = ({ participants, onSelectCity }) => {
+    const { t } = useTranslation();
 
     // Group participants by city coordinates
     const markers = useMemo(() => {
@@ -117,7 +119,7 @@ const MapView: React.FC<MapViewProps> = ({ participants, onSelectCity }) => {
                                 <div className="flex justify-between items-center border-b border-white/10 pb-4">
                                     <span className="text-white font-avenir-bold text-[10px] tracking-[0.2em] uppercase">{marker.city}</span>
                                     <span className="text-brand-heaven-gold font-avenir-medium text-[9px] uppercase tracking-widest bg-brand-heaven-gold/10 px-2.5 py-1 rounded-full">
-                                        {marker.participants.length} {marker.participants.length === 1 ? 'Leader' : 'Leaders'}
+                                        {marker.participants.length} {marker.participants.length === 1 ? t('app.leader') : t('app.leaders')}
                                     </span>
                                 </div>
 
@@ -145,7 +147,7 @@ const MapView: React.FC<MapViewProps> = ({ participants, onSelectCity }) => {
                                     onClick={(e) => { e.stopPropagation(); onSelectCity(marker.city); }}
                                     className="group/btn w-full flex items-center justify-between mt-2 pt-4 border-t border-white/5 text-[9px] text-white/40 hover:text-brand-heaven-gold uppercase tracking-[0.25em] transition-colors font-avenir-bold"
                                 >
-                                    <span>Explore City</span>
+                                    <span>{t('map.exploreCity')}</span>
                                     <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform opacity-50 group-hover/btn:opacity-100" />
                                 </button>
                             </div>

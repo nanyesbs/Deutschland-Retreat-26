@@ -46,7 +46,11 @@
         "loading": "Connecting to Network...",
         "noResults": "No identities match your parameters.",
         "leaders": "Leaders",
-        "count": "{{count}} Leaders Synchronized"
+        "leader": "Leader",
+        "count": "{{count}} Leaders Synchronized",
+        "participants": "Participants",
+        "searchName": "Search by name...",
+        "syncStatus": "Synchronizing Identity Stream..."
     },
     "profile": {
         "expandVision": "Expand Vision",
@@ -67,7 +71,10 @@
         "deactivate": "Deactivate",
         "offline": "Offline",
         "commPending": "Communication Pend.",
-        "verified": "IDENTITY VERIFIED • ACCESS GRANTED SUMMIT 2026"
+        "verified": "IDENTITY VERIFIED • ACCESS GRANTED SUMMIT 2026",
+        "contactLabel": "Quick Connect",
+        "banner": "Profile Banner",
+        "participantID": "ID"
     },
     "registration": {
         "title": "Leaders' Summit '26 Registration",
@@ -150,42 +157,48 @@
             "diet": "Dietary Requirements",
             "dietPlaceholder": "e.g. Vegetarian, Gluten-free"
         },
-        "actions": {
-            "prev": "Previous Phase",
-            "next": "Next Phase",
-            "saveDraft": "Save Draft",
-            "submit": "Transmit Identity",
-            "submitting": "Transmitting..."
-        },
-        "admin": {
-            "title": "Admin Protocol",
-            "authRequired": "Authorization Required",
-            "secureCode": "SECURE CODE",
-            "authorize": "Authorize",
-            "secureLogout": "Secure Logout",
-            "totalRegistrations": "Total Registrations",
-            "filterByDate": "Filter by date",
-            "startDate": "Start Date",
-            "endDate": "End Date",
-            "clearFilters": "Clear Filters",
-            "cloudSync": "Cloud Sync & Import",
-            "cloudSyncDesc": "Synchronize database with Google Sheets or CSV manifests",
-            "sheetUrl": "Google Sheet Public URL (CSV)",
-            "fetchCloud": "Fetch Cloud Data",
-            "importFile": "Import Local File",
-            "importing": "Importing...",
-            "readyToCommit": "Ready to Commit",
-            "syncNow": "Sync Now",
-            "newEntry": "New Leader Identity",
-            "editEntry": "Edit Leader Identity",
-            "addLeader": "Add New Leader",
-            "syncSuccess": "Identity Synchronized Successfully.",
-            "syncFailure": "Sync failure",
-            "nameRequired": "Name is required.",
-            "confirmDelete": "Are you sure you want to delete this identity?",
-            "deleteSuccess": "Identity deleted.",
-            "deleteError": "Delete error",
-            "viewFiltered": "View Filtered Participants"
-        }
+        "label": "Registration"
+    },
+    "admin": {
+        "title": "Admin Protocol",
+        "authRequired": "Authorization Required",
+        "secureCode": "SECURE CODE",
+        "authorize": "Authorize",
+        "secureLogout": "Secure Logout",
+        "totalRegistrations": "Total Registrations",
+        "filterByDate": "Filter by date",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "clearFilters": "Clear Filters",
+        "cloudSync": "Cloud Sync & Import",
+        "cloudSyncDesc": "Synchronize database with Google Sheets or CSV manifests",
+        "sheetUrl": "Google Sheet Public URL (CSV)",
+        "fetchCloud": "Fetch Cloud Data",
+        "importFile": "Import Local File",
+        "importing": "Importing...",
+        "readyToCommit": "Ready to Commit",
+        "syncNow": "Sync Now",
+        "newEntry": "New Leader Identity",
+        "editEntry": "Edit Leader Identity",
+        "addLeader": "Add New Leader",
+        "syncSuccess": "Identity Synchronized Successfully.",
+        "syncFailure": "Sync failure",
+        "nameRequired": "Name is required.",
+        "confirmDelete": "Are you sure you want to delete this identity?",
+        "deleteSuccess": "Identity deleted.",
+        "deleteError": "Delete error",
+        "viewFiltered": "View Filtered Participants",
+        "identityLedger": "Identity Ledger",
+        "warnReset": "Are you sure you want to reset all data?",
+        "factoryReset": "Factory Reset",
+        "manualInit": "Manual Initialization",
+        "portrait": "Portrait",
+        "promotional": "Promotional",
+        "registrationActivity": "Registration Activity",
+        "filteredResults": "Filtered Results",
+        "noData": "No registration data available"
+    },
+    "map": {
+        "exploreCity": "Explore City"
     }
 }

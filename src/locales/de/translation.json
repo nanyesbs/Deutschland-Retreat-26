@@ -47,7 +47,11 @@
         "loading": "Verbindung zum Netzwerk wird hergestellt...",
         "noResults": "Keine Identitäten entsprechen Ihren Parametern.",
         "leaders": "Leiter",
-        "count": "{{count}} Leiter synchronisiert"
+        "leader": "Leiter",
+        "count": "{{count}} Leiter synchronisiert",
+        "participants": "Teilnehmer",
+        "searchName": "Nach Namen suchen...",
+        "syncStatus": "Synchronisierung des Identitäts-Streams..."
     },
     "profile": {
         "expandVision": "Vision erweitern",
@@ -68,7 +72,10 @@
         "deactivate": "Deaktivieren",
         "offline": "Offline",
         "commPending": "Kommunikation ausstehend",
-        "verified": "IDENTITÄT VERIFIZIERT • ZUGANG GEWÄHRT SUMMIT 2026"
+        "verified": "IDENTITÄT VERIFIZIERT • ZUGANG GEWÄHRT SUMMIT 2026",
+        "contactLabel": "Direktkontakt",
+        "banner": "Profil-Banner",
+        "participantID": "ID"
     },
     "registration": {
         "title": "Leaders' Summit '26 Registrierung",
@@ -151,42 +158,48 @@
             "diet": "Ernährungsanforderungen",
             "dietPlaceholder": "z.B. Vegetarisch, Glutenfrei"
         },
-        "actions": {
-            "prev": "Vorherige Phase",
-            "next": "Nächste Phase",
-            "saveDraft": "Entwurf speichern",
-            "submit": "Identität Übertragen",
-            "submitting": "Übertragen..."
-        },
-        "admin": {
-            "title": "Admin-Protokoll",
-            "authRequired": "Autorisierung Erforderlich",
-            "secureCode": "SICHERHEITSCODE",
-            "authorize": "Autorisieren",
-            "secureLogout": "Sicherer Logout",
-            "totalRegistrations": "Gesamte Registrierungen",
-            "filterByDate": "Nach Datum filtern",
-            "startDate": "Startdatum",
-            "endDate": "Enddatum",
-            "clearFilters": "Filter löschen",
-            "cloudSync": "Cloud-Sync & Import",
-            "cloudSyncDesc": "Datenbank mit Google Sheets oder CSV-Manifesten synchronisieren",
-            "sheetUrl": "Öffentliche Google Sheet URL (CSV)",
-            "fetchCloud": "Cloud-Daten abrufen",
-            "importFile": "Lokale Datei importieren",
-            "importing": "Importiere...",
-            "readyToCommit": "Bereit zum Bestätigen",
-            "syncNow": "Jetzt synchronisieren",
-            "newEntry": "Neue Leiter-Identität",
-            "editEntry": "Leiter-Identität bearbeiten",
-            "addLeader": "Neuen Leiter hinzufügen",
-            "syncSuccess": "Identität erfolgreich synchronisiert.",
-            "syncFailure": "Synchronisierungsfehler",
-            "nameRequired": "Name ist erforderlich.",
-            "confirmDelete": "Sind Sie sicher, dass Sie diese Identität löschen möchten?",
-            "deleteSuccess": "Identität gelöscht.",
-            "deleteError": "Fehler beim Löschen",
-            "viewFiltered": "Gefilterte Teilnehmer anzeigen"
-        }
+        "label": "Registrierung"
+    },
+    "admin": {
+        "title": "Admin-Protokoll",
+        "authRequired": "Autorisierung Erforderlich",
+        "secureCode": "SICHERHEITSCODE",
+        "authorize": "Autorisieren",
+        "secureLogout": "Sicherer Logout",
+        "totalRegistrations": "Gesamte Registrierungen",
+        "filterByDate": "Nach Datum filtern",
+        "startDate": "Startdatum",
+        "endDate": "Enddatum",
+        "clearFilters": "Filter löschen",
+        "cloudSync": "Cloud-Sync & Import",
+        "cloudSyncDesc": "Datenbank mit Google Sheets oder CSV-Manifesten synchronisieren",
+        "sheetUrl": "Öffentliche Google Sheet URL (CSV)",
+        "fetchCloud": "Cloud-Daten abrufen",
+        "importFile": "Lokale Datei importieren",
+        "importing": "Importiere...",
+        "readyToCommit": "Bereit zum Bestätigen",
+        "syncNow": "Jetzt synchronisieren",
+        "newEntry": "Neue Leiter-Identität",
+        "editEntry": "Leiter-Identität bearbeiten",
+        "addLeader": "Neuen Leiter hinzufügen",
+        "syncSuccess": "Identität erfolgreich synchronisiert.",
+        "syncFailure": "Synchronisierungsfehler",
+        "nameRequired": "Name ist erforderlich.",
+        "confirmDelete": "Sind Sie sicher, dass Sie diese Identität löschen möchten?",
+        "deleteSuccess": "Identität gelöscht.",
+        "deleteError": "Fehler beim Löschen",
+        "viewFiltered": "Gefilterte Teilnehmer anzeigen",
+        "identityLedger": "Identitäts-Journal",
+        "warnReset": "Sind Sie sicher, dass Sie alle Daten zurücksetzen möchten?",
+        "factoryReset": "Werkseinstellung",
+        "manualInit": "Manuelle Initialisierung",
+        "portrait": "Porträt",
+        "promotional": "Werbematerial",
+        "registrationActivity": "Registrierungsaktivität",
+        "filteredResults": "Gefilterte Ergebnisse",
+        "noData": "Keine Registrierungsdaten verfügbar"
+    },
+    "map": {
+        "exploreCity": "Stadt erkunden"
     }
 }
