@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Languages } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 interface LanguageSwitcherProps {
     variant?: 'nav' | 'entry';
@@ -9,27 +9,26 @@ interface LanguageSwitcherProps {
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'nav' }) => {
     const { i18n } = useTranslation();
 
-    const toggleLanguage = () => {
-        const nextLang = i18n.language === 'en' ? 'de' : 'en';
-        i18n.changeLanguage(nextLang);
+    const setLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
     };
 
-    const isEN = i18n.language === 'en';
+    const isEN = i18n.language?.startsWith('en');
 
     if (variant === 'entry') {
         return (
-            <div className="flex gap-4 items-center">
-                <Languages size={20} className="text-brand-heaven-gold/60" />
-                <div className="flex bg-[var(--bg-surface)] shadow-neu-flat rounded-2xl p-1.5 gap-1.5 border border-white/5">
+            <div className="flex gap-4 items-center scale-110 lg:scale-125">
+                <Globe size={24} className="text-brand-heaven-gold animate-pulse-slow font-bold" />
+                <div className="flex bg-[var(--bg-surface)] shadow-neu-pressed rounded-full p-1.5 gap-2 border border-brand-heaven-gold/20">
                     <button
-                        onClick={() => i18n.changeLanguage('en')}
-                        className={`px-6 py-2.5 text-[11px] uppercase font-avenir-bold rounded-xl transition-all duration-500 ${isEN ? 'bg-brand-heaven-gold text-white shadow-glow-sm' : 'text-brand-heaven-gold/40 hover:text-brand-heaven-gold hover:bg-white/[0.03]'}`}
+                        onClick={() => setLanguage('en')}
+                        className={`px-8 py-3 text-[12px] uppercase font-avenir-black rounded-full transition-all duration-500 ${isEN ? 'bg-brand-heaven-gold text-white shadow-glow-md scale-105' : 'text-brand-heaven-gold/30 hover:text-brand-heaven-gold hover:bg-white/[0.05]'}`}
                     >
                         English
                     </button>
                     <button
-                        onClick={() => i18n.changeLanguage('de')}
-                        className={`px-6 py-2.5 text-[11px] uppercase font-avenir-bold rounded-xl transition-all duration-500 ${i18n.language === 'de' ? 'bg-brand-heaven-gold text-white shadow-glow-sm' : 'text-brand-heaven-gold/40 hover:text-brand-heaven-gold hover:bg-white/[0.03]'}`}
+                        onClick={() => setLanguage('de')}
+                        className={`px-8 py-3 text-[12px] uppercase font-avenir-black rounded-full transition-all duration-500 ${!isEN ? 'bg-brand-heaven-gold text-white shadow-glow-md scale-105' : 'text-brand-heaven-gold/30 hover:text-brand-heaven-gold hover:bg-white/[0.05]'}`}
                     >
                         Deutsch
                     </button>
@@ -39,23 +38,27 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'nav' }) 
     }
 
     return (
-        <button
-            onClick={toggleLanguage}
-            className="group flex items-center gap-3 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-2 pr-4 rounded-xl border border-white/5 transition-all duration-300 active:scale-95"
-            title={isEN ? "Mudar para Alemão" : "Switch to English"}
+        <div
+            className="flex items-center gap-3 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-1.5 px-3 rounded-full border border-white/5 transition-all duration-500 cursor-pointer group"
+            onClick={() => setLanguage(isEN ? 'de' : 'en')}
         >
-            <div className={`w-8 h-8 flex items-center justify-center rounded-lg bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold transition-colors group-hover:bg-brand-heaven-gold group-hover:text-white`}>
-                <Languages size={15} />
+            <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold group-hover:scale-110 transition-transform">
+                <Globe size={16} className="animate-pulse-slow" />
             </div>
-            <div className="flex flex-col items-start leading-tight">
-                <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest leading-none mb-0.5">
-                    {isEN ? 'EN' : 'DE'}
+            <div className="flex gap-2 items-center">
+                <span
+                    className={`text-[10px] font-avenir-black uppercase tracking-widest transition-all duration-300 ${isEN ? 'text-brand-heaven-gold scale-110' : 'text-white/30 hover:text-white/60'}`}
+                >
+                    EN
                 </span>
-                <span className="text-[7px] text-white/30 uppercase font-avenir-medium tracking-tighter">
-                    {isEN ? '/ DE' : '/ EN'}
+                <div className="w-[1px] h-3 bg-white/10" />
+                <span
+                    className={`text-[10px] font-avenir-black uppercase tracking-widest transition-all duration-300 ${!isEN ? 'text-brand-heaven-gold scale-110' : 'text-white/30 hover:text-white/60'}`}
+                >
+                    DE
                 </span>
             </div>
-        </button>
+        </div>
     );
 };
 

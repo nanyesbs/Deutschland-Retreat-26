@@ -26,17 +26,20 @@ const Navbar: React.FC<NavbarProps> = ({
     return (
         <nav className="fixed top-0 left-0 right-0 z-[100] bg-[var(--bg-surface)] backdrop-blur-xl px-4 md:px-8 py-4 shadow-neu-flat">
             <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center w-full md:w-auto justify-between md:justify-start gap-4">
-                    <div className="h-8 md:h-10 w-auto">
-                        <img
-                            src={darkMode ? "/logo-light.png" : "/logo-dark.png"}
-                            alt="Reaching Germany Retreat Logo"
-                            className="h-full w-auto object-contain"
-                        />
+                <div className="flex items-center w-full md:w-auto justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                        <div className="h-8 md:h-10 w-auto">
+                            <img
+                                src={darkMode ? "/logo-light.png" : "/logo-dark.png"}
+                                alt="Reaching Germany Retreat Logo"
+                                className="h-full w-auto object-contain"
+                            />
+                        </div>
+                        <span className="text-[10px] font-avenir-bold text-white dark:text-white uppercase tracking-[0.3em] hidden lg:block max-w-[150px] leading-tight opacity-60">
+                            {t('nav.tagline')}
+                        </span>
                     </div>
-                    <span className="text-[10px] font-avenir-bold text-white dark:text-white uppercase tracking-[0.3em] hidden lg:block max-w-[150px] leading-tight opacity-60">
-                        {t('nav.tagline')}
-                    </span>
+
                     <div className="flex items-center">
                         <LanguageSwitcher />
                     </div>
