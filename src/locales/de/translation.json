@@ -5,7 +5,7 @@
         "linktree": "Linktree",
         "admin": "Admin",
         "home": "Start",
-        "newBio": "Neue Bio"
+        "registration": "Registrierung"
     },
     "header": {
         "tagline": "EUROPA SOLL GERETTET WERDEN",
@@ -78,8 +78,8 @@
         "participantID": "ID"
     },
     "registration": {
-        "title": "Leaders' Summit '26 Registrierung",
-        "protocol": "Internes Protokoll",
+        "title": "Retreat",
+        "protocol": "Reaching Germany",
         "completeTitle": "Registrierung Abgeschlossen",
         "completeDesc": "Ihre Identität wurde mit der Leaders' Summit 2026 Datenbank synchronisiert. Sie sind nun Teil des globalen Netzwerks.",
         "returnDir": "Zurück zum Verzeichnis",

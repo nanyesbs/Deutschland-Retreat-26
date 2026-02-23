@@ -77,7 +77,7 @@ const Navbar: React.FC<NavbarProps> = ({
                             onClick={() => setViewMode('registration')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-5 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] ${viewMode === 'registration' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold active:shadow-neu-pressed'}`}
                         >
-                            <PlusCircle size={14} /> {t('nav.newBio')}
+                            <PlusCircle size={14} /> {t('nav.registration')}
                         </button>
                     </div>
                 </div>

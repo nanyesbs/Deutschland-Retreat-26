@@ -4,7 +4,7 @@
         "map": "Map",
         "linktree": "Linktree",
         "admin": "Admin",
-        "newBio": "New Bio"
+        "registration": "Registration"
     },
     "header": {
         "tagline": "EUROPE SHALL BE SAVED",
@@ -77,8 +77,8 @@
         "participantID": "ID"
     },
     "registration": {
-        "title": "Leaders' Summit '26 Registration",
-        "protocol": "Internal Protocol",
+        "title": "Retreat",
+        "protocol": "Reaching Germany",
         "completeTitle": "Registration Complete",
         "completeDesc": "Your identity has been synchronized with the Leaders' Summit 2026 database. You are now part of the global network.",
         "returnDir": "Return to Directory",
