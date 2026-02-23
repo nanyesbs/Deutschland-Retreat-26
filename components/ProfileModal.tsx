@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Participant } from '../types';
 import { X, Mail, Globe, Phone, User, Sparkles, Shield, Building2, Info, Maximize2, MessageCircle, ExternalLink } from 'lucide-react';
 import { getIdentityPlaceholder, HIGH_QUALITY_PLACEHOLDER, SOCIAL_PLATFORMS } from '../constants';
@@ -13,12 +14,13 @@ interface ProfileModalProps {
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdmin, onEdit, onDelete }) => {
+  const { t } = useTranslation();
   const [isShowingPromo, setIsShowingPromo] = useState(false);
   const [imgSrc, setImgSrc] = useState<string>('');
   const [fallbackStage, setFallbackStage] = useState<number>(0);
 
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
+    @const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);
@@ -70,7 +72,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
               <img
                 src={participant.promoPhotoUrl || participant.photoUrl || getIdentityPlaceholder(participant.name)}
                 className="w-full h-full object-cover blur-sm brightness-50 scale-110"
-                alt="Banner"
+                alt={t('profile.banner')}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/20" />
             </div>
@@ -138,7 +140,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/promo:opacity-100 transition-opacity bg-black/40 backdrop-blur-[4px]">
                     <div className="flex flex-col items-center gap-2">
                       <Maximize2 size={32} className="text-white" />
-                      <span className="text-[10px] font-avenir-bold text-white uppercase tracking-widest">Expand Vision</span>
+                      <span className="text-[10px] font-avenir-bold text-white uppercase tracking-widest">{t('profile.expandVision')}</span>
                     </div>
                   </div>
                 </div>
@@ -150,9 +152,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                 <div className="w-8 h-8 rounded-full border border-brand-heaven-gold/40 flex items-center justify-center">
                   <Shield size={14} className="text-brand-heaven-gold" />
                 </div>
-                <span className="text-[9px] font-avenir-bold text-white dark:text-white uppercase tracking-[3px]">Secure Stuttgart</span>
+                <span className="text-[9px] font-avenir-bold text-white dark:text-white uppercase tracking-[3px]">{t('profile.secureLocation')}</span>
               </div>
-              <p className="text-[8px] font-avenir-roman text-center max-w-[150px] leading-relaxed">IDENTITY VERIFIED • ACCESS GRANTED SUMMIT 2026</p>
+              <p className="text-[8px] font-avenir-roman text-center max-w-[150px] leading-relaxed">{t('profile.verified')}</p>
             </div>
           </div>
 
@@ -172,7 +174,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                   {participant.nationality.code !== participant.country.code && (
                     <div className="px-4 py-2 bg-[var(--bg-surface)] shadow-neu-pressed rounded-full flex items-center gap-3">
                       <span className="text-xl leading-none">{participant.nationality.flag}</span>
-                      <span className="text-[10px] font-avenir-bold text-white/40 dark:text-white/40 uppercase tracking-[2px]">Heritage</span>
+                      <span className="text-[10px] font-avenir-bold text-white/40 dark:text-white/40 uppercase tracking-[2px]">{t('profile.heritage')}</span>
                     </div>
                   )}
                 </div>
@@ -183,12 +185,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
 
                 <div className="flex flex-wrap items-center gap-5">
                   <div className="flex flex-col">
-                    <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[3px] mb-1">Assignment</span>
+                    <span className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[3px] mb-1">{t('profile.titleLabel')}</span>
                     <p className="text-xl lg:text-2xl font-didot italic text-brand-heaven-gold leading-none">{participant.title}</p>
                   </div>
                   <div className="w-[1px] h-10 bg-white/10 hidden lg:block" />
                   <div className="flex flex-col">
-                    <span className="text-[9px] font-avenir-bold text-white/20 dark:text-white/20 uppercase tracking-[3px] mb-1">Organization</span>
+                    <span className="text-[9px] font-avenir-bold text-white/20 dark:text-white/20 uppercase tracking-[3px] mb-1">{t('profile.orgLabel')}</span>
                     <p className="text-xs lg:text-sm font-avenir-bold text-white/60 dark:text-stone-400 uppercase tracking-widest">{participant.organization}</p>
                   </div>
                 </div>
@@ -202,7 +204,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                     {participant.organization}
                     {participant.nationality.code !== participant.country.code && (
                       <span className="ml-2 pl-2 border-l border-white/10 uppercase tracking-widest opacity-60">
-                        Heritage: {participant.nationality.name}
+                        {t('profile.heritage')}: {participant.nationality.name}
                       </span>
                     )}
                   </p>
@@ -217,7 +219,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                     <div className="w-10 h-10 rounded-xl bg-brand-heaven-gold/5 flex items-center justify-center border border-brand-heaven-gold/20">
                       <Sparkles size={20} className="text-brand-heaven-gold" />
                     </div>
-                    <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[5px]">Short Bio</h4>
+                    <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[5px]">{t('profile.bioLabel')}</h4>
                   </div>
                   <div className="relative">
                     <div className="absolute -left-4 top-0 bottom-0 w-[1px] bg-gradient-to-b from-brand-heaven-gold/40 via-transparent to-transparent" />
@@ -230,7 +232,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                 {/* Mobile Promo Expansion (If available) */}
                 {participant.promoPhotoUrl && (
                   <div className="md:hidden space-y-4">
-                    <h4 className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[4px]">Media Packet</h4>
+                    <h4 className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[4px]">{t('profile.mediaPacket')}</h4>
                     <img
                       src={participant.promoPhotoUrl}
                       className="w-full rounded-2xl border border-white/10 shadow-lg"
@@ -243,8 +245,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                 {/* Comms Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4">
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
-                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Phone size={12} /> Phone Number</span>
-                    <a href={`tel:${participant.phone}`} className="text-sm font-avenir-medium text-white dark:text-white group-hover:opacity-80 transition-colors">{participant.phone || 'Communication Pend.'}</a>
+                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Phone size={12} /> {t('profile.phone')}</span>
+                    <a href={`tel:${participant.phone}`} className="text-sm font-avenir-medium text-white dark:text-white group-hover:opacity-80 transition-colors">{participant.phone || t('profile.commPending')}</a>
                     {participant.isWhatsapp && participant.phone && (
                       <a
                         href={`https://wa.me/${participant.phone.replace(/[^0-9]/g, '')}`}
@@ -256,19 +258,19 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                     )}
                   </div>
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
-                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Mail size={12} /> Email Address</span>
+                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Mail size={12} /> {t('profile.email')}</span>
                     <a href={`mailto:${participant.email}`} className="text-sm font-avenir-medium text-white dark:text-white group-hover:opacity-80 transition-colors truncate">{participant.email}</a>
                   </div>
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
-                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Globe size={12} /> Website</span>
+                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Globe size={12} /> {t('profile.website')}</span>
                     {participant.website ? (
                       <a href={participant.website.startsWith('http') ? participant.website : `https://${participant.website}`} target="_blank" rel="noopener noreferrer" className="text-sm font-avenir-medium text-white dark:text-white group-hover:opacity-80 transition-colors">
                         {participant.website.replace(/^https?:\/\//, '')}
                       </a>
-                    ) : <span className="text-xs italic opacity-20">Offline</span>}
+                    ) : <span className="text-xs italic opacity-20">{t('profile.offline')}</span>}
                   </div>
                   <div className="bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed p-6 md:p-8 flex flex-col gap-3 rounded-2xl group transition-all duration-300">
-                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Info size={12} /> Other</span>
+                    <span className={`text-[9px] font-avenir-bold ${themeText} uppercase tracking-widest flex items-center gap-2`}><Info size={12} /> {t('profile.other')}</span>
                     <p className="text-sm font-avenir-medium text-white dark:text-white">{participant.otherInfo || 'Standard'}</p>
                   </div>
                 </div>
@@ -276,7 +278,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                 {/* Social Media Section */}
                 {participant.socialMedia && participant.socialMedia.length > 0 && (
                   <div className="space-y-4">
-                    <h4 className={`text-[11px] font-avenir-bold ${themeText} uppercase tracking-[5px]`}>Social Media</h4>
+                    <h4 className={`text-[11px] font-avenir-bold ${themeText} uppercase tracking-[5px]`}>{t('profile.socialMedia')}</h4>
                     {(['personal', 'ministerial'] as const).map(type => {
                       const accounts = participant.socialMedia!.filter(a => a.type === type);
                       if (!accounts.length) return null;
@@ -315,7 +317,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                       <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                         <Building2 size={20} className="text-brand-heaven-gold" />
                       </div>
-                      <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[5px]">organization description</h4>
+                      <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[5px]">{t('profile.orgDescription')}</h4>
                     </div>
                     <p className="text-[14px] md:text-[16px] font-avenir-roman leading-relaxed text-white/90 dark:text-white/80 p-8 bg-white/[0.02] dark:bg-stone-50 rounded-3xl border border-white/5">
                       {participant.orgDescription}
@@ -329,11 +331,11 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ participant, onClose, isAdm
                 <div className="mt-20 pt-10 border-t border-white/10 dark:border-black/5 flex flex-col sm:flex-row items-center justify-between gap-6">
                   <div className="flex items-center gap-4 py-2 px-4 bg-red-500/5 rounded-full border border-red-500/10">
                     <Shield size={16} className="text-red-500 animate-pulse" />
-                    <span className="text-[10px] font-avenir-bold uppercase text-red-500 tracking-[4px]">Tactical Controls Active</span>
+                    <span className="text-[10px] font-avenir-bold uppercase text-red-500 tracking-[4px]">{t('profile.controlsActive')}</span>
                   </div>
                   <div className="flex gap-4 w-full sm:w-auto">
-                    <button onClick={() => onEdit?.(participant.id)} className="flex-1 sm:flex-initial px-8 py-3 bg-brand-heaven-gold/10 hover:bg-brand-heaven-gold text-brand-heaven-gold hover:text-white border border-brand-heaven-gold/30 rounded-xl text-[10px] font-avenir-bold uppercase transition-all shadow-glow-hover">Edit Identity</button>
-                    <button onClick={() => onDelete?.(participant.id)} className="flex-1 sm:flex-initial px-8 py-3 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/30 rounded-xl text-[10px] font-avenir-bold uppercase transition-all">Deactivate</button>
+                    <button onClick={() => onEdit?.(participant.id)} className="flex-1 sm:flex-initial px-8 py-3 bg-brand-heaven-gold/10 hover:bg-brand-heaven-gold text-brand-heaven-gold hover:text-white border border-brand-heaven-gold/30 rounded-xl text-[10px] font-avenir-bold uppercase transition-all shadow-glow-hover">{t('profile.edit')}</button>
+                    <button onClick={() => onDelete?.(participant.id)} className="flex-1 sm:flex-initial px-8 py-3 bg-red-600/10 hover:bg-red-600 text-red-600 hover:text-white border border-red-600/30 rounded-xl text-[10px] font-avenir-bold uppercase transition-all">{t('profile.deactivate')}</button>
                   </div>
                 </div>
               )}

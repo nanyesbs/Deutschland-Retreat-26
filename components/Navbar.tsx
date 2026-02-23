@@ -1,6 +1,7 @@
 import React from 'react';
-import { LayoutGrid, ShieldCheck, PlusCircle, Link as LinkIcon, Map } from 'lucide-react';
+import { LayoutGrid, ShieldCheck, PlusCircle, Link as LinkIcon, Map, Globe } from 'lucide-react';
 import { ViewMode } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface NavbarProps {
     viewMode: ViewMode;
@@ -15,6 +16,12 @@ const Navbar: React.FC<NavbarProps> = ({
     darkMode,
     isAdminAuthorized
 }) => {
+    const { t, i18n } = useTranslation();
+
+    const toggleLang = () => {
+        i18n.changeLanguage(i18n.language === 'en' ? 'de' : 'en');
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-[100] bg-[var(--bg-surface)] backdrop-blur-xl px-4 md:px-8 py-4 shadow-neu-flat">
             <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -27,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({
                         />
                     </div>
                     <span className="text-[10px] font-avenir-bold text-white dark:text-white uppercase tracking-[0.3em] hidden sm:block">
-                        Europe Shall be Saved
+                        {t('nav.tagline')}
                     </span>
                 </div>
 
@@ -37,13 +44,13 @@ const Navbar: React.FC<NavbarProps> = ({
                             onClick={() => setViewMode('directory')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'directory' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
-                            <LayoutGrid size={14} /> Directory
+                            <LayoutGrid size={14} /> {t('nav.directory')}
                         </button>
                         <button
                             onClick={() => setViewMode('map')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'map' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
-                            <Map size={14} /> Map
+                            <Map size={14} /> {t('nav.map')}
                         </button>
                         <a
                             href="https://linktr.ee/esbs_leaders_summit_26"
@@ -51,19 +58,28 @@ const Navbar: React.FC<NavbarProps> = ({
                             rel="noopener noreferrer"
                             className="text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed"
                         >
-                            <LinkIcon size={14} /> Linktree
+                            <LinkIcon size={14} /> {t('nav.linktree')}
                         </a>
                         <button
                             onClick={() => setViewMode('admin')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 transition-all duration-300 px-4 py-2 rounded-lg bg-[var(--bg-surface)] ${viewMode === 'admin' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/50 dark:text-white/50 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                         >
-                            <ShieldCheck size={14} /> Admin {isAdminAuthorized && <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-sm" />}
+                            <ShieldCheck size={14} /> {t('nav.admin')} {isAdminAuthorized && <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-glow-sm" />}
                         </button>
                         <button
                             onClick={() => setViewMode('registration')}
                             className={`text-[10px] font-avenir-bold uppercase flex items-center gap-2 px-5 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] ${viewMode === 'registration' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold active:shadow-neu-pressed'}`}
                         >
-                            <PlusCircle size={14} /> New Bio
+                            <PlusCircle size={14} /> {t('nav.newBio')}
+                        </button>
+                        {/* Language Toggle */}
+                        <button
+                            onClick={toggleLang}
+                            title={i18n.language === 'en' ? 'Switch to Deutsch' : 'Switch to English'}
+                            className="text-[10px] font-avenir-bold uppercase flex items-center gap-1.5 px-4 py-2 rounded-lg transition-all duration-300 bg-[var(--bg-surface)] shadow-neu-flat text-brand-heaven-gold/70 hover:text-brand-heaven-gold active:shadow-neu-pressed"
+                        >
+                            <Globe size={13} />
+                            {i18n.language === 'en' ? 'DE' : 'EN'}
                         </button>
                     </div>
                 </div>

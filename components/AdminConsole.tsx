@@ -12,6 +12,7 @@ import {
   Upload, Sparkles, AlertCircle, Search, Calendar,
   Filter, ChevronDown, ChevronUp, Users
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface AdminConsoleProps {
   participants: Participant[];
@@ -35,6 +36,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
   participants, onAdd, onUpdate, onDelete,
   isAuthorized, onAuthorize, editingId, onSetEditingId
 }) => {
+  const { t } = useTranslation();
   const [password, setPassword] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState<Partial<Participant>>({});
@@ -103,7 +105,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
   }, [sheetUrl]);
 
   const handleSave = async () => {
-    if (!formData.name) return alert('Name is required.');
+    if (!formData.name) return alert(t('admin.nameRequired'));
     try {
       const processed = processParticipant(formData);
       console.log('Attempting to sync identity:', processed);
@@ -145,10 +147,10 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
       setFormData({});
       onSetEditingId(null);
       setIsAdding(false);
-      alert('Identity Synchronized Successfully.');
+      alert(t('admin.syncSuccess'));
     } catch (err: any) {
       console.error('Critical Sync Failure:', err);
-      alert(`Sync failure: ${err.message || 'Check console logs for stack trace.'}`);
+      alert(`${t('admin.syncFailure')}: ${err.message || 'Check console logs for stack trace.'}`);
     }
   };
 
@@ -263,10 +265,10 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
     return (
       <div className="flex flex-col items-center justify-center p-12 bg-[var(--bg-surface)] shadow-neu-flat rounded-[2.5rem] mt-10 max-w-lg mx-auto">
         <Lock size={40} className="text-brand-heaven-gold mb-6" />
-        <h2 className="text-xl font-avenir-bold uppercase text-white dark:text-white mb-8 tracking-widest text-center">Authorization Required</h2>
+        <h2 className="text-xl font-avenir-bold uppercase text-white dark:text-white mb-8 tracking-widest text-center">{t('admin.authRequired')}</h2>
         <form onSubmit={(e) => { e.preventDefault(); if (password === ADMIN_PASSWORD) onAuthorize(true); else alert('DENIED'); }} className="flex flex-col items-center w-full space-y-6">
-          <input type="password" placeholder="SECURE CODE" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-center outline-none text-white dark:text-white text-lg tracking-[0.5em] transition-all" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="w-full py-5 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-2xl hover:text-[#D3B962] transition-all text-sm tracking-widest">Authorize</button>
+          <input type="password" placeholder={t('admin.secureCode')} className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-center outline-none text-white dark:text-white text-lg tracking-[0.5em] transition-all" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button className="w-full py-5 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-2xl hover:text-[#D3B962] transition-all text-sm tracking-widest">{t('admin.authorize')}</button>
         </form>
       </div>
     );
@@ -275,8 +277,8 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
   return (
     <div className="mt-10 space-y-10 pb-24 animate-fade-in text-white transition-colors">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-avenir-bold text-white dark:text-white uppercase tracking-tight">Admin Protocol</h2>
-        <button onClick={() => onAuthorize(false)} className="px-6 py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-red-500 rounded-xl text-[10px] font-avenir-bold uppercase transition-all flex items-center gap-2">Secure Logout</button>
+        <h2 className="text-2xl font-avenir-bold text-white dark:text-white uppercase tracking-tight">{t('admin.title')}</h2>
+        <button onClick={() => onAuthorize(false)} className="px-6 py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-red-500 rounded-xl text-[10px] font-avenir-bold uppercase transition-all flex items-center gap-2">{t('admin.secureLogout')}</button>
       </div>
 
       {/* Dashboard Stats Cards */}
@@ -291,13 +293,13 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   <ShieldCheck size={24} className="text-brand-heaven-gold" />
                 </div>
                 <div>
-                  <p className="text-[9px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-[3px]">Total Registrations</p>
+                  <p className="text-[9px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-[3px]">{t('admin.totalRegistrations')}</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowDateFilter(!showDateFilter)}
                 className={`p-3 rounded-xl transition-all ${showDateFilter ? 'bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold' : 'bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold/60 hover:text-brand-heaven-gold'}`}
-                title="Filter by date"
+                title={t('admin.filterByDate')}
               >
                 <Filter size={16} />
               </button>
@@ -308,7 +310,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 {showDateFilter && (dateFilterStart || dateFilterEnd) ? filteredByDate.length : participants.length}
               </span>
               <span className="text-sm text-white/40 dark:text-white/40 font-avenir-roman uppercase tracking-wider">
-                {showDateFilter && (dateFilterStart || dateFilterEnd) ? 'filtered results' : 'participants'}
+                {showDateFilter && (dateFilterStart || dateFilterEnd) ? t('admin.filteredResults') : t('app.participants')}
               </span>
             </div>
 
@@ -316,7 +318,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               <div className="mt-6 p-6 bg-[var(--bg-surface)] shadow-neu-pressed rounded-2xl space-y-5 animate-in fade-in slide-in-from-top-2 duration-300">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">Start Date</label>
+                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">{t('admin.startDate')}</label>
                     <input
                       type="date"
                       className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 rounded-xl text-[10px] text-white dark:text-white outline-none transition-all"
@@ -325,7 +327,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">End Date</label>
+                    <label className="text-[8px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-widest pl-1">{t('admin.endDate')}</label>
                     <input
                       type="date"
                       className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 rounded-xl text-[10px] text-white dark:text-white outline-none transition-all"
@@ -341,14 +343,14 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                       onClick={() => { setDateFilterStart(''); setDateFilterEnd(''); }}
                       className="flex-1 py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-[9px] font-avenir-bold uppercase rounded-xl text-white/40 hover:text-white/60 transition-all"
                     >
-                      Clear Dates
+                      {t('admin.clearFilters')}
                     </button>
                     <button
                       onClick={() => setShowFilteredParticipants(!showFilteredParticipants)}
                       className="flex-[2] py-3 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold text-[9px] font-avenir-bold uppercase rounded-xl transition-all flex items-center justify-center gap-2"
                     >
                       {showFilteredParticipants ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-                      {showFilteredParticipants ? 'Hide List' : `View ${filteredByDate.length} People`}
+                      {showFilteredParticipants ? t('app.hideResults') : `${t('app.view')} ${filteredByDate.length} ${t('app.participants')}`}
                     </button>
                   </div>
                 )}
@@ -360,7 +362,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
             <div className="mt-6 max-h-[200px] overflow-y-auto custom-scrollbar pr-2 space-y-3 animate-in fade-in slide-in-from-top-1">
               {filteredByDate.length === 0 ? (
                 <div className="text-center py-6">
-                  <p className="text-[10px] text-white/30 italic">No matches found for this range</p>
+                  <p className="text-[10px] text-white/30 italic">{t('app.noResults')}</p>
                 </div>
               ) : (
                 filteredByDate.map(p => (
@@ -384,7 +386,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               <History size={24} className="text-brand-heaven-gold" />
             </div>
             <div>
-              <p className="text-[9px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-[3px]">Registration Activity</p>
+              <p className="text-[9px] font-avenir-bold text-brand-heaven-gold/60 uppercase tracking-[3px]">{t('admin.registrationActivity') || 'Registration Activity'}</p>
             </div>
           </div>
           <div className="space-y-4 max-h-[140px] overflow-y-auto custom-scrollbar pr-2">
@@ -424,7 +426,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 <div key={date} className="flex items-center justify-between p-4 bg-[var(--bg-surface)] shadow-neu-flat hover:shadow-neu-pressed transition-all duration-300 rounded-xl">
                   <span className="text-[11px] font-avenir-bold text-white dark:text-white tracking-widest">{date}</span>
                   <span className="px-4 py-1.5 bg-[var(--bg-surface)] shadow-neu-pressed text-brand-heaven-gold text-[10px] font-avenir-bold rounded-full tracking-widest uppercase">
-                    {count} {count === 1 ? 'registro' : 'registros'}
+                    {count} {count === 1 ? t('registration.label') : t('registration.label') + 's'}
                   </span>
                 </div>
               ));
@@ -445,15 +447,15 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
           <div className="flex items-center gap-6">
             <div className="w-20 h-20 bg-[var(--bg-surface)] shadow-neu-pressed rounded-full flex items-center justify-center text-brand-heaven-gold"><FileSpreadsheet size={32} /></div>
             <div>
-              <h3 className="text-xl font-avenir-bold text-white dark:text-white uppercase tracking-wide">Batch Import Protocol</h3>
-              <p className="text-[10px] text-brand-heaven-gold mt-2 uppercase tracking-[3px]">Cloud Database Synchronization</p>
+              <h3 className="text-xl font-avenir-bold text-white dark:text-white uppercase tracking-wide">{t('admin.cloudSync')}</h3>
+              <p className="text-[10px] text-brand-heaven-gold mt-2 uppercase tracking-[3px]">{t('admin.cloudSyncDesc')}</p>
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-6 w-full md:w-auto flex-1 justify-end">
             <div className="flex flex-col sm:flex-row gap-4 flex-1 max-w-lg">
               <input
                 type="text"
-                placeholder="Paste Google Sheet URL"
+                placeholder={t('admin.sheetUrl')}
                 className="w-full bg-[var(--bg-surface)] shadow-neu-pressed py-4 px-6 rounded-2xl text-[11px] outline-none focus:shadow-neu-concave text-white dark:text-white transition-all"
                 value={sheetUrl}
                 onChange={(e) => setSheetUrl(e.target.value)}
@@ -462,17 +464,17 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 onClick={handleCloudSync}
                 className="px-8 py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold rounded-2xl text-[10px] font-avenir-bold uppercase transition-all flex items-center justify-center whitespace-nowrap gap-3 shrink-0"
               >
-                <Sparkles size={16} /> Cloud Sync
+                <Sparkles size={16} /> {t('admin.fetchCloud')}
               </button>
             </div>
             <div className="flex gap-4 min-w-[200px]">
               {pendingData.length > 0 ? (
                 <button onClick={confirmImport} className="w-full py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-green-500 hover:text-green-400 text-[10px] font-avenir-bold uppercase rounded-2xl flex items-center justify-center gap-3 animate-pulse">
-                  <CheckCircle2 size={18} /> Confirm ({pendingData.length})
+                  <CheckCircle2 size={18} /> {t('admin.readyToCommit')} ({pendingData.length})
                 </button>
               ) : (
                 <button onClick={() => importInputRef.current?.click()} className="w-full py-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-white/80 hover:text-brand-heaven-gold dark:text-white/80 dark:hover:text-brand-heaven-gold text-[10px] font-avenir-bold uppercase rounded-2xl flex items-center justify-center gap-3 transition-all shrink-0">
-                  <Upload size={18} /> Manual Upload
+                  <Upload size={18} /> {t('admin.importFile')}
                 </button>
               )}
             </div>
@@ -486,18 +488,18 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
         <div className="flex-1 bg-[var(--bg-surface)] shadow-neu-flat p-8 rounded-[2.5rem] w-full">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
             <h3 className="text-sm font-avenir-bold uppercase text-white dark:text-white flex items-center gap-3 tracking-[3px]">
-              <History size={16} className="text-brand-heaven-gold" /> Identity Ledger
+              <History size={16} className="text-brand-heaven-gold" /> {t('admin.identityLedger') || 'Identity Ledger'}
             </h3>
             <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
               <div className="flex items-center gap-6 sm:justify-end">
-                <button onClick={async () => { if (confirm('WARNING: This will delete ALL participants from the Supabase database. Are you sure?')) { await api.resetData(); window.location.reload(); } }} className="text-[9px] font-avenir-bold text-red-500/50 uppercase hover:text-red-500 transition-colors tracking-widest">Factory Reset</button>
-                <button onClick={() => { setIsAdding(true); onSetEditingId(null); setFormData({}); }} className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase hover:brightness-125 transition-colors tracking-widest bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed px-5 py-3 rounded-xl flex items-center gap-2">Manual Initialization <span className="text-xs leading-none">+</span></button>
+                <button onClick={async () => { if (confirm(t('admin.warnReset'))) { await api.resetData(); window.location.reload(); } }} className="text-[9px] font-avenir-bold text-red-500/50 uppercase hover:text-red-500 transition-colors tracking-widest">{t('admin.factoryReset') || 'Factory Reset'}</button>
+                <button onClick={() => { setIsAdding(true); onSetEditingId(null); setFormData({}); }} className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase hover:brightness-125 transition-colors tracking-widest bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed px-5 py-3 rounded-xl flex items-center gap-2">{t('admin.manualInit') || 'Manual Initialization'} <span className="text-xs leading-none">+</span></button>
               </div>
               <div className="relative w-full sm:w-64">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-heaven-gold/50" />
                 <input
                   type="text"
-                  placeholder="Filter by name..."
+                  placeholder={t('app.searchName')}
                   className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-3 pl-12 rounded-2xl text-[11px] text-white dark:text-white outline-none transition-all"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -537,7 +539,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
           <div className="w-full lg:w-[600px] bg-[var(--bg-surface)] shadow-neu-flat rounded-[3rem] flex flex-col max-h-[85vh] overflow-hidden animate-fade-in sticky top-24 z-50">
             <div className="flex justify-between items-center px-10 py-8 bg-[var(--bg-surface)] shadow-neu-pressed">
               <h4 className="text-[11px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.3em]">
-                {editingId ? 'Modify Identity' : 'Initialize New Entry'}
+                {editingId ? t('admin.editEntry') : t('admin.newEntry')}
               </h4>
               <button onClick={() => { setIsAdding(false); onSetEditingId(null); setFormData({}); }} className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed hover:text-brand-heaven-gold transition-all"><X size={18} className="text-white/60 dark:text-stone-400" /></button>
             </div>
@@ -545,7 +547,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
             <div className="p-10 overflow-y-auto custom-scrollbar space-y-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-6 bg-[var(--bg-surface)] shadow-neu-pressed rounded-3xl">
                 <div className="space-y-4">
-                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">Portrait URL or Upload</label>
+                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">{t('admin.portrait')} (URL / File)</label>
                   <div className="flex flex-col gap-3">
                     <input
                       type="text"
@@ -566,7 +568,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   <input type="file" ref={profileFileRef} className="hidden" accept="image/*" onChange={e => handleFileUpload(e, 'photoUrl')} />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">Promotional URL or Upload</label>
+                  <label className="text-[9px] font-avenir-bold text-brand-heaven-gold uppercase tracking-[0.2em] pl-2">{t('admin.promotional')} (URL / File)</label>
                   <div className="flex flex-col gap-3">
                     <input
                       type="text"
@@ -590,12 +592,12 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Full Name</label>
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.fullName')}</label>
                   <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.name || ''} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                 </div>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Residency</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.country')}</label>
                     <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.country?.code || ''} onChange={(e) => selectCountry('country', e.target.value)}>
                       {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
                     </select>
@@ -608,30 +610,30 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Short Biography</label>
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.bio')}</label>
                   <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[120px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.testimony || ''} onChange={e => setFormData({ ...formData, testimony: e.target.value })} />
                 </div>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Organization</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step2.orgName')}</label>
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.organization || ''} onChange={e => setFormData({ ...formData, organization: e.target.value })} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Title</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('profile.edit')}</label>
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.title || ''} onChange={e => setFormData({ ...formData, title: e.target.value })} />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Organization Description</label>
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step2.desc')}</label>
                   <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[100px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.orgDescription || ''} onChange={e => setFormData({ ...formData, orgDescription: e.target.value })} />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Email Address</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step3.contactEmail')}</label>
                     <input type="email" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Phone Number</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step3.phone')}</label>
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.phone || ''} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
                   </div>
                   <div className="space-y-2">
@@ -646,7 +648,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
               </div>
 
               <button onClick={handleSave} className="w-full py-6 mt-4 bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed text-brand-heaven-gold font-avenir-bold uppercase rounded-3xl hover:text-[#D3B962] transition-all flex items-center justify-center gap-4 text-sm tracking-widest">
-                <RefreshCw size={18} /> Sync Identity
+                <RefreshCw size={18} /> {t('admin.syncNow')}
               </button>
             </div>
           </div>

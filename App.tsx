@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Analytics } from '@vercel/analytics/react';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
@@ -17,6 +18,7 @@ import { syncService } from './services/syncService';
 import { Search, ShieldCheck, Users, Loader2, LayoutGrid, Moon, Sun, Globe, Building, Briefcase, Rows, Columns, Square, Filter, RefreshCcw, X } from 'lucide-react';
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('directory');
@@ -231,7 +233,7 @@ const App: React.FC = () => {
                   <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-heaven-gold group-focus-within:scale-110 transition-transform" />
                   <input
                     type="text"
-                    placeholder="Search participants, roles, or organizations..."
+                    placeholder={t('app.search')}
                     className="w-full bg-[var(--bg-surface)] shadow-neu-pressed rounded-xl md:rounded-2xl p-3 md:p-4 pl-10 md:pl-12 text-sm font-avenir-medium text-white dark:text-black outline-none transition-all placeholder:text-white/20 dark:placeholder:text-black/20 focus:shadow-neu-concave"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -241,7 +243,7 @@ const App: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-center gap-3 h-full px-2 py-4 xl:py-0">
                   <button
                     onClick={() => performBackgroundSync()}
-                    title="Manual Refresh"
+                    title={t('app.sync')}
                     className="p-2 md:p-3 text-brand-heaven-gold/60 hover:text-brand-heaven-gold bg-[var(--bg-surface)] shadow-neu-flat active:shadow-neu-pressed rounded-lg md:rounded-xl transition-all"
                   >
                     <RefreshCcw size={16} className="md:w-[18px] md:h-[18px]" />
@@ -253,21 +255,21 @@ const App: React.FC = () => {
                     <button
                       onClick={() => setLayoutMode('list')}
                       className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'list' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
-                      title="List View"
+                      title={t('app.viewList')}
                     >
                       <Square size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
                     <button
                       onClick={() => setLayoutMode('grid2')}
                       className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid2' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
-                      title="2 Column Grid"
+                      title={t('app.viewColumns')}
                     >
                       <Columns size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
                     <button
                       onClick={() => setLayoutMode('grid4')}
                       className={`p-2 md:p-3 rounded-lg md:rounded-xl transition-all duration-300 bg-[var(--bg-surface)] ${layoutMode === 'grid4' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-brand-heaven-gold/60 hover:text-brand-heaven-gold active:shadow-neu-pressed'}`}
-                      title="4 Column Grid"
+                      title={t('app.viewGrid4')}
                     >
                       <LayoutGrid size={16} className="md:w-[20px] md:h-[20px]" />
                     </button>
@@ -283,7 +285,7 @@ const App: React.FC = () => {
                       }`}
                   >
                     <Filter size={14} />
-                    <span>Filtros</span>
+                    <span>{t('app.filter.label')}</span>
                     {(filterCountryCode !== 'ALL' || filterMinistry !== 'ALL' || filterRole !== 'ALL' || filterLetter !== 'ALL') && (
                       <span className="w-2 h-2 rounded-full bg-brand-heaven-gold shadow-glow" />
                     )}
@@ -298,7 +300,7 @@ const App: React.FC = () => {
                     onClick={() => setFilterLetter('ALL')}
                     className={`h-8 sm:h-12 px-4 sm:px-8 flex items-center justify-center text-[8px] sm:text-[10px] font-avenir-bold tracking-[2px] rounded-full transition-all duration-300 bg-[var(--bg-surface)] ${filterLetter === 'ALL' ? 'shadow-neu-pressed text-brand-heaven-gold' : 'shadow-neu-flat text-white/40 dark:text-black/40 hover:text-white dark:hover:text-black active:shadow-neu-pressed'}`}
                   >
-                    ALL PARTICIPANTS
+                    {t('app.filter.all')}
                   </button>
                   {ALPHABET_GROUPS.LATIN.map(char => {
                     const isAvailable = availableLetters.has(char);

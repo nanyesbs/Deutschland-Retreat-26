@@ -253,7 +253,7 @@ const RegistrationForm: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">State / Province</label>
+                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step1.state')}</label>
                                     <div className="relative">
                                         <select
                                             name="state"
@@ -269,7 +269,7 @@ const RegistrationForm: React.FC = () => {
                                             required={availableStates.length > 0}
                                             className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all appearance-none disabled:opacity-50"
                                         >
-                                            <option value="" disabled className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">Select State / Province</option>
+                                            <option value="" disabled className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">{t('registration.step1.state')} (Optional)</option>
                                             {availableStates.map(s => (
                                                 <option key={s.isoCode} value={s.isoCode} className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">
                                                     {s.name}
@@ -279,14 +279,14 @@ const RegistrationForm: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">City (Primary Location)</label>
+                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step1.city')}</label>
                                     <div className="relative">
                                         <select
                                             name="city" value={formData.city} onChange={handleChange} required
                                             disabled={!formData.state || availableCities.length === 0}
                                             className="w-full bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 px-0 py-3 text-[16px] text-white dark:text-white outline-none border-b border-white/20 dark:border-black/20 focus:border-brand-heaven-gold dark:focus:border-brand-heaven-gold bg-transparent transition-all appearance-none disabled:opacity-50"
                                         >
-                                            <option value="" disabled className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">Select City</option>
+                                            <option value="" disabled className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">{t('registration.step1.city')} (Optional)</option>
                                             {availableCities.map(c => (
                                                 <option key={c.name} value={c.name} className="bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800">
                                                     {c.name}
@@ -348,8 +348,8 @@ const RegistrationForm: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-1">
-                                        <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step2.roles')} (max 5)</label>
-                                        <p className="text-[8px] text-white/30 uppercase tracking-[0.15em] pl-2 pb-2">Click a category to expand and select roles</p>
+                                        <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step2.roles')} {t('registration.step2.maxRoles')}</label>
+                                        <p className="text-[8px] text-white/30 uppercase tracking-[0.15em] pl-2 pb-2">{t('registration.step2.roleNote')}</p>
                                         {/* Collapsible Category groups */}
                                         {Array.from(new Set(ROLE_OPTIONS.map(r => r.category))).map(cat => {
                                             const isOpen = openCategories.includes(cat);
@@ -436,9 +436,9 @@ const RegistrationForm: React.FC = () => {
                                 <div className="space-y-8">
                                     <div className="space-y-4">
                                         <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest flex items-center gap-2">
-                                            <Camera size={14} /> Profile Picture of You *
+                                            <Camera size={14} /> {t('registration.step2.profilePic')}
                                         </label>
-                                        <p className="text-[8px] text-white/30 dark:text-white/40 uppercase tracking-[0.1em] px-1 leading-normal">This photo will help other leaders to recognize you after the event. Please only upload a photo of yourself. This photo will appear in the Leaders' Brochure.</p>
+                                        <p className="text-[8px] text-white/30 dark:text-white/40 uppercase tracking-[0.1em] px-1 leading-normal">{t('registration.step2.profileNote')}</p>
                                         <div className="relative group">
                                             <div className="w-full aspect-square bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 rounded-[2rem] flex flex-col items-center justify-center overflow-hidden transition-all border border-white/20 dark:border-black/20 hover:border-brand-heaven-gold dark:hover:border-brand-heaven-gold">
                                                 {previewUrls.profile ? (
@@ -446,7 +446,7 @@ const RegistrationForm: React.FC = () => {
                                                 ) : (
                                                     <>
                                                         <User size={32} className="text-brand-heaven-gold/50 mb-4" />
-                                                        <span className="text-[10px] text-white/40 dark:text-white/40 uppercase tracking-widest font-avenir-bold">Upload JPG/PNG</span>
+                                                        <span className="text-[10px] text-white/40 dark:text-white/40 uppercase tracking-widest font-avenir-bold">{t('registration.step2.uploadPic')}</span>
                                                     </>
                                                 )}
                                                 <input
@@ -459,9 +459,9 @@ const RegistrationForm: React.FC = () => {
 
                                     <div className="space-y-4">
                                         <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest flex items-center gap-2">
-                                            <Sparkles size={14} /> Promotional Picture
+                                            <Sparkles size={14} /> {t('registration.step2.promoPic')}
                                         </label>
-                                        <p className="text-[8px] text-white/30 dark:text-white/40 uppercase tracking-[0.1em] px-1 leading-normal">If you would like to promote an event, initiative or your ministry, you are welcome to add it to this brochure.</p>
+                                        <p className="text-[8px] text-white/30 dark:text-white/40 uppercase tracking-[0.1em] px-1 leading-normal">{t('registration.step2.promoNote')}</p>
                                         <div className="relative group">
                                             <div className="w-full aspect-video bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 rounded-[2rem] flex flex-col items-center justify-center overflow-hidden transition-all border border-white/20 dark:border-black/20 hover:border-brand-heaven-gold dark:hover:border-brand-heaven-gold">
                                                 {previewUrls.promo ? (
@@ -469,7 +469,7 @@ const RegistrationForm: React.FC = () => {
                                                 ) : (
                                                     <>
                                                         <Camera size={32} className="text-brand-heaven-gold/50 mb-4" />
-                                                        <span className="text-[10px] text-white/40 dark:text-white/40 uppercase tracking-widest font-avenir-bold">Company Flyer / Logo / Promo</span>
+                                                        <span className="text-[10px] text-white/40 dark:text-white/40 uppercase tracking-widest font-avenir-bold">{t('registration.step2.uploadPromo')}</span>
                                                     </>
                                                 )}
                                                 <input
@@ -560,7 +560,7 @@ const RegistrationForm: React.FC = () => {
                                         </div>
                                         <span className="text-[10px] font-avenir-bold uppercase tracking-widest text-white/50 group-hover:text-white/80 transition-colors flex items-center gap-2">
                                             <MessageCircle size={12} className="text-[#25D366]" />
-                                            This number is on WhatsApp
+                                            {t('registration.step3.whatsappNote')}
                                         </span>
                                     </label>
                                 </div>
@@ -586,7 +586,7 @@ const RegistrationForm: React.FC = () => {
                                 {/* Social Media Builder */}
                                 <div className="space-y-4 md:col-span-2">
                                     <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2 flex items-center gap-2">
-                                        <Globe size={12} /> Social Media
+                                        <Globe size={12} /> {t('registration.step3.socialMedia')}
                                     </label>
                                     <div className="space-y-3">
                                         {socialAccounts.map((acc, idx) => {
@@ -605,11 +605,11 @@ const RegistrationForm: React.FC = () => {
                                                         <div className="flex rounded-full border border-white/10 overflow-hidden text-[8px] font-avenir-bold shrink-0">
                                                             <button type="button" onClick={() => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, type: 'personal' } : a))}
                                                                 className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'personal' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
-                                                                Personal
+                                                                {t('registration.step3.personal')}
                                                             </button>
                                                             <button type="button" onClick={() => setSocialAccounts(prev => prev.map((a, i) => i === idx ? { ...a, type: 'ministerial' } : a))}
                                                                 className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'ministerial' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
-                                                                Ministry
+                                                                {t('registration.step3.ministry')}
                                                             </button>
                                                         </div>
                                                         <button type="button" onClick={() => setSocialAccounts(prev => prev.filter((_, i) => i !== idx))}
@@ -631,7 +631,7 @@ const RegistrationForm: React.FC = () => {
                                             onClick={() => setSocialAccounts(prev => [...prev, { platform: 'instagram', handle: '', type: 'personal' }])}
                                             className="flex items-center gap-2 text-[9px] text-white/40 hover:text-brand-heaven-gold uppercase tracking-widest font-avenir-bold transition-colors py-2 px-1"
                                         >
-                                            <Plus size={12} /> Add Social Media
+                                            <Plus size={12} /> {t('registration.step3.addSocial')}
                                         </button>
                                     </div>
                                 </div>
@@ -653,7 +653,7 @@ const RegistrationForm: React.FC = () => {
 
                             <div className="space-y-8">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">Testimony *</label>
+                                    <label className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest pl-2">{t('registration.step4.testimony')}</label>
                                     <textarea
                                         name="testimony" value={formData.testimony} onChange={handleChange} required
                                         rows={5}
@@ -717,7 +717,7 @@ const RegistrationForm: React.FC = () => {
                                 className="px-6 py-4 bg-white dark:bg-[#050505] border border-stone-200 dark:border-stone-800 active:text-white/70 dark:text-white/70 rounded-2xl font-avenir-bold uppercase text-[10px] tracking-widest hover:text-white dark:hover:text-black transition-all flex items-center gap-2 flex-1 sm:flex-none justify-center"
                             >
                                 {status === 'saving' ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-                                Save Draft
+                                {t('registration.actions.saveDraft')}
                             </button>
                             {step === 4 && (
                                 <button
