@@ -2,24 +2,38 @@ import { Participant } from '../types';
 import { fixEncoding } from '../utils';
 import { supabase } from './supabase';
 
-// Maps a participant to the 'participants' table schema.
-// NOTE: 'iswhatsapp' is excluded here because it does not exist in this table.
+// Maps a participant to the CORE columns of the 'participants' table.
+// Extra fields (shortbio, othercontact, socialmedia, etc.) are intentionally
+// excluded here because those columns may not exist in the DB schema.
+// They are stored in the 'leaders' table via saveLeader().
 const mapToParticipantsDb = (participant: Partial<Participant>) => {
-  const mapped: any = { ...participant };
+  // Only include the core columns known to exist in participants table
+  const {
+    id, name, title, organization, orgDescription,
+    country, state, city, nationality,
+    testimony, phone, email, website,
+    photoUrl, searchName, searchOrg, createdAt
+  } = participant as any;
 
-  if (participant.shortBio !== undefined) mapped.shortbio = participant.shortBio;
-  if (participant.contactEmail !== undefined) mapped.contactemail = participant.contactEmail;
-  if (participant.upcomingEvents !== undefined) mapped.upcomingevents = participant.upcomingEvents;
-  if (participant.dietaryRestrictions !== undefined) mapped.dietaryrestrictions = participant.dietaryRestrictions;
-  if (participant.socialMedia !== undefined) mapped.socialmedia = participant.socialMedia;
-  if (participant.otherInfo !== undefined) mapped.othercontact = participant.otherInfo;
-  if (participant.promoPhotoUrl !== undefined) mapped.promopicture = participant.promoPhotoUrl;
+  const mapped: any = {};
 
-  const keysToClean = [
-    'shortBio', 'contactEmail', 'upcomingEvents', 'dietaryRestrictions',
-    'socialMedia', 'isWhatsapp', 'otherInfo', 'promoPhotoUrl'
-  ];
-  keysToClean.forEach(key => delete mapped[key]);
+  if (id !== undefined) mapped.id = id;
+  if (name !== undefined) mapped.name = name;
+  if (title !== undefined) mapped.title = title;
+  if (organization !== undefined) mapped.organization = organization;
+  if (orgDescription !== undefined) mapped.orgdescription = orgDescription;
+  if (country !== undefined) mapped.country = country;
+  if (state !== undefined) mapped.state = state;
+  if (city !== undefined) mapped.city = city;
+  if (nationality !== undefined) mapped.nationality = nationality;
+  if (testimony !== undefined) mapped.testimony = testimony;
+  if (phone !== undefined) mapped.phone = phone;
+  if (email !== undefined) mapped.email = email;
+  if (website !== undefined) mapped.website = website;
+  if (photoUrl !== undefined) mapped.photourl = photoUrl;
+  if (searchName !== undefined) mapped.searchname = searchName;
+  if (searchOrg !== undefined) mapped.searchorg = searchOrg;
+  if (createdAt !== undefined) mapped.createdat = createdAt;
 
   return mapped;
 };

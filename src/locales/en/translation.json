@@ -157,7 +157,13 @@
             "diet": "Dietary Requirements",
             "dietPlaceholder": "e.g. Vegetarian, Gluten-free"
         },
-        "label": "Registration"
+        "label": "Registration",
+        "actions": {
+            "prev": "Back",
+            "next": "Next",
+            "saveDraft": "Save Draft",
+            "submit": "Submit Registration"
+        }
     },
     "admin": {
         "title": "Admin Protocol",

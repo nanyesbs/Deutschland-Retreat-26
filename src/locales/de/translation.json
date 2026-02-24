@@ -158,7 +158,13 @@
             "diet": "Ernährungsanforderungen",
             "dietPlaceholder": "z.B. Vegetarisch, Glutenfrei"
         },
-        "label": "Registrierung"
+        "label": "Registrierung",
+        "actions": {
+            "prev": "Zurück",
+            "next": "Weiter",
+            "saveDraft": "Entwurf Speichern",
+            "submit": "Registrierung Absenden"
+        }
     },
     "admin": {
         "title": "Admin-Protokoll",
