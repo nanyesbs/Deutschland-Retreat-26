@@ -5,22 +5,15 @@ import { supabase } from './supabase';
 const mapToDb = (participant: Partial<Participant>) => {
   const mapped: any = { ...participant };
 
-  if (participant.shortBio) mapped.shortbio = participant.shortBio;
-  if (participant.orgDescription) mapped.ministrydescription = participant.orgDescription;
-  if (participant.photoUrl) mapped.profilepicture = participant.photoUrl;
-  if (participant.promoPhotoUrl) mapped.promopicture = participant.promoPhotoUrl;
-  if (participant.organization) mapped.ministryname = participant.organization;
-  if (participant.title) mapped.roles = participant.title;
-  if (participant.contactEmail) mapped.contactemail = participant.contactEmail;
-  if (participant.otherInfo) mapped.othercontact = participant.otherInfo;
-  if (participant.upcomingEvents) mapped.upcomingevents = participant.upcomingEvents;
-  if (participant.dietaryRestrictions) mapped.dietaryrestrictions = participant.dietaryRestrictions;
+  if (participant.shortBio !== undefined) mapped.shortbio = participant.shortBio;
+  if (participant.contactEmail !== undefined) mapped.contactemail = participant.contactEmail;
+  if (participant.upcomingEvents !== undefined) mapped.upcomingevents = participant.upcomingEvents;
+  if (participant.dietaryRestrictions !== undefined) mapped.dietaryrestrictions = participant.dietaryRestrictions;
 
-  // Clean up camelCase keys
+  // Clean up camelCase keys that have a lowercase equivalent in the database
   const keysToClean = [
-    'shortBio', 'orgDescription', 'photoUrl', 'promoPhotoUrl',
-    'organization', 'title', 'contactEmail', 'otherInfo',
-    'upcomingEvents', 'dietaryRestrictions', 'searchName', 'searchOrg'
+    'shortBio', 'contactEmail',
+    'upcomingEvents', 'dietaryRestrictions'
   ];
   keysToClean.forEach(key => delete mapped[key]);
 
