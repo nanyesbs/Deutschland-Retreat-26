@@ -636,7 +636,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.bio')}</label>
-                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[120px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.testimony || ''} onChange={e => setFormData({ ...formData, testimony: e.target.value })} />
+                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[120px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.shortBio || ''} onChange={e => setFormData({ ...formData, shortBio: e.target.value })} />
                 </div>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -644,7 +644,7 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.organization || ''} onChange={e => setFormData({ ...formData, organization: e.target.value })} />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('profile.edit')}</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step2.roles')}</label>
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.title || ''} onChange={e => setFormData({ ...formData, title: e.target.value })} />
                   </div>
                 </div>
@@ -734,6 +734,11 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                       <Plus size={12} /> {t('registration.step3.addSocial')}
                     </button>
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step4.testimony')}</label>
+                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[100px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.testimony || ''} onChange={e => setFormData({ ...formData, testimony: e.target.value })} />
                 </div>
 
                 <div className="space-y-2">
