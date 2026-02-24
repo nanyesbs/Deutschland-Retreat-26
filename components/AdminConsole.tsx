@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Participant, Country } from '../types';
-import { ADMIN_PASSWORD, COUNTRY_LIST, getIdentityPlaceholder } from '../constants';
+import { ADMIN_PASSWORD, COUNTRY_LIST, getIdentityPlaceholder, SOCIAL_PLATFORMS } from '../constants';
 import * as XLSX from 'xlsx';
 import { api } from '../services/api';
 import { syncService } from '../services/syncService';
@@ -10,7 +10,7 @@ import {
   Image as ImageIcon, UploadCloud, Camera, History,
   RefreshCw, Loader2, FileSpreadsheet, CheckCircle2,
   Upload, Sparkles, AlertCircle, Search, Calendar,
-  Filter, ChevronDown, ChevronUp, Users
+  Filter, ChevronDown, ChevronUp, Users, Plus, Globe
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -610,19 +610,29 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                   <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.fullName')}</label>
                   <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.name || ''} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                 </div>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.country')}</label>
-                    <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.country?.code || ''} onChange={(e) => selectCountry('country', e.target.value)}>
+                    <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.country?.code || ''} onChange={(e) => { selectCountry('country', e.target.value); setFormData(p => ({ ...p, state: '', city: '' })); }}>
+                      <option value="">{t('registration.step1.selectCountry')} (Optional)</option>
                       {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Nationality</label>
-                    <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.nationality?.code || ''} onChange={(e) => selectCountry('nationality', e.target.value)}>
-                      {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
-                    </select>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.state')}</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all" value={formData.state || ''} onChange={e => setFormData({ ...formData, state: e.target.value })} placeholder="State" />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.city')}</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all" value={formData.city || ''} onChange={e => setFormData({ ...formData, city: e.target.value })} placeholder="City" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Nationality</label>
+                  <select className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[12px] font-avenir-bold text-white dark:text-white outline-none transition-all appearance-none" value={formData.nationality?.code || ''} onChange={(e) => selectCountry('nationality', e.target.value)}>
+                    <option value="">{t('registration.step1.selectCountry')} (Optional)</option>
+                    {COUNTRY_LIST.map(c => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
+                  </select>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step1.bio')}</label>
@@ -644,12 +654,22 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step3.contactEmail')}</label>
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Login Email</label>
                     <input type="email" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.email || ''} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
                   <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step3.contactEmail')}</label>
+                    <input type="email" className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.contactEmail || ''} onChange={e => setFormData({ ...formData, contactEmail: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
                     <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step3.phone')}</label>
-                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.phone || ''} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                    <div className="flex items-center gap-4">
+                      <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.phone || ''} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                      <label className="flex items-center gap-2 cursor-pointer shrink-0">
+                        <input type="checkbox" checked={formData.isWhatsapp || false} onChange={e => setFormData({ ...formData, isWhatsapp: e.target.checked })} className="w-4 h-4 rounded border-white/20" />
+                        <span className="text-[10px] font-avenir-bold text-brand-heaven-gold uppercase tracking-widest">WhatsApp</span>
+                      </label>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Website</label>
@@ -659,6 +679,66 @@ const AdminConsole: React.FC<AdminConsoleProps> = ({
                     <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">Other Info</label>
                     <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.otherInfo || ''} onChange={e => setFormData({ ...formData, otherInfo: e.target.value })} />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step4.diet')}</label>
+                    <input className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] text-white dark:text-white outline-none transition-all" value={formData.dietaryRestrictions || ''} onChange={e => setFormData({ ...formData, dietaryRestrictions: e.target.value })} />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2 flex items-center gap-2">
+                    <Globe size={12} /> {t('registration.step3.socialMedia')}
+                  </label>
+                  <div className="space-y-3">
+                    {(formData.socialMedia || []).map((acc, idx) => {
+                      const platform = SOCIAL_PLATFORMS.find(p => p.id === acc.platform);
+                      return (
+                        <div key={idx} className="flex flex-col gap-2 p-4 rounded-2xl bg-[var(--bg-surface)] shadow-neu-pressed">
+                          <div className="flex items-center gap-3">
+                            <select
+                              value={acc.platform}
+                              onChange={(e) => setFormData(prev => ({ ...prev, socialMedia: (prev.socialMedia || []).map((a, i) => i === idx ? { ...a, platform: e.target.value, handle: '' } : a) }))}
+                              className="bg-transparent border-b border-white/20 py-2 text-[12px] text-white/70 outline-none focus:border-brand-heaven-gold transition-all appearance-none flex-1"
+                            >
+                              {SOCIAL_PLATFORMS.map(p => <option key={p.id} value={p.id} className="bg-[#050505]">{p.label}</option>)}
+                            </select>
+                            <div className="flex rounded-full border border-white/10 overflow-hidden text-[8px] font-avenir-bold shrink-0">
+                              <button type="button" onClick={() => setFormData(prev => ({ ...prev, socialMedia: (prev.socialMedia || []).map((a, i) => i === idx ? { ...a, type: 'personal' } : a) }))}
+                                className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'personal' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
+                                {t('registration.step3.personal')}
+                              </button>
+                              <button type="button" onClick={() => setFormData(prev => ({ ...prev, socialMedia: (prev.socialMedia || []).map((a, i) => i === idx ? { ...a, type: 'ministerial' } : a) }))}
+                                className={`px-3 py-1.5 uppercase tracking-wider transition-colors ${acc.type === 'ministerial' ? 'bg-brand-heaven-gold/20 text-brand-heaven-gold' : 'text-white/30 hover:text-white/60'}`}>
+                                {t('registration.step3.ministry')}
+                              </button>
+                            </div>
+                            <button type="button" onClick={() => setFormData(prev => ({ ...prev, socialMedia: (prev.socialMedia || []).filter((_, i) => i !== idx) }))}
+                              className="p-1.5 rounded-full hover:bg-red-500/20 text-white/30 hover:text-red-400 transition-colors shrink-0">
+                              <X size={12} />
+                            </button>
+                          </div>
+                          <input
+                            value={acc.handle}
+                            onChange={(e) => setFormData(prev => ({ ...prev, socialMedia: (prev.socialMedia || []).map((a, i) => i === idx ? { ...a, handle: e.target.value } : a) }))}
+                            placeholder={platform?.placeholder || '@handle'}
+                            className="bg-transparent border-b border-white/10 py-2 text-[14px] text-white outline-none focus:border-brand-heaven-gold transition-all placeholder:text-white/15"
+                          />
+                        </div>
+                      );
+                    })}
+                    <button
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, socialMedia: [...(prev.socialMedia || []), { platform: 'instagram', handle: '', type: 'personal' }] }))}
+                      className="flex items-center gap-2 text-[9px] text-white/40 hover:text-brand-heaven-gold uppercase tracking-widest font-avenir-bold transition-colors py-2 px-1"
+                    >
+                      <Plus size={12} /> {t('registration.step3.addSocial')}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-avenir-bold text-brand-heaven-gold tracking-widest pl-2">{t('registration.step4.events')}</label>
+                  <textarea className="w-full bg-[var(--bg-surface)] shadow-neu-pressed focus:shadow-neu-concave p-5 rounded-2xl text-[13px] min-h-[100px] text-white dark:text-white outline-none transition-all resize-none leading-relaxed" value={formData.upcomingEvents || ''} onChange={e => setFormData({ ...formData, upcomingEvents: e.target.value })} />
                 </div>
               </div>
 

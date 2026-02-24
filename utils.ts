@@ -213,6 +213,8 @@ export const processParticipant = (data: any): any => {
         dietaryRestrictions: clean(data.dietaryRestrictions || data.dietary_restrictions || ''),
         photoUrl: convertDriveUrl(data.photoUrl || data.profilepicture || ''),
         promoPhotoUrl: convertDriveUrl(data.promoPhotoUrl || data.promopicture || ''),
+        country: data.country || findCountry(clean(typeof data.residentcountry === 'string' ? data.residentcountry : '')),
+        nationality: data.nationality || findCountry(clean(typeof data.nationality === 'string' ? data.nationality : '')),
     };
 
     // Mandatory generated fields for A-Z sorting and filtering
