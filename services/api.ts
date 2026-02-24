@@ -2,29 +2,30 @@ import { Participant } from '../types';
 import { fixEncoding } from '../utils';
 import { supabase } from './supabase';
 
-const mapToDb = (participant: Partial<Participant>) => {
+// Maps a participant to the 'participants' table schema.
+// NOTE: 'iswhatsapp' is excluded here because it does not exist in this table.
+const mapToParticipantsDb = (participant: Partial<Participant>) => {
   const mapped: any = { ...participant };
 
-  // Map camelCase fields to expected lowercase DB column names
   if (participant.shortBio !== undefined) mapped.shortbio = participant.shortBio;
   if (participant.contactEmail !== undefined) mapped.contactemail = participant.contactEmail;
   if (participant.upcomingEvents !== undefined) mapped.upcomingevents = participant.upcomingEvents;
   if (participant.dietaryRestrictions !== undefined) mapped.dietaryrestrictions = participant.dietaryRestrictions;
   if (participant.socialMedia !== undefined) mapped.socialmedia = participant.socialMedia;
-  if (participant.isWhatsapp !== undefined) mapped.iswhatsapp = participant.isWhatsapp;
   if (participant.otherInfo !== undefined) mapped.othercontact = participant.otherInfo;
   if (participant.promoPhotoUrl !== undefined) mapped.promopicture = participant.promoPhotoUrl;
 
-  // Clean up camelCase keys that have a lowercase equivalent in the database
   const keysToClean = [
-    'shortBio', 'contactEmail',
-    'upcomingEvents', 'dietaryRestrictions',
+    'shortBio', 'contactEmail', 'upcomingEvents', 'dietaryRestrictions',
     'socialMedia', 'isWhatsapp', 'otherInfo', 'promoPhotoUrl'
   ];
   keysToClean.forEach(key => delete mapped[key]);
 
   return mapped;
 };
+
+// Alias for clarity in places that previously used mapToDb
+const mapToDb = mapToParticipantsDb;
 
 export const api = {
   getParticipants: async (): Promise<Participant[]> => {
